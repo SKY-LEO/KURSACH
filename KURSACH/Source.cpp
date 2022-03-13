@@ -30,7 +30,7 @@ const bool ADMIN_ACCESS = 1;
 const string FILE_OF_ACCOUNTS = "accounts.txt";
 const string FILE_OF_STUDENTS = "students.txt";
 const int NUMBER_OF_SYMBOLS = 20;
-
+const int NUMBER_OF_ATTEMPTS = 3;
 
 const string MENU_ADMIN = "\n Показать аккаунты - 1\n Удалить аккаунт - 2\n Обновить данные аккаунта - 3\n Запросы на доступ к системе - 4\n Выход - 0";
 const string MENU_USER = "\n Показать аккаунты - 1\n Удалить аккаунт - 2\n Выход - 0";
@@ -44,7 +44,7 @@ struct Account
 	string login;
 	string salted_hash_password;
 	string salt;
-	bool role = 0;
+	bool role = 0;//
 	bool access = 0;
 };
 
@@ -70,13 +70,17 @@ int menu(vector <Account>& vec_of_accounts, string message, int max_of_range);
 int chooseMenu(string message, int max_of_range);
 int initialisation(vector <Account>& vec_of_accounts);
 int enterAccount(vector <Account>& vec_of_accounts);
+int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password);
+string hashPassword(string password, string salt);
 
 int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	vector <Account> vec_of_accounts(getCountOfStructures(FILE_OF_ACCOUNTS));
-	vector <Student> vec_of_students(getCountOfStructures(FILE_OF_STUDENTS));
+	vector <Account> vec_of_accounts;//(getCountOfStructures(FILE_OF_ACCOUNTS));
+	vec_of_accounts.reserve(getCountOfStructures(FILE_OF_ACCOUNTS));
+	vector <Student> vec_of_students;//(getCountOfStructures(FILE_OF_STUDENTS));
+	vec_of_students.reserve(getCountOfStructures(FILE_OF_STUDENTS));
 	readFileOfAccounts(vec_of_accounts);
 	readFileOfStudents(vec_of_students);
 	core(vec_of_accounts, vec_of_students);
@@ -91,8 +95,8 @@ int initialisation(vector <Account>& vec_of_accounts)
 	int item = chooseMenu(START_MENU, MAX_OF_START_MENU);
 	switch (item)
 	{
-	case 1: enterAccount(vec_of_accounts);
-		break;
+	case 1:
+		return enterAccount(vec_of_accounts);
 	case 2: addAccount(vec_of_accounts);
 		return initialisation(vec_of_accounts);
 	case 0: return -1;
@@ -102,27 +106,31 @@ int initialisation(vector <Account>& vec_of_accounts)
 int enterAccount(vector <Account>& vec_of_accounts)
 {
 	string login, password;
-	for (int i = 0; i < 3; i++)
+	int index;
+	for (int i = 0; i < NUMBER_OF_ATTEMPTS; i++)
 	{
+		cout << "Осталось " << NUMBER_OF_ATTEMPTS - i << " попытки" << endl;
 		cout << "Введите логин: ";
 		cin >> login;
 		cout << "\nВведите пароль: ";
 		cin >> password;
-		if (isDataEquals(vec_of_accounts, login, password))
+		index = checkDataEquals(vec_of_accounts, login, password);
+		if(index>=0)
 		{
-			
+			return vec_of_accounts.at(index).role;
 		}
 	}
+	return -1;
 }
 
-bool isDataEquals(vector <Account>& vec_of_accounts, string login, string password)
+int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password)
 {
 	for (int i = 0; i < vec_of_accounts.size(); i++)
 	{
 		if (login == vec_of_accounts.at(i).login && 
 			vec_of_accounts.at(i).salted_hash_password == hashPassword(password, vec_of_accounts.at(i).salt))
 		{
-			return 1;
+			return i;
 		}
 	}
 	return 0;
@@ -169,11 +177,9 @@ int menu(vector <Account>& vec_of_accounts, string message, int max_of_range)
 		{
 		case 1: showAccounts(vec_of_accounts);
 			break;
-		case 2: addAccount(vec_of_accounts);
+		case 2: deleteAccount(vec_of_accounts);
 			break;
-		case 3: deleteAccount(vec_of_accounts);
-			break;
-		case 4: updateAccount(vec_of_accounts);
+		case 3: updateAccount(vec_of_accounts);
 			break;
 		case 0: flag = false;
 			break;
@@ -266,7 +272,7 @@ void readFileOfAccounts(vector <Account>& vec_of_accounts)
 		Account temp_account;
 		temp_account.login = ADMIN_LOGIN;
 		temp_account.salt = generateSalt(SALT_SIZE);
-		temp_account.salted_hash_password = sha256(sha256(ADMIN_PASSWORD + temp_account.salt) + sha256(ADMIN_PASSWORD));
+		temp_account.salted_hash_password = hashPassword(ADMIN_PASSWORD, temp_account.salt);
 		temp_account.role = ADMIN_ROLE;
 		temp_account.access = ADMIN_ACCESS;
 		vec_of_accounts.push_back(temp_account);
@@ -375,13 +381,16 @@ int correctInputInt()
 void updateAccount(vector <Account>& vec_of_accounts)
 {
 	int index;
+	string password;
 	cout << "Введите индекс:" << endl;
 	cin >> index;
 	index--;
 	cout << "\nЛогин:" << endl;
 	cin >> vec_of_accounts.at(index).login;
-	cout << "\nПароль:" << endl;;
-	cin >> vec_of_accounts.at(index).salted_hash_password;
+	cout << "\nПароль:" << endl;
+	cin >> password;
+	vec_of_accounts.at(index).salt = generateSalt(SALT_SIZE);
+	vec_of_accounts.at(index).salted_hash_password = hashPassword(password, vec_of_accounts.at(index).salt);
 	cout << "\nРоль(0 - пользователь, 1 - админ):" << endl;
 	cin >> vec_of_accounts.at(index).role;
 }
