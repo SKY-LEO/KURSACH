@@ -72,6 +72,7 @@ int initialisation(vector <Account>& vec_of_accounts);
 int enterAccount(vector <Account>& vec_of_accounts);
 int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password);
 string hashPassword(string password, string salt);
+bool isGoodLogin(vector <Account>& vec_of_accounts, string login);
 
 int main()
 {
@@ -111,11 +112,11 @@ int enterAccount(vector <Account>& vec_of_accounts)
 	{
 		cout << "Осталось " << NUMBER_OF_ATTEMPTS - i << " попытки" << endl;
 		cout << "Введите логин: ";
-		cin >> login;
+		cin >> login;//проверка
 		cout << "\nВведите пароль: ";
-		cin >> password;
+		cin >> password;//проверка
 		index = checkDataEquals(vec_of_accounts, login, password);
-		if(index>=0)
+		if (index >= 0)
 		{
 			return vec_of_accounts.at(index).role;
 		}
@@ -127,7 +128,7 @@ int checkDataEquals(vector <Account>& vec_of_accounts, string login, string pass
 {
 	for (int i = 0; i < vec_of_accounts.size(); i++)
 	{
-		if (login == vec_of_accounts.at(i).login && 
+		if (login == vec_of_accounts.at(i).login &&
 			vec_of_accounts.at(i).salted_hash_password == hashPassword(password, vec_of_accounts.at(i).salt))
 		{
 			return i;
@@ -155,14 +156,20 @@ bool isGoodLogin(vector <Account>& vec_of_accounts, string login)
 
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 {
-	int code = initialisation(vec_of_accounts);
-	switch (code)
+
+	bool flag = true;
+	while (flag)
 	{
-	case 0: menu(vec_of_accounts, MENU_USER, MAX_OF_RANGE_USER);
-		break;
-	case 1: menu(vec_of_accounts, MENU_ADMIN, MAX_OF_RANGE_ADMIN);
-		break;
-	case -1: return;
+		int code = initialisation(vec_of_accounts);
+		switch (code)
+		{
+		case 0: menu(vec_of_accounts, MENU_USER, MAX_OF_RANGE_USER);
+			break;
+		case 1: menu(vec_of_accounts, MENU_ADMIN, MAX_OF_RANGE_ADMIN);
+			break;
+		case -1: flag = false;//return;
+			break;
+		}
 	}
 }
 
@@ -203,6 +210,7 @@ void addAccount(vector <Account>& vec_of_accounts)
 {
 	Account temp_account;
 	string password;
+	string login;
 	/*int n = 0, i = 1;
 	do
 	{
@@ -212,16 +220,23 @@ void addAccount(vector <Account>& vec_of_accounts)
 	do
 	{*/
 	cout << "\nЛогин:" << endl;
-	cin >> temp_account.login;
+	cin >> login;//проверка
+	if (isGoodLogin(vec_of_accounts, login))
+	{
+		temp_account.login = login;
+	}
+	else {
+		cout << "Такой логин уже существует!" << endl;
+	}//доделать
 	cout << "\nПароль:" << endl;
-	cin >> password;
+	cin >> password;//проверка
 	temp_account.salt = generateSalt(SALT_SIZE);
 	temp_account.salted_hash_password = hashPassword(password, temp_account.salt);
 	cout << "\nРоль (0 - пользователь, 1 - админ):" << endl;
 	cin >> temp_account.role;
 	vec_of_accounts.push_back(temp_account);
 	//i++;
-    //} while (i < n + 1);
+	//} while (i < n + 1);
 	ofstream fout(FILE_OF_ACCOUNTS, ios::out);
 	for (int i = 0; i < vec_of_accounts.size(); i++)
 	{
@@ -266,10 +281,10 @@ void deleteAccount(vector <Account>& vec_of_accounts)
 void readFileOfAccounts(vector <Account>& vec_of_accounts)
 {
 	ifstream fin(FILE_OF_ACCOUNTS, ios::in);
+	Account temp_account;
 	if (!fin.is_open())
 	{
 		cout << "Файла с учетными записями не существует! Создан новый с учётной записью администратора." << endl;
-		Account temp_account;
 		temp_account.login = ADMIN_LOGIN;
 		temp_account.salt = generateSalt(SALT_SIZE);
 		temp_account.salted_hash_password = hashPassword(ADMIN_PASSWORD, temp_account.salt);
@@ -282,12 +297,11 @@ void readFileOfAccounts(vector <Account>& vec_of_accounts)
 	{
 		if (fin.peek() != EOF)
 		{
-			Account account_temp;
 			while (!fin.eof())
 			{
-				fin >> account_temp.login >> account_temp.salted_hash_password >> account_temp.salt >> account_temp.role
-					>> account_temp.access;
-				vec_of_accounts.push_back(account_temp);
+				fin >> temp_account.login >> temp_account.salted_hash_password >> temp_account.salt >> temp_account.role
+					>> temp_account.access;
+				vec_of_accounts.push_back(temp_account);
 			}
 		}
 		else
@@ -301,25 +315,24 @@ void readFileOfAccounts(vector <Account>& vec_of_accounts)
 void readFileOfStudents(vector <Student>& vec_of_students)
 {
 	ifstream fin(FILE_OF_STUDENTS, ios::in);
+	Student temp_student;
 	if (!fin.is_open())
 	{
 		cout << "Файла со студентами не существует! Создан новый." << endl;
-		Student temp_account;
-		temp_account.login = ADMIN_LOGIN;
-		temp_account.password = ADMIN_PASSWORD;
-		temp_account.role = ADMIN_ROLE;
-		vec_of_students.push_back(temp_account);
+		temp_student.login = ADMIN_LOGIN;
+		temp_student.password = ADMIN_PASSWORD;
+		temp_student.role = ADMIN_ROLE;
+		vec_of_students.push_back(temp_student);
 		writeFileOfStudents(vec_of_students);
 	}
 	else
 	{
 		if (fin.peek() != EOF)
 		{
-			Student account_temp;
 			while (!fin.eof())
 			{
-				fin >> account_temp.login >> account_temp.password >> account_temp.role;
-				vec_of_students.push_back(account_temp);
+				fin >> temp_student.login >> temp_student.password >> temp_student.role;
+				vec_of_students.push_back(temp_student);
 			}
 		}
 		else
@@ -327,6 +340,7 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 			cout << "Файл пуст!" << endl;
 		}
 	}
+	//delete & temp_student;//надо ли?
 	fin.close();
 }
 
