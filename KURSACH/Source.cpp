@@ -15,6 +15,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <conio.h>
 
 //----hash----
 #include "sha256.h"
@@ -72,7 +73,10 @@ int initialisation(vector <Account>& vec_of_accounts);
 int enterAccount(vector <Account>& vec_of_accounts);
 int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password);
 string hashPassword(string password, string salt);
+string enterGoodPassword();
+string enterStringWithoutSpaces();
 bool isGoodLogin(vector <Account>& vec_of_accounts, string login);
+void createFirstAccount(vector <Account>& vec_of_accounts);
 
 int main()
 {
@@ -113,20 +117,75 @@ int enterAccount(vector <Account>& vec_of_accounts)
 		cout << "Осталось " << NUMBER_OF_ATTEMPTS - i << " попытки" << endl;
 		cout << "Введите логин: ";
 		cin >> login;//проверка
-		cout << "\nВведите пароль: ";
-		cin >> password;//проверка
+		cout << "Введите пароль: ";
+		//cin >> password;//проверка
+		password = enterGoodPassword();
 		index = checkDataEquals(vec_of_accounts, login, password);
 		if (index >= 0)
 		{
 			return vec_of_accounts.at(index).role;
 		}
+		//cout << endl;
+		system("cls");
 	}
 	return -1;
 }
 
+string enterGoodPassword()
+{
+	int count = 0;
+	char symbol;
+	string password;
+	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
+	{
+		if (symbol == '\b')//backspace
+		{
+			if (count != 0)
+			{
+				cout << '\b' << ' ' << '\b';
+				password.erase(password.length() - 1);
+				count--;
+			}
+			continue;
+		}
+		count++;
+		password += symbol;
+		cout << '*';//добавить возможность удаления символа
+	}
+	return password;
+}
+
+string enterStringWithoutSpaces()
+{
+	int count = 0;
+	char symbol;
+	string buffer;
+	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
+	{
+		if (symbol == '\b')//backspace
+		{
+			if (count != 0)
+			{
+				cout << '\b' <<' ' << '\b';
+				buffer.erase(buffer.length() - 1);
+				count--;
+			}
+			continue;
+		}
+		if (symbol == ' ')
+		{
+			continue;
+		}
+		count++;
+		buffer += symbol;
+		cout << symbol;
+	}
+	return buffer;
+}
+
 int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password)
 {
-	for (int i = 0; i < vec_of_accounts.size(); i++)
+	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
 	{
 		if (login == vec_of_accounts.at(i).login &&
 			vec_of_accounts.at(i).salted_hash_password == hashPassword(password, vec_of_accounts.at(i).salt))
@@ -134,7 +193,7 @@ int checkDataEquals(vector <Account>& vec_of_accounts, string login, string pass
 			return i;
 		}
 	}
-	return 0;
+	return -1;
 }
 
 string hashPassword(string password, string salt)
@@ -144,7 +203,7 @@ string hashPassword(string password, string salt)
 
 bool isGoodLogin(vector <Account>& vec_of_accounts, string login)
 {
-	for (int i = 0; i < vec_of_accounts.size(); i++)
+	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
 	{
 		if (login == vec_of_accounts.at(i).login)
 		{
@@ -161,6 +220,7 @@ void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 	while (flag)
 	{
 		int code = initialisation(vec_of_accounts);
+		system("cls");
 		switch (code)
 		{
 		case 0: menu(vec_of_accounts, MENU_USER, MAX_OF_RANGE_USER);
@@ -202,6 +262,7 @@ int chooseMenu(string message, int max_of_range)
 	{
 		cout << message << endl;
 		item = correctInputInt();//место для проверок
+		system("cls");
 	} while (item > max_of_range || item < 0);
 	return item;
 }
@@ -219,25 +280,32 @@ void addAccount(vector <Account>& vec_of_accounts)
 	} while (n < 1);
 	do
 	{*/
-	cout << "\nЛогин:" << endl;
-	cin >> login;//проверка
-	if (isGoodLogin(vec_of_accounts, login))
+	while (true)
 	{
-		temp_account.login = login;
+		//system("cls");
+		cout << "\nЛогин: ";
+		login = enterStringWithoutSpaces();//проверка на пробелы
+		if (isGoodLogin(vec_of_accounts, login))
+		{
+			temp_account.login = login;
+			break;
+		}
+		else {
+			//system("cls");
+			cout << "Такой логин уже существует!" << endl;
+			//доделать
+		}
 	}
-	else {
-		cout << "Такой логин уже существует!" << endl;
-	}//доделать
-	cout << "\nПароль:" << endl;
-	cin >> password;//проверка
+	cout << "\nПароль: ";
+	cin >> password;//проверка на пробелы
 	temp_account.salt = generateSalt(SALT_SIZE);
 	temp_account.salted_hash_password = hashPassword(password, temp_account.salt);
-	cout << "\nРоль (0 - пользователь, 1 - админ):" << endl;
+	cout << "\nРоль (0 - пользователь, 1 - админ): ";
 	cin >> temp_account.role;
 	vec_of_accounts.push_back(temp_account);
 	//i++;
 	//} while (i < n + 1);
-	ofstream fout(FILE_OF_ACCOUNTS, ios::out);
+	/*ofstream fout(FILE_OF_ACCOUNTS, ios::out);
 	for (int i = 0; i < vec_of_accounts.size(); i++)
 	{
 		fout << vec_of_accounts.at(i).login << " " << vec_of_accounts.at(i).salted_hash_password << " "
@@ -247,14 +315,14 @@ void addAccount(vector <Account>& vec_of_accounts)
 			fout << endl;
 		}
 	}
-	fout.close();
+	fout.close();*/
 }
 
 void showAccounts(vector <Account>& vec_of_accounts)
 {
 	for (int i = 0; i < vec_of_accounts.size(); i++)
 	{
-		cout << vec_of_accounts.at(i).login << " " << vec_of_accounts.at(i).salted_hash_password << " " << vec_of_accounts.at(i).role;
+		cout << vec_of_accounts.at(i).login << '\t' << vec_of_accounts.at(i).role;
 		if (i < vec_of_accounts.size() - 1)
 		{
 			cout << endl;
@@ -276,6 +344,21 @@ void deleteAccount(vector <Account>& vec_of_accounts)
 	vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
 	cout << "Удалён успешно!" << endl;
 	writeFileOfAccounts(vec_of_accounts);
+	system("cls");
+}
+
+void createFirstAccount(vector <Account>& vec_of_accounts)
+{
+	ifstream fin(FILE_OF_ACCOUNTS, ios::in);
+	Account temp_account;
+	temp_account.login = ADMIN_LOGIN;
+	temp_account.salt = generateSalt(SALT_SIZE);
+	temp_account.salted_hash_password = hashPassword(ADMIN_PASSWORD, temp_account.salt);
+	temp_account.role = ADMIN_ROLE;
+	temp_account.access = ADMIN_ACCESS;
+	vec_of_accounts.push_back(temp_account);
+	writeFileOfAccounts(vec_of_accounts);
+	fin.close();
 }
 
 void readFileOfAccounts(vector <Account>& vec_of_accounts)
@@ -285,13 +368,7 @@ void readFileOfAccounts(vector <Account>& vec_of_accounts)
 	if (!fin.is_open())
 	{
 		cout << "Файла с учетными записями не существует! Создан новый с учётной записью администратора." << endl;
-		temp_account.login = ADMIN_LOGIN;
-		temp_account.salt = generateSalt(SALT_SIZE);
-		temp_account.salted_hash_password = hashPassword(ADMIN_PASSWORD, temp_account.salt);
-		temp_account.role = ADMIN_ROLE;
-		temp_account.access = ADMIN_ACCESS;
-		vec_of_accounts.push_back(temp_account);
-		writeFileOfAccounts(vec_of_accounts);
+		createFirstAccount(vec_of_accounts);
 	}
 	else
 	{
@@ -306,7 +383,9 @@ void readFileOfAccounts(vector <Account>& vec_of_accounts)
 		}
 		else
 		{
-			cout << "Файл пуст!" << endl;
+			cout << "Файл пуст! Создана учётная запись администратора." << endl;
+			createFirstAccount(vec_of_accounts);
+			//доделать создание админа
 		}
 	}
 	fin.close();
@@ -340,7 +419,6 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 			cout << "Файл пуст!" << endl;
 		}
 	}
-	//delete & temp_student;//надо ли?
 	fin.close();
 }
 
@@ -399,13 +477,13 @@ void updateAccount(vector <Account>& vec_of_accounts)
 	cout << "Введите индекс:" << endl;
 	cin >> index;
 	index--;
-	cout << "\nЛогин:" << endl;
+	cout << "\nЛогин: ";
 	cin >> vec_of_accounts.at(index).login;
-	cout << "\nПароль:" << endl;
+	cout << "\nПароль: ";
 	cin >> password;
 	vec_of_accounts.at(index).salt = generateSalt(SALT_SIZE);
 	vec_of_accounts.at(index).salted_hash_password = hashPassword(password, vec_of_accounts.at(index).salt);
-	cout << "\nРоль(0 - пользователь, 1 - админ):" << endl;
+	cout << "\nРоль(0 - пользователь, 1 - админ): ";//проверка на корректность
 	cin >> vec_of_accounts.at(index).role;
 }
 
