@@ -322,6 +322,7 @@ void confirmAccessOfAccounts(vector <Account>& vec_of_accounts)
 			flag = false;
 		}
 	}
+	delete& array;
 }
 
 vector <int>& vectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts)
