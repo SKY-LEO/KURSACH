@@ -68,7 +68,7 @@ void writeFileOfStudents(vector <Student>& vec_of_students);
 int getCountOfStructures(string file_path);
 int correctInputInt();
 int menu(vector <Account>& vec_of_accounts, string message, int max_of_range);
-int chooseMenu(string message, int max_of_range);
+//int chooseMenu(string message, int max_of_range);
 int initialisation(vector <Account>& vec_of_accounts);
 int enterAccount(vector <Account>& vec_of_accounts);
 int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password);
@@ -77,6 +77,7 @@ string enterGoodPassword();
 string enterStringWithoutSpaces();
 bool isGoodLogin(vector <Account>& vec_of_accounts, string login);
 void createFirstAccount(vector <Account>& vec_of_accounts);
+int enterNumberInRange(int min, int max);
 
 int main()
 {
@@ -97,12 +98,16 @@ int main()
 
 int initialisation(vector <Account>& vec_of_accounts)
 {
-	int item = chooseMenu(START_MENU, MAX_OF_START_MENU);
+	cout << "Здравствуйте, гость! Пожалуйста, выберите пункт меню:" << endl;
+	cout << START_MENU << endl;
+	int item = enterNumberInRange(0, MAX_OF_START_MENU);//chooseMenu(START_MENU, MAX_OF_START_MENU);
+	system("cls");
 	switch (item)
 	{
 	case 1:
 		return enterAccount(vec_of_accounts);
 	case 2: addAccount(vec_of_accounts);
+		//system("cls");
 		return initialisation(vec_of_accounts);
 	case 0: return -1;
 	}
@@ -123,6 +128,12 @@ int enterAccount(vector <Account>& vec_of_accounts)
 		index = checkDataEquals(vec_of_accounts, login, password);
 		if (index >= 0)
 		{
+			if (vec_of_accounts.at(index).access == 0)
+			{
+				system("cls");
+				cout << "\nВаша учетная запись ещё не подтверждена администратором, доступ запрещён." << endl;
+				return -2;
+			}
 			return vec_of_accounts.at(index).role;
 		}
 		//cout << endl;
@@ -150,13 +161,14 @@ string enterGoodPassword()
 		}
 		count++;
 		password += symbol;
-		cout << '*';//добавить возможность удаления символа
+		cout << '*';
 	}
 	return password;
 }
 
 string enterStringWithoutSpaces()
 {
+	//cout << "Введите любые символы, кроме пробела." << endl;
 	int count = 0;
 	char symbol;
 	string buffer;
@@ -166,7 +178,7 @@ string enterStringWithoutSpaces()
 		{
 			if (count != 0)
 			{
-				cout << '\b' <<' ' << '\b';
+				cout << '\b' << ' ' << '\b';
 				buffer.erase(buffer.length() - 1);
 				count--;
 			}
@@ -213,6 +225,7 @@ bool isGoodLogin(vector <Account>& vec_of_accounts, string login)
 	return 1;
 }
 
+
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 {
 
@@ -220,12 +233,13 @@ void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 	while (flag)
 	{
 		int code = initialisation(vec_of_accounts);
-		system("cls");
 		switch (code)
 		{
-		case 0: menu(vec_of_accounts, MENU_USER, MAX_OF_RANGE_USER);
+		case 0: system("cls");
+			menu(vec_of_accounts, MENU_USER, MAX_OF_RANGE_USER);
 			break;
-		case 1: menu(vec_of_accounts, MENU_ADMIN, MAX_OF_RANGE_ADMIN);
+		case 1: system("cls");
+			menu(vec_of_accounts, MENU_ADMIN, MAX_OF_RANGE_ADMIN);
 			break;
 		case -1: flag = false;//return;
 			break;
@@ -233,13 +247,14 @@ void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 	}
 }
 
-
 int menu(vector <Account>& vec_of_accounts, string message, int max_of_range)
 {
 	bool flag = true;
 	while (flag)
 	{
-		int item = chooseMenu(message, max_of_range);
+		system("cls");
+		cout << message << endl;
+		int item = enterNumberInRange(0, max_of_range);//chooseMenu(message, max_of_range);
 		switch (item)
 		{
 		case 1: showAccounts(vec_of_accounts);
@@ -252,10 +267,11 @@ int menu(vector <Account>& vec_of_accounts, string message, int max_of_range)
 			break;
 		}
 	}
+	system("cls");
 	return 0;
 }
 
-int chooseMenu(string message, int max_of_range)
+/*int chooseMenu(string message, int max_of_range)
 {
 	int item;
 	do
@@ -265,21 +281,13 @@ int chooseMenu(string message, int max_of_range)
 		system("cls");
 	} while (item > max_of_range || item < 0);
 	return item;
-}
+}*/
 
 void addAccount(vector <Account>& vec_of_accounts)
 {
 	Account temp_account;
 	string password;
 	string login;
-	/*int n = 0, i = 1;
-	do
-	{
-		printf("Сколько учетных записей вы хотите добавить?: ");
-		n = correctInputInt();
-	} while (n < 1);
-	do
-	{*/
 	while (true)
 	{
 		//system("cls");
@@ -291,18 +299,23 @@ void addAccount(vector <Account>& vec_of_accounts)
 			break;
 		}
 		else {
-			//system("cls");
-			cout << "Такой логин уже существует!" << endl;
+			system("cls");
+			cout << "\nТакой логин уже существует! Введите другой.";
 			//доделать
 		}
 	}
 	cout << "\nПароль: ";
-	cin >> password;//проверка на пробелы
+	//cin >> password;//проверка на пробелы
+	password = enterStringWithoutSpaces();
 	temp_account.salt = generateSalt(SALT_SIZE);
 	temp_account.salted_hash_password = hashPassword(password, temp_account.salt);
-	cout << "\nРоль (0 - пользователь, 1 - админ): ";
-	cin >> temp_account.role;
+	cout << "\nРоль (Пользователь - 0, Админ - 1): ";
+	int role;
+	role = enterNumberInRange(0, 1);//cin >> temp_account.role;
+	temp_account.role = role;
 	vec_of_accounts.push_back(temp_account);
+	system("cls");
+	cout << "Учётная запись создана! Ожидйте подтверждения администратором." << endl;
 	//i++;
 	//} while (i < n + 1);
 	/*ofstream fout(FILE_OF_ACCOUNTS, ios::out);
@@ -328,23 +341,55 @@ void showAccounts(vector <Account>& vec_of_accounts)
 			cout << endl;
 		}
 	}
+	cout << endl;
 }
 
 void deleteAccount(vector <Account>& vec_of_accounts)
 {
 	int size = vec_of_accounts.size();
-	//cout << size << endl;
-	int index_for_delete = 0;
-	do
+	int index_for_delete;
+	cout << "Какой аккаунт вы хотите удалить?" << endl;
+	showAccounts(vec_of_accounts);
+	cout << "Назад - 0" << endl;
+	index_for_delete = enterNumberInRange(0, size);
+	if (index_for_delete == 0)
 	{
-		cout << "Какой аккаунт вы хотите удалить?" << endl;
-		index_for_delete = correctInputInt();
-		index_for_delete--;
-	} while (index_for_delete > size);
-	vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
-	cout << "Удалён успешно!" << endl;
-	writeFileOfAccounts(vec_of_accounts);
+		return;
+	}
+	index_for_delete--;
 	system("cls");
+	cout << "Вы действительно хотите удалить этот аккаунт? \nДа - 1 \nНет - 0" << endl;
+	int answer;
+	answer = enterNumberInRange(0, 1);
+	if (answer == 1)
+	{
+		vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
+		cout << "Удалён успешно!" << endl;
+		//writeFileOfAccounts(vec_of_accounts);
+	}
+	else
+	{
+		system("cls");
+		return deleteAccount(vec_of_accounts);
+	}
+}
+
+int enterNumberInRange(int min, int max)
+{
+	int number;
+	while (true)
+	{
+		number = correctInputInt();
+		if (number >= min && number <= max)
+		{
+			break;
+		}
+		else
+		{
+			cout << "Введите число в заданном промежутке!" << endl;
+		}
+	}
+	return number;
 }
 
 void createFirstAccount(vector <Account>& vec_of_accounts)
