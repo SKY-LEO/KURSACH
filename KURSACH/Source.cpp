@@ -33,6 +33,8 @@ const string FILE_OF_STUDENTS = "students.txt";
 const int NUMBER_OF_SYMBOLS = 20;
 const int NUMBER_OF_ATTEMPTS = 3;
 
+const string SEPARATOR = "------------------------------------------------";
+
 const string MENU_ADMIN = "\n Показать аккаунты - 1\n Удалить аккаунт - 2\n Обновить данные аккаунта - 3\n Запросы на доступ к системе - 4\n Выход - 0";
 const string MENU_USER = "\n Показать аккаунты - 1\n Удалить аккаунт - 2\n Выход - 0";
 const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
@@ -78,6 +80,8 @@ string enterStringWithoutSpaces();
 bool isGoodLogin(vector <Account>& vec_of_accounts, string login);
 void createFirstAccount(vector <Account>& vec_of_accounts);
 int enterNumberInRange(int min, int max);
+void confirmAccessOfAccounts(vector <Account>& vec_of_accounts);
+vector <int>& vectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts);
 
 int main()
 {
@@ -110,6 +114,7 @@ int initialisation(vector <Account>& vec_of_accounts)
 		//system("cls");
 		return initialisation(vec_of_accounts);
 	case 0: return -1;
+	default: return -9;
 	}
 }
 
@@ -252,16 +257,21 @@ int menu(vector <Account>& vec_of_accounts, string message, int max_of_range)
 	bool flag = true;
 	while (flag)
 	{
-		system("cls");
 		cout << message << endl;
 		int item = enterNumberInRange(0, max_of_range);//chooseMenu(message, max_of_range);
 		switch (item)
 		{
-		case 1: showAccounts(vec_of_accounts);
+		case 1:system("cls");
+			showAccounts(vec_of_accounts);
 			break;
-		case 2: deleteAccount(vec_of_accounts);
+		case 2:system("cls");
+			deleteAccount(vec_of_accounts);
 			break;
-		case 3: updateAccount(vec_of_accounts);
+		case 3:system("cls");
+			updateAccount(vec_of_accounts);
+			break;
+		case 4:system("cls");
+			confirmAccessOfAccounts(vec_of_accounts);
 			break;
 		case 0: flag = false;
 			break;
@@ -270,6 +280,63 @@ int menu(vector <Account>& vec_of_accounts, string message, int max_of_range)
 	system("cls");
 	return 0;
 }
+
+void confirmAccessOfAccounts(vector <Account>& vec_of_accounts)
+{
+	vector <int>& array = vectorOfAccountsNeedAccess(vec_of_accounts);
+	bool flag = true;
+	while (flag)
+	{
+		if (array.size() != 0)
+		{
+			int number;
+			cout << "Выберите учётную запись, которую вы хотите подтвердить:" << endl;
+			cout << endl;
+			cout << "№\t|" << "Логин\t|" << "Роль\t|" << endl;
+			cout << SEPARATOR << endl;
+			for (unsigned int i = 0; i < array.size(); i++)
+			{
+				cout << i + 1 << "\t|" << vec_of_accounts.at(array.at(i)).login << "\t|"
+					<< vec_of_accounts.at(array.at(i)).role << "\t|" << endl;//
+			}
+			cout << SEPARATOR << endl;
+			cout << endl;
+			cout << "Назад - 0" << endl;
+			number = enterNumberInRange(0, array.size());
+			if (number != 0)
+			{
+				number--;
+				vec_of_accounts.at(array.at(number)).access = true;
+				array.erase(array.begin() + number);
+				system("cls");
+				cout << "Учётная запись подтверждена." << endl;
+			}
+			else
+			{
+				flag = false;
+			}
+		}
+		else
+		{
+			cout << "Нет учетных записей, требующих подтверждения." << endl;
+			flag = false;
+		}
+	}
+}
+
+vector <int>& vectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts)
+{
+	vector <int>& array = *new vector<int>;
+	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
+	{
+		if (vec_of_accounts.at(i).access == 0)
+		{
+			array.push_back(i);
+		}
+	}
+	return array;
+}
+
 
 /*int chooseMenu(string message, int max_of_range)
 {
@@ -333,44 +400,57 @@ void addAccount(vector <Account>& vec_of_accounts)
 
 void showAccounts(vector <Account>& vec_of_accounts)
 {
-	for (int i = 0; i < vec_of_accounts.size(); i++)
+	cout << endl;
+	cout << "№\t|" << "Логин\t|" << "Роль\t|" << "Доступ\t|" << endl;
+	cout << SEPARATOR << endl;
+	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
 	{
-		cout << vec_of_accounts.at(i).login << '\t' << vec_of_accounts.at(i).role;
-		if (i < vec_of_accounts.size() - 1)
+		cout << i + 1 << "\t|" << vec_of_accounts.at(i).login << "\t|" << vec_of_accounts.at(i).role << "\t|"
+			<< vec_of_accounts.at(i).access << "\t|" << endl;
+		/*if (i < vec_of_accounts.size() - 1)
 		{
 			cout << endl;
-		}
+		}*/
 	}
+	cout << SEPARATOR << endl;
 	cout << endl;
+	//cout << endl;
 }
 
 void deleteAccount(vector <Account>& vec_of_accounts)
 {
-	int size = vec_of_accounts.size();
+	bool flag = true;
 	int index_for_delete;
-	cout << "Какой аккаунт вы хотите удалить?" << endl;
-	showAccounts(vec_of_accounts);
-	cout << "Назад - 0" << endl;
-	index_for_delete = enterNumberInRange(0, size);
-	if (index_for_delete == 0)
+	while (flag)
 	{
-		return;
-	}
-	index_for_delete--;
-	system("cls");
-	cout << "Вы действительно хотите удалить этот аккаунт? \nДа - 1 \nНет - 0" << endl;
-	int answer;
-	answer = enterNumberInRange(0, 1);
-	if (answer == 1)
-	{
-		vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
-		cout << "Удалён успешно!" << endl;
-		//writeFileOfAccounts(vec_of_accounts);
-	}
-	else
-	{
-		system("cls");
-		return deleteAccount(vec_of_accounts);
+		cout << "Какой аккаунт вы хотите удалить?" << endl;
+		showAccounts(vec_of_accounts);
+		cout << "Назад - 0" << endl;
+		int size = vec_of_accounts.size();
+		index_for_delete = enterNumberInRange(0, size);
+		if (index_for_delete != 0)
+		{
+			index_for_delete--;
+			system("cls");
+			cout << "Вы действительно хотите удалить этот аккаунт? \nДа - 1 \nНет - 0" << endl;
+			int answer;
+			answer = enterNumberInRange(0, 1);
+			if (answer == 1)
+			{
+				vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
+				system("cls");
+				cout << "Удалён успешно!" << endl;
+			}
+			else
+			{
+				system("cls");
+				continue;
+			}
+		}
+		else
+		{
+			flag = false;
+		}
 	}
 }
 
@@ -470,7 +550,7 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 void writeFileOfAccounts(vector <Account>& vec_of_accounts)
 {
 	ofstream fout(FILE_OF_ACCOUNTS, ios::out);
-	for (int i = 0; i < vec_of_accounts.size(); i++)
+	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
 	{
 		fout << vec_of_accounts.at(i).login << " " << vec_of_accounts.at(i).salted_hash_password << " " << vec_of_accounts.at(i).salt
 			<< " " << vec_of_accounts.at(i).role << " " << vec_of_accounts.at(i).access;
@@ -485,7 +565,7 @@ void writeFileOfAccounts(vector <Account>& vec_of_accounts)
 void writeFileOfStudents(vector <Student>& vec_of_students)
 {
 	ofstream fout(FILE_OF_STUDENTS, ios::out);
-	for (int i = 0; i < vec_of_students.size(); i++)
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
 		fout << vec_of_students.at(i).login << " " << vec_of_students.at(i).password << " " << vec_of_students.at(i).role;
 		if (i < vec_of_students.size() - 1)
@@ -509,7 +589,7 @@ int correctInputInt()
 		{
 			cin.clear();
 			cin.ignore(256, '\n');
-			cout << "Ошибка!\n" << "Попробуйте снова!" << endl;
+			cout << "Ошибка! Введите целое число." << endl;
 		}
 	}
 	return a;
