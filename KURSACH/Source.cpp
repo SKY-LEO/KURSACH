@@ -35,14 +35,15 @@ const int NUMBER_OF_ATTEMPTS = 3;
 
 const string SEPARATOR = "------------------------------------------------";
 
-const string MAIN_MENU_ADMIN = "\n Стипендии - 1\n Работа с учётными записями - 2\n Выход - 0";
+const string MAIN_MENU_ADMIN = "\n Стипендии - 1\n Работа с учётными записями - 2\n Сменить пароль - 3\n Выход - 0";
 const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Запросы на доступ - 5\n Выход - 0";
 const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
 const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
 const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
 const int MAX_OF_RANGE_MENU_ADMIN = 5;
 const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 4;
-const int MAX_OF_RANGE_MAIN_MENU = 2;
+const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
+const int MAX_OF_RANGE_MAIN_MENU_USER = 2;
 const int MAX_OF_START_MENU = 2;
 const string ACCESS[3] = { "Какому аккаунту вы хотите изменить доступ?", "Вы действительно хотите изменить доступ этому аккаунту?", "Изменён успешно!" };
 const string ROLE[3] = { "Какому аккаунту вы хотите изменить роль?", "Вы действительно хотите изменить роль этому аккаунту?", "Изменена успешно!" };
@@ -280,7 +281,7 @@ int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, i
 	while (flag)
 	{
 		cout << MAIN_MENU_USER << endl;
-		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU);//chooseMenu(message, max_of_range);
+		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_USER);//chooseMenu(message, max_of_range);
 		switch (item)
 		{
 		case 1:system("cls");
@@ -303,14 +304,17 @@ int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, 
 	while (flag)
 	{
 		cout << MAIN_MENU_ADMIN << endl;
-		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU);
+		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_ADMIN);
 		switch (item)
 		{
-		case 1:system("cls");
+		case 1: system("cls");
 			workWithStudents(vec_of_students);
 			break;
-		case 2:system("cls");
+		case 2: system("cls");
 			workWithAccounts(vec_of_accounts);
+			break;
+		case 3: system("cls");
+			changePassword(vec_of_accounts, index);
 			break;
 		case 0: flag = false;
 			break;
