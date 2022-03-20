@@ -35,32 +35,46 @@ const int NUMBER_OF_ATTEMPTS = 3;
 
 const string SEPARATOR = "------------------------------------------------";
 
-const string MENU_ADMIN = "\n Показать аккаунты - 1\n Удалить аккаунт - 2\n Обновить данные аккаунта - 3\n Запросы на доступ к системе - 4\n Выход - 0";
-const string MENU_USER = "\n Показать аккаунты - 1\n Удалить аккаунт - 2\n Выход - 0";
+const string MAIN_MENU_ADMIN = "\n Стипендии - 1\n Работа с учётными записями - 2\n Выход - 0";
+const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Запросы на доступ - 5\n Выход - 0";
+const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
+const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
 const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
-const int MAX_OF_RANGE_ADMIN = 4;
-const int MAX_OF_RANGE_USER = 2;
+const int MAX_OF_RANGE_MENU_ADMIN = 5;
+const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 4;
+const int MAX_OF_RANGE_MAIN_MENU = 2;
 const int MAX_OF_START_MENU = 2;
+const string ACCESS[3] = { "Какому аккаунту вы хотите изменить доступ?", "Вы действительно хотите изменить доступ этому аккаунту?", "Изменён успешно!" };
+const string ROLE[3] = { "Какому аккаунту вы хотите изменить роль?", "Вы действительно хотите изменить роль этому аккаунту?", "Изменена успешно!" };
+const string DELETE_ACCOUNT[3] = { "Какой аккаунт вы хотите удалить?", "Вы действительно хотите удалить этот аккаунт?", "Удалён успешно!" };
+
 
 struct Account
 {
 	string login;
 	string salted_hash_password;
 	string salt;
-	bool role = 0;//
-	bool access = 0;
+	bool role = false;//
+	bool access = false;
 };
 
 struct Student
 {
 	string login;
 	string password;
-	bool role = 0;
+	bool role = false;
 };
+
+typedef void(*ToFunction)(vector <Account>& vec_of_accounts, int index_for_change);
+void updateAccountAccess(vector <Account>& vec_of_accounts, int index_for_change);
+void updateAccountRole(vector <Account>& vec_of_accounts, int index_for_change);
+void deleteAccount(vector <Account>& vec_of_accounts, int index_for_delete);
+void doSomethingWithAccount(vector <Account>& vec_of_accounts, const string* message, ToFunction function);
+
 
 void showAccounts(vector <Account>& vec_of_accounts);
 void addAccount(vector <Account>& vec_of_accounts);
-void deleteAccount(vector <Account>& vec_of_accounts);
+//void deleteAccount(vector <Account>& vec_of_accounts);
 void updateAccount(vector <Account>& vec_of_accounts);
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students);
 void readFileOfAccounts(vector <Account>& vec_of_accounts);
@@ -69,7 +83,7 @@ void writeFileOfAccounts(vector <Account>& vec_of_accounts);
 void writeFileOfStudents(vector <Student>& vec_of_students);
 int getCountOfStructures(string file_path);
 int correctInputInt();
-int menu(vector <Account>& vec_of_accounts, string message, int max_of_range);
+//int menu(vector <Account>& vec_of_accounts, string message, int max_of_range);
 //int chooseMenu(string message, int max_of_range);
 int initialisation(vector <Account>& vec_of_accounts);
 int enterAccount(vector <Account>& vec_of_accounts);
@@ -80,8 +94,17 @@ string enterStringWithoutSpaces();
 bool isGoodLogin(vector <Account>& vec_of_accounts, string login);
 void createFirstAccount(vector <Account>& vec_of_accounts);
 int enterNumberInRange(int min, int max);
-void confirmAccessOfAccounts(vector <Account>& vec_of_accounts);
-vector <int>& vectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts);
+void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
+int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index);
+int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index);
+void workWithStudents(vector <Student>& vec_of_students);
+void changePassword(vector <Account>& vec_of_accounts, int index);
+void workWithAccounts(vector <Account>& vec_of_accounts);
+bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index);
+bool isLoginEquals(vector <Account>& vec_of_accounts, string login, int index);
+void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <int>& array);
+//void updateAccountRole(vector <Account>& vec_of_accounts);
+//void updateAccountAccess(vector <Account>& vec_of_accounts, ToFunction f);
 
 int main()
 {
@@ -104,17 +127,15 @@ int initialisation(vector <Account>& vec_of_accounts)
 {
 	cout << "Здравствуйте, гость! Пожалуйста, выберите пункт меню:" << endl;
 	cout << START_MENU << endl;
-	int item = enterNumberInRange(0, MAX_OF_START_MENU);//chooseMenu(START_MENU, MAX_OF_START_MENU);
+	int item = enterNumberInRange(0, MAX_OF_START_MENU);
 	system("cls");
 	switch (item)
 	{
-	case 1:
-		return enterAccount(vec_of_accounts);
+	case 1: return enterAccount(vec_of_accounts);
 	case 2: addAccount(vec_of_accounts);
-		//system("cls");
 		return initialisation(vec_of_accounts);
 	case 0: return -1;
-	default: return -9;
+		//default: return -9;
 	}
 }
 
@@ -124,11 +145,18 @@ int enterAccount(vector <Account>& vec_of_accounts)
 	int index;
 	for (int i = 0; i < NUMBER_OF_ATTEMPTS; i++)
 	{
-		cout << "Осталось " << NUMBER_OF_ATTEMPTS - i << " попытки" << endl;
+		cout << "Осталось " << NUMBER_OF_ATTEMPTS - i;
+		if (NUMBER_OF_ATTEMPTS - i != 1)
+		{
+			cout << " попытки." << endl;
+		}
+		else
+		{
+			cout << " попытка." << endl;
+		}
 		cout << "Введите логин: ";
-		cin >> login;//проверка
-		cout << "Введите пароль: ";
-		//cin >> password;//проверка
+		login = enterStringWithoutSpaces();
+		cout << "\nВведите пароль: ";
 		password = enterGoodPassword();
 		index = checkDataEquals(vec_of_accounts, login, password);
 		if (index >= 0)
@@ -139,11 +167,11 @@ int enterAccount(vector <Account>& vec_of_accounts)
 				cout << "\nВаша учетная запись ещё не подтверждена администратором, доступ запрещён." << endl;
 				return -2;
 			}
-			return vec_of_accounts.at(index).role;
+			return index;//vec_of_accounts.at(index).role;
 		}
-		//cout << endl;
 		system("cls");
 	}
+	cout << "Доступ запрещён. Завершение работы..." << endl;
 	return -1;
 }
 
@@ -200,19 +228,6 @@ string enterStringWithoutSpaces()
 	return buffer;
 }
 
-int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password)
-{
-	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
-	{
-		if (login == vec_of_accounts.at(i).login &&
-			vec_of_accounts.at(i).salted_hash_password == hashPassword(password, vec_of_accounts.at(i).salt))
-		{
-			return i;
-		}
-	}
-	return -1;
-}
-
 string hashPassword(string password, string salt)
 {
 	return sha256(sha256(password + salt) + sha256(password));
@@ -230,48 +245,49 @@ bool isGoodLogin(vector <Account>& vec_of_accounts, string login)
 	return 1;
 }
 
-
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 {
-
 	bool flag = true;
 	while (flag)
 	{
-		int code = initialisation(vec_of_accounts);
+		int code;
+		int index = initialisation(vec_of_accounts);
+		if (index > -1)//если не код ошибки
+		{
+			code = vec_of_accounts.at(index).role;
+		}
+		else
+		{
+			code = index;
+		}
 		switch (code)
 		{
 		case 0: system("cls");
-			menu(vec_of_accounts, MENU_USER, MAX_OF_RANGE_USER);
+			user(vec_of_accounts, vec_of_students, index);
 			break;
 		case 1: system("cls");
-			menu(vec_of_accounts, MENU_ADMIN, MAX_OF_RANGE_ADMIN);
+			admin(vec_of_accounts, vec_of_students, index);
 			break;
-		case -1: flag = false;//return;
-			break;
+		default:
+			flag = false;//return;
 		}
 	}
 }
 
-int menu(vector <Account>& vec_of_accounts, string message, int max_of_range)
+int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index)
 {
 	bool flag = true;
 	while (flag)
 	{
-		cout << message << endl;
-		int item = enterNumberInRange(0, max_of_range);//chooseMenu(message, max_of_range);
+		cout << MAIN_MENU_USER << endl;
+		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU);//chooseMenu(message, max_of_range);
 		switch (item)
 		{
 		case 1:system("cls");
-			showAccounts(vec_of_accounts);
+			workWithStudents(vec_of_students);
 			break;
 		case 2:system("cls");
-			deleteAccount(vec_of_accounts);
-			break;
-		case 3:system("cls");
-			updateAccount(vec_of_accounts);
-			break;
-		case 4:system("cls");
-			confirmAccessOfAccounts(vec_of_accounts);
+			changePassword(vec_of_accounts, index);
 			break;
 		case 0: flag = false;
 			break;
@@ -281,9 +297,148 @@ int menu(vector <Account>& vec_of_accounts, string message, int max_of_range)
 	return 0;
 }
 
-void confirmAccessOfAccounts(vector <Account>& vec_of_accounts)
+int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index)
 {
-	vector <int>& array = vectorOfAccountsNeedAccess(vec_of_accounts);
+	bool flag = true;
+	while (flag)
+	{
+		cout << MAIN_MENU_ADMIN << endl;
+		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU);
+		switch (item)
+		{
+		case 1:system("cls");
+			workWithStudents(vec_of_students);
+			break;
+		case 2:system("cls");
+			workWithAccounts(vec_of_accounts);
+			break;
+		case 0: flag = false;
+			break;
+		}
+	}
+	system("cls");
+	return 0;
+}
+
+void changePassword(vector <Account>& vec_of_accounts, int index)
+{
+	string password;
+	for (int i = 0; i < NUMBER_OF_ATTEMPTS; i++)
+	{
+		cout << "Осталось " << NUMBER_OF_ATTEMPTS - i;
+		if (NUMBER_OF_ATTEMPTS - i != 1)
+		{
+			cout << " попытки." << endl;
+		}
+		else
+		{
+			cout << " попытка." << endl;
+		}
+		cout << "Введите текущий пароль: ";
+		password = enterGoodPassword();
+		if (isPasswordEquals(vec_of_accounts, password, index))
+		{
+			bool flag = true;
+			while (flag)
+			{
+				string password2;
+				cout << "\nВведите новый пароль: ";
+				password = enterStringWithoutSpaces();
+				cout << "\nПовторите новый пароль: ";
+				password2 = enterStringWithoutSpaces();
+				if (password == password2)
+				{
+					vec_of_accounts.at(index).salt = generateSalt(SALT_SIZE);
+					vec_of_accounts.at(index).salted_hash_password = hashPassword(password, vec_of_accounts.at(index).salt);
+					cout << "\nПароль изменён успешно!" << endl;
+					flag = false;
+				}
+				else
+				{
+					system("cls");
+					cout << "Поля не совпадают! Повторите попытку." << endl;
+				}
+			}
+			break;
+		}
+		system("cls");
+	}
+}
+
+bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index)
+{
+	return vec_of_accounts.at(index).salted_hash_password == hashPassword(password, vec_of_accounts.at(index).salt);
+}
+
+bool isLoginEquals(vector <Account>& vec_of_accounts, string login, int index)
+{
+	return vec_of_accounts.at(index).login == login;
+}
+
+int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password)
+{
+	for (unsigned int index = 0; index < vec_of_accounts.size(); index++)
+	{
+		if (isLoginEquals(vec_of_accounts, login, index) && isPasswordEquals(vec_of_accounts, password, index))
+		{
+			return index;
+		}
+	}
+	return -1;
+}
+
+void workWithAccounts(vector <Account>& vec_of_accounts)
+{
+	bool flag = true;
+	int item;
+	vector <int> array;
+	fillVectorOfAccountsNeedAccess(vec_of_accounts, array);
+	while (flag)
+	{
+		if (array.size() == 0)
+		{
+			cout << ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS << endl;
+			item = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS);
+		}
+		else
+		{
+			cout << ACCOUNT_MENU_ADMIN << endl;
+			item = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN);
+		}
+		switch (item)
+		{
+		case 1:system("cls");
+			showAccounts(vec_of_accounts);
+			break;
+		case 2:system("cls");
+			//deleteAccount(vec_of_accounts);
+			doSomethingWithAccount(vec_of_accounts, DELETE_ACCOUNT, deleteAccount);
+			break;
+		case 3:system("cls");
+			//updateAccountAccess(vec_of_accounts, gg);
+			doSomethingWithAccount(vec_of_accounts, ACCESS, updateAccountAccess);
+			break;
+		case 4:system("cls");
+			//updateAccountRole(vec_of_accounts);
+			doSomethingWithAccount(vec_of_accounts, ROLE, updateAccountRole);
+			break;
+		case 5:system("cls");
+			confirmAccessOfAccounts(vec_of_accounts, array);
+			break;
+		case 0: flag = false;
+			break;
+		}
+	}
+	system("cls");
+}
+
+void workWithStudents(vector <Student>& vec_of_students)
+{
+
+}
+
+void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)
+{
 	bool flag = true;
 	while (flag)
 	{
@@ -297,7 +452,7 @@ void confirmAccessOfAccounts(vector <Account>& vec_of_accounts)
 			for (unsigned int i = 0; i < array.size(); i++)
 			{
 				cout << i + 1 << "\t|" << vec_of_accounts.at(array.at(i)).login << "\t|"
-					<< vec_of_accounts.at(array.at(i)).role << "\t|" << endl;//
+					<< vec_of_accounts.at(array.at(i)).role << "\t|" << endl;
 			}
 			cout << SEPARATOR << endl;
 			cout << endl;
@@ -318,16 +473,13 @@ void confirmAccessOfAccounts(vector <Account>& vec_of_accounts)
 		}
 		else
 		{
-			cout << "Нет учетных записей, требующих подтверждения." << endl;
 			flag = false;
 		}
 	}
-	delete& array;
 }
 
-vector <int>& vectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts)
+void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <int>& array)
 {
-	vector <int>& array = *new vector<int>;
 	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
 	{
 		if (vec_of_accounts.at(i).access == 0)
@@ -335,27 +487,12 @@ vector <int>& vectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts)
 			array.push_back(i);
 		}
 	}
-	return array;
 }
-
-
-/*int chooseMenu(string message, int max_of_range)
-{
-	int item;
-	do
-	{
-		cout << message << endl;
-		item = correctInputInt();//место для проверок
-		system("cls");
-	} while (item > max_of_range || item < 0);
-	return item;
-}*/
 
 void addAccount(vector <Account>& vec_of_accounts)
 {
 	Account temp_account;
-	string password;
-	string login;
+	string login, password;
 	while (true)
 	{
 		//system("cls");
@@ -366,14 +503,13 @@ void addAccount(vector <Account>& vec_of_accounts)
 			temp_account.login = login;
 			break;
 		}
-		else {
+		else
+		{
 			system("cls");
 			cout << "\nТакой логин уже существует! Введите другой.";
-			//доделать
 		}
 	}
 	cout << "\nПароль: ";
-	//cin >> password;//проверка на пробелы
 	password = enterStringWithoutSpaces();
 	temp_account.salt = generateSalt(SALT_SIZE);
 	temp_account.salted_hash_password = hashPassword(password, temp_account.salt);
@@ -384,19 +520,6 @@ void addAccount(vector <Account>& vec_of_accounts)
 	vec_of_accounts.push_back(temp_account);
 	system("cls");
 	cout << "Учётная запись создана! Ожидйте подтверждения администратором." << endl;
-	//i++;
-	//} while (i < n + 1);
-	/*ofstream fout(FILE_OF_ACCOUNTS, ios::out);
-	for (int i = 0; i < vec_of_accounts.size(); i++)
-	{
-		fout << vec_of_accounts.at(i).login << " " << vec_of_accounts.at(i).salted_hash_password << " "
-			<< vec_of_accounts.at(i).salt << " " << vec_of_accounts.at(i).role << " " << vec_of_accounts.at(i).access;
-		if (i < vec_of_accounts.size() - 1)
-		{
-			fout << endl;
-		}
-	}
-	fout.close();*/
 }
 
 void showAccounts(vector <Account>& vec_of_accounts)
@@ -408,33 +531,27 @@ void showAccounts(vector <Account>& vec_of_accounts)
 	{
 		cout << i + 1 << "\t|" << vec_of_accounts.at(i).login << "\t|" << vec_of_accounts.at(i).role << "\t|"
 			<< vec_of_accounts.at(i).access << "\t|" << endl;
-		/*if (i < vec_of_accounts.size() - 1)
-		{
-			cout << endl;
-		}*/
 	}
 	cout << SEPARATOR << endl;
 	cout << endl;
-	//cout << endl;
 }
 
-void deleteAccount(vector <Account>& vec_of_accounts)
+/*void deleteAccount(vector <Account>& vec_of_accounts)
 {
 	bool flag = true;
-	int index_for_delete;
+	int index_for_delete, size, answer;
 	while (flag)
 	{
 		cout << "Какой аккаунт вы хотите удалить?" << endl;
 		showAccounts(vec_of_accounts);
 		cout << "Назад - 0" << endl;
-		int size = vec_of_accounts.size();
+		size = vec_of_accounts.size();
 		index_for_delete = enterNumberInRange(0, size);
 		if (index_for_delete != 0)
 		{
 			index_for_delete--;
 			system("cls");
 			cout << "Вы действительно хотите удалить этот аккаунт? \nДа - 1 \nНет - 0" << endl;
-			int answer;
 			answer = enterNumberInRange(0, 1);
 			if (answer == 1)
 			{
@@ -453,7 +570,7 @@ void deleteAccount(vector <Account>& vec_of_accounts)
 			flag = false;
 		}
 	}
-}
+}*/
 
 int enterNumberInRange(int min, int max)
 {
@@ -596,21 +713,58 @@ int correctInputInt()
 	return a;
 }
 
-void updateAccount(vector <Account>& vec_of_accounts)
+void updateAccountAccess(vector <Account>& vec_of_accounts, int index_for_change)
 {
-	int index;
-	string password;
-	cout << "Введите индекс:" << endl;
-	cin >> index;
-	index--;
-	cout << "\nЛогин: ";
-	cin >> vec_of_accounts.at(index).login;
-	cout << "\nПароль: ";
-	cin >> password;
-	vec_of_accounts.at(index).salt = generateSalt(SALT_SIZE);
-	vec_of_accounts.at(index).salted_hash_password = hashPassword(password, vec_of_accounts.at(index).salt);
-	cout << "\nРоль(0 - пользователь, 1 - админ): ";//проверка на корректность
-	cin >> vec_of_accounts.at(index).role;
+	vec_of_accounts.at(index_for_change).access = !vec_of_accounts.at(index_for_change).access;
+}
+
+void deleteAccount(vector <Account>& vec_of_accounts, int index_for_delete)
+{
+	vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
+}
+
+void doSomethingWithAccount(vector <Account>& vec_of_accounts, const string* message, ToFunction function)
+{
+	bool flag = true;
+	int index_for_change, size, answer;
+	while (flag)
+	{
+		//cout << "Какому аккаунту вы хотите изменить доступ?" << endl;
+		cout << message[0] << endl;
+		showAccounts(vec_of_accounts);
+		cout << "Назад - 0" << endl;
+		size = vec_of_accounts.size();
+		index_for_change = enterNumberInRange(0, size);
+		if (index_for_change != 0)
+		{
+			index_for_change--;
+			system("cls");
+			//cout << "Вы действительно хотите изменить доступ этому аккаунту? \nДа - 1 \nНет - 0" << endl;
+			cout << message[1] << "\nДа - 1 \nНет - 0" << endl;
+			answer = enterNumberInRange(0, 1);
+			if (answer == 1)
+			{
+				function(vec_of_accounts, index_for_change);
+				system("cls");
+				//cout << "Изменён успешно!" << endl;
+				cout << message[2] << endl;
+			}
+			else
+			{
+				system("cls");
+				continue;
+			}
+		}
+		else
+		{
+			flag = false;
+		}
+	}
+}
+
+void updateAccountRole(vector <Account>& vec_of_accounts, int index_for_change)
+{
+	vec_of_accounts.at(index_for_change).role = !vec_of_accounts.at(index_for_change).role;
 }
 
 int getCountOfStructures(string file_path)
