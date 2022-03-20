@@ -338,27 +338,11 @@ void changePassword(vector <Account>& vec_of_accounts, int index)
 		password = enterGoodPassword();
 		if (isPasswordEquals(vec_of_accounts, password, index))
 		{
-			bool flag = true;
-			while (flag)
-			{
-				string password2;
-				cout << "\nВведите новый пароль: ";
-				password = enterStringWithoutSpaces();
-				cout << "\nПовторите новый пароль: ";
-				password2 = enterStringWithoutSpaces();
-				if (password == password2)
-				{
-					vec_of_accounts.at(index).salt = generateSalt(SALT_SIZE);
-					vec_of_accounts.at(index).salted_hash_password = hashPassword(password, vec_of_accounts.at(index).salt);
-					cout << "\nПароль изменён успешно!" << endl;
-					flag = false;
-				}
-				else
-				{
-					system("cls");
-					cout << "Поля не совпадают! Повторите попытку." << endl;
-				}
-			}
+			cout << "\nВведите новый пароль: ";
+			password = enterStringWithoutSpaces();
+			vec_of_accounts.at(index).salt = generateSalt(SALT_SIZE);
+			vec_of_accounts.at(index).salted_hash_password = hashPassword(password, vec_of_accounts.at(index).salt);
+			cout << "\nПароль изменён успешно!" << endl;
 			break;
 		}
 		system("cls");
