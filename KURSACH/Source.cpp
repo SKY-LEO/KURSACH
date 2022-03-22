@@ -35,13 +35,18 @@ const int NUMBER_OF_ATTEMPTS = 3;
 
 const string SEPARATOR = "------------------------------------------------";
 
-const string MAIN_MENU_ADMIN = "\n Стипендии - 1\n Работа с учётными записями - 2\n Сменить пароль - 3\n Выход - 0";
+//const string MAIN_MENU_ADMIN = "\n Стипендии - 1\n Работа с учётными записями - 2\n Сменить пароль - 3\n Выход - 0";
+const string MAIN_MENU_ADMIN = "\n1) Стипендии\n2) Работа с учётными записями\n3) Сменить пароль\n0) Выход";
 //const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Запросы на доступ - 5\n Выход - 0";
-const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Запросы на доступ - 4\n Выход - 0";
+//const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Запросы на доступ - 4\n Выход - 0";
+const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Удалить\n2) Изменить доступ\n3) Изменить роль\n4) Запросы на доступ";// Выход - 0";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
-const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Выход - 0";
-const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
-const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
+const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Удалить\n2) Изменить доступ\n3) Изменить роль\n0) Выход";
+//const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Выход - 0";
+//const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
+const string MAIN_MENU_USER = "\n1) Стипендии\n2) Сменить пароль\n0) Выход";
+//const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
+const string START_MENU = "\n1) Войти в существующую учётную запись\n2) Создать новую учётную запись\n0) Завершение работы";
 const int MAX_OF_RANGE_MENU_ADMIN = 4;
 const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 3;
 const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
@@ -138,7 +143,7 @@ int initialisation(vector <Account>& vec_of_accounts)
 	case 2: addAccount(vec_of_accounts);
 		return initialisation(vec_of_accounts);
 	case 0: return -2;
-		//default: return -9;
+	default: return item;
 	}
 }
 
@@ -148,15 +153,7 @@ int enterAccount(vector <Account>& vec_of_accounts)
 	int index;
 	for (int i = 0; i < NUMBER_OF_ATTEMPTS; i++)
 	{
-		cout << "Осталось " << NUMBER_OF_ATTEMPTS - i;
-		if (NUMBER_OF_ATTEMPTS - i != 1)
-		{
-			cout << " попытки." << endl;
-		}
-		else
-		{
-			cout << " попытка." << endl;
-		}
+		cout << "Осталось попыток: " << NUMBER_OF_ATTEMPTS - i << endl;
 		cout << "Введите логин: ";
 		login = enterStringWithoutSpaces();
 		cout << "\nВведите пароль: ";
@@ -172,7 +169,13 @@ int enterAccount(vector <Account>& vec_of_accounts)
 			}
 			return index;//vec_of_accounts.at(index).role;
 		}
-		system("cls");
+		else
+		{
+			system("cls");
+			cout << "Введён неверный логин или пароль! Повторите попытку." << endl;
+			//system("pause");//
+		}
+		//system("cls");
 	}
 	cout << "Доступ запрещён. Завершение работы..." << endl;
 	return -2;
@@ -333,15 +336,7 @@ void changePassword(vector <Account>& vec_of_accounts, int index_of_user)
 	string password;
 	for (int i = 0; i < NUMBER_OF_ATTEMPTS; i++)
 	{
-		cout << "Осталось " << NUMBER_OF_ATTEMPTS - i;
-		if (NUMBER_OF_ATTEMPTS - i != 1)
-		{
-			cout << " попытки." << endl;
-		}
-		else
-		{
-			cout << " попытка." << endl;
-		}
+		cout << "Осталось попыток: " << NUMBER_OF_ATTEMPTS - i << endl;
 		cout << "Введите текущий пароль: ";
 		password = enterGoodPassword();
 		if (isPasswordEquals(vec_of_accounts, password, index_of_user))
@@ -353,7 +348,11 @@ void changePassword(vector <Account>& vec_of_accounts, int index_of_user)
 			cout << "\nПароль изменён успешно!" << endl;
 			break;
 		}
-		system("cls");
+		else
+		{
+			system("cls");
+			cout << "Введён неверный пароль! Повторите попытку." << endl;
+		}
 	}
 }
 
@@ -382,7 +381,7 @@ int checkDataEquals(vector <Account>& vec_of_accounts, string login, string pass
 void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 {
 	bool flag = true, update_access = true;
-	int item;
+	int item, size_of_array;
 	vector <int> array;
 	while (flag)
 	{
@@ -392,14 +391,15 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 			fillVectorOfAccountsNeedAccess(vec_of_accounts, array);
 			update_access = !update_access;
 		}
-		if (array.size() == 0)
+		size_of_array = array.size();
+		if (size_of_array == 0)
 		{
 			cout << ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS << endl;
 			item = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS);
 		}
 		else
 		{
-			cout << ACCOUNT_MENU_ADMIN << endl;
+			cout << ACCOUNT_MENU_ADMIN << "(Новых запросов: " << size_of_array << ")\n0) Выход" << endl;
 			item = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN);
 		}
 		switch (item)
@@ -443,39 +443,40 @@ void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& ar
 	bool flag = true;
 	while (flag)
 	{
-		//if (array.size() != 0)
-		//{
-		int number;
-		cout << "Выберите учётную запись, которую вы хотите подтвердить:" << endl;
-		cout << endl;
-		cout << "№\t|" << "Логин\t|" << "Роль\t|" << endl;
-		cout << SEPARATOR << endl;
-		for (unsigned int i = 0; i < array.size(); i++)
+		if (array.size() != 0)
 		{
-			cout << i + 1 << "\t|" << vec_of_accounts.at(array.at(i)).login << "\t|"
-				<< vec_of_accounts.at(array.at(i)).role << "\t|" << endl;
-		}
-		cout << SEPARATOR << endl;
-		cout << endl;
-		cout << "Назад - 0" << endl;
-		number = enterNumberInRange(0, array.size());
-		if (number != 0)
-		{
-			number--;
-			vec_of_accounts.at(array.at(number)).access = true;
-			array.erase(array.begin() + number);
-			system("cls");
-			cout << "Учётная запись подтверждена." << endl;
+			int number;
+			cout << "Выберите учётную запись, которую вы хотите подтвердить:" << endl;
+			cout << endl;
+			cout << "№\t|" << "Логин\t|" << "Роль\t|" << endl;
+			cout << SEPARATOR << endl;
+			for (unsigned int i = 0; i < array.size(); i++)
+			{
+				cout << i + 1 << "\t|" << vec_of_accounts.at(array.at(i)).login << "\t|"
+					<< vec_of_accounts.at(array.at(i)).role << "\t|" << endl;
+			}
+			cout << SEPARATOR << endl;
+			cout << endl;
+			//cout << "Назад - 0" << endl;
+			cout << " Назад - 0" << endl;
+			number = enterNumberInRange(0, array.size());
+			if (number != 0)
+			{
+				number--;
+				vec_of_accounts.at(array.at(number)).access = true;
+				array.erase(array.begin() + number);
+				system("cls");
+				//cout << "Учётная запись подтверждена." << endl;
+			}
+			else
+			{
+				flag = false;
+			}
 		}
 		else
 		{
 			flag = false;
 		}
-		//}
-		//else
-		//{
-			//flag = false;
-		//}
 	}
 }
 
