@@ -40,17 +40,17 @@ const string SEPARATOR = "------------------------------------------------";
 const string MAIN_MENU_ADMIN = "\n1) Стипендии\n2) Работа с учётными записями\n3) Сменить пароль\n0) Выход";
 //const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Запросы на доступ - 5\n Выход - 0";
 //const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Запросы на доступ - 4\n Выход - 0";
-const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Удалить\n2) Изменить доступ\n3) Изменить роль\n4) Запросы на доступ";// Выход - 0";
+const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Удалить\n2) Изменить доступ\n3) Изменить роль\n4) Создать аккаунт\n5) Запросы на доступ";// Выход - 0";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
-const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Удалить\n2) Изменить доступ\n3) Изменить роль\n0) Выход";
+const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Удалить\n2) Изменить доступ\n3) Изменить роль\n4) Создать аккаунт\n0) Выход";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Выход - 0";
 //const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
 const string MAIN_MENU_USER = "\n1) Стипендии\n2) Сменить пароль\n0) Выход";
 //const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
 const string START_MENU = "\n1) Войти в существующую учётную запись\n2) Создать новую учётную запись\n0) Завершение работы";
 const string MENU_OF_ACCESS = "\n1) Подтвердить доступ\n2) Заблокировать доступ\n0) Назад";
-const int MAX_OF_RANGE_MENU_ADMIN = 4;
-const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 3;
+const int MAX_OF_RANGE_MENU_ADMIN = 5;
+const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 4;
 const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
 const int MAX_OF_RANGE_MAIN_MENU_USER = 2;
 const int MAX_OF_START_MENU = 2;
@@ -85,7 +85,7 @@ void doSomethingWithAccount(vector <Account>& vec_of_accounts, const string* mes
 
 
 void showAccounts(vector <Account>& vec_of_accounts);
-void addAccount(vector <Account>& vec_of_accounts);
+void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin = false);
 void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user);
 //void updateAccount(vector <Account>& vec_of_accounts);
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students);
@@ -168,6 +168,7 @@ int enterAccount(vector <Account>& vec_of_accounts)
 		cout << "\nВведите пароль: ";
 		password = enterGoodPassword();
 		index = checkDataEquals(vec_of_accounts, login, password);
+		system("cls");
 		if (index >= 0)
 		{
 			if (vec_of_accounts.at(index).access == 1)
@@ -176,20 +177,20 @@ int enterAccount(vector <Account>& vec_of_accounts)
 			}
 			else if (vec_of_accounts.at(index).access == 0)
 			{
-				system("cls");
+				//system("cls");
 				cout << "\nВаша учетная запись ещё не подтверждена администратором, доступ запрещён." << endl;
 				return -1;
 			}
 			else//access = -1
 			{
-				system("cls");
+				//system("cls");
 				cout << "\nВаша учетная запись заблокирована, доступ запрещён." << endl;
 				return -2;
 			}
 		}
 		else
 		{
-			system("cls");
+			//system("cls");
 			cout << "Введён неверный логин или пароль! Повторите попытку." << endl;
 			//system("pause");//
 		}
@@ -226,18 +227,19 @@ string enterGoodPassword()
 string enterStringWithoutSpaces()
 {
 	//cout << "Введите любые символы, кроме пробела." << endl;
-	int count = 0;
+	//int count = 0;
 	char symbol;
 	string buffer;
 	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
 	{
 		if (symbol == '\b')//backspace
 		{
-			if (count != 0)
+			//if (count != 0)
+			if(buffer.size()!=0)
 			{
 				cout << '\b' << ' ' << '\b';
 				buffer.erase(buffer.length() - 1);
-				count--;
+				//count--;
 			}
 			continue;
 		}
@@ -245,7 +247,7 @@ string enterStringWithoutSpaces()
 		{
 			continue;
 		}
-		count++;
+		//count++;
 		buffer += symbol;
 		cout << symbol;
 	}
@@ -459,6 +461,11 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 			break;
 		case 4:
 			system("cls");
+			addAccount(vec_of_accounts, true);
+			system("cls");
+			break;
+		case 5:
+			system("cls");
 			//confirmAccessOfAccounts(vec_of_accounts, array);
 			workWithAccessOfAccounts(vec_of_accounts, array);
 			system("cls");
@@ -570,6 +577,7 @@ void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& ar
 		system("pause");
 	}
 }
+
 void rejectAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)
 {
 	int number;
@@ -600,7 +608,7 @@ void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <i
 	}
 }
 
-void addAccount(vector <Account>& vec_of_accounts)
+void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
 {
 	Account temp_account;
 	string login, password;
@@ -627,9 +635,18 @@ void addAccount(vector <Account>& vec_of_accounts)
 	int role;
 	role = enterNumberInRange(0, 1);//cin >> temp_account.role;
 	temp_account.role = role;
+	if (is_from_admin)
+	{
+		temp_account.access = 1;
+		cout << "Учётная запись создана!" << endl;
+		system("pause");
+	}
+	else
+	{
+		system("cls");
+		cout << "Учётная запись создана! Ожидйте подтверждения администратором." << endl;
+	}
 	vec_of_accounts.push_back(temp_account);
-	system("cls");
-	cout << "Учётная запись создана! Ожидйте подтверждения администратором." << endl;
 }
 
 void showAccounts(vector <Account>& vec_of_accounts)
@@ -663,6 +680,8 @@ void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
 			if (answer == 1)
 			{
 				vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
+				cout << "Успешно удалён!" << endl;
+				system("pause");
 			}
 		}
 		else
@@ -672,7 +691,6 @@ void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
 		}
 	}
 }
-
 
 /*void deleteAccount(vector <Account>& vec_of_accounts, int index_for_delete)
 {
