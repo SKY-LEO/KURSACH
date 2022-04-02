@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
+#include <algorithm>
 
 //----hash----
 #include "sha256.h"
@@ -40,21 +41,26 @@ const string SEPARATOR = "------------------------------------------------";
 const string MAIN_MENU_ADMIN = "\n1) Стипендии\n2) Работа с учётными записями\n3) Сменить пароль\n0) Выход";
 //const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Запросы на доступ - 5\n Выход - 0";
 //const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Запросы на доступ - 4\n Выход - 0";
-const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Удалить\n2) Изменить доступ\n3) Изменить роль\n4) Создать аккаунт\n5) Запросы на доступ";// Выход - 0";
+const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";// Выход - 0";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
-const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Удалить\n2) Изменить доступ\n3) Изменить роль\n4) Создать аккаунт\n0) Выход";
+const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n0) Выход";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Выход - 0";
 //const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
 const string MAIN_MENU_USER = "\n1) Стипендии\n2) Сменить пароль\n0) Выход";
 //const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
 const string START_MENU = "\n1) Войти в существующую учётную запись\n2) Создать новую учётную запись\n0) Завершение работы";
 const string MENU_OF_ACCESS = "\n1) Подтвердить доступ\n2) Заблокировать доступ\n0) Назад";
-const int MAX_OF_RANGE_MENU_ADMIN = 5;
-const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 4;
+const string MENU_OF_SORTS_ACCOUNTS = "Сортировать по:\n1) Логину\n2) Роли\n3) Доступу\n0) Назад";
+const string MENU_OF_ASCENDING_DESCENDING = "Упорядочить по:\n1) Возрастанию\n2) Убыванию";
+const string ERROR_MESSAGE = "Ошибка!";
+const int MAX_OF_RANGE_MENU_ADMIN = 6;
+const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 5;
 const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
 const int MAX_OF_RANGE_MAIN_MENU_USER = 2;
 const int MAX_OF_START_MENU = 2;
 const int MAX_OF_RANGE_MENU_ACCESS = 2;
+const int MAX_OF_RANGE_MENU_OF_SORTS_ACCOUNTS = 3;
+const int MAX_OF_RANGE_MENU_OF_ASCENDING_DESCENDING = 2;
 //const string ACCESS[3] = { "Какому аккаунту вы хотите изменить доступ?", "Вы действительно хотите изменить доступ этому аккаунту?", "Изменён успешно!" };
 //const string ROLE[3] = { "Какому аккаунту вы хотите изменить роль?", "Вы действительно хотите изменить роль этому аккаунту?", "Изменена успешно!" };
 //const string DELETE_ACCOUNT[3] = { "Какой аккаунт вы хотите удалить?", "Вы действительно хотите удалить этот аккаунт?", "Удалён успешно!" };
@@ -122,6 +128,15 @@ int IndexOfAccountForChange(vector <Account>& vec_of_accounts);
 void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
 
 void rejectAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
+void sortAccountsBy(vector <Account>& vec_of_accounts, bool (*comparisonFunction)(Account, Account));
+bool mySortByAccessAscending(Account acc_1, Account acc_2);
+bool mySortByAccessDescending(Account acc_1, Account acc_2);
+bool mySortByRoleAscending(Account acc_1, Account acc_2);
+bool mySortByRoleDescending(Account acc_1, Account acc_2);
+bool mySortByLoginAscending(Account acc_1, Account acc_2);
+bool mySortByLoginDescending(Account acc_1, Account acc_2);
+void sortAccounts(vector <Account>& vec_of_accounts);
+bool isAscending();
 
 int main()
 {
@@ -148,11 +163,15 @@ int initialisation(vector <Account>& vec_of_accounts)
 	system("cls");
 	switch (item)
 	{
-	case 1: return enterAccount(vec_of_accounts);
-	case 2: addAccount(vec_of_accounts);
+	case 1: 
+		return enterAccount(vec_of_accounts);
+	case 2: 
+		addAccount(vec_of_accounts);
 		return initialisation(vec_of_accounts);
-	case 0: return -2;
-	default: return item;
+	case 0: 
+		return -2; 
+	default: cout << ERROR_MESSAGE << endl;
+		return item;
 	}
 }
 
@@ -173,28 +192,23 @@ int enterAccount(vector <Account>& vec_of_accounts)
 		{
 			if (vec_of_accounts.at(index).access == 1)
 			{
-				return index;//vec_of_accounts.at(index).role;
+				return index;
 			}
 			else if (vec_of_accounts.at(index).access == 0)
 			{
-				//system("cls");
 				cout << "\nВаша учетная запись ещё не подтверждена администратором, доступ запрещён." << endl;
 				return -1;
 			}
-			else//access = -1
+			else
 			{
-				//system("cls");
 				cout << "\nВаша учетная запись заблокирована, доступ запрещён." << endl;
 				return -2;
 			}
 		}
 		else
 		{
-			//system("cls");
 			cout << "Введён неверный логин или пароль! Повторите попытку." << endl;
-			//system("pause");//
 		}
-		//system("cls");
 	}
 	cout << "Доступ запрещён. Завершение работы..." << endl;
 	return -2;
@@ -226,20 +240,16 @@ string enterGoodPassword()
 
 string enterStringWithoutSpaces()
 {
-	//cout << "Введите любые символы, кроме пробела." << endl;
-	//int count = 0;
 	char symbol;
 	string buffer;
 	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
 	{
 		if (symbol == '\b')//backspace
 		{
-			//if (count != 0)
-			if(buffer.size()!=0)
+			if (buffer.size() != 0)
 			{
 				cout << '\b' << ' ' << '\b';
 				buffer.erase(buffer.length() - 1);
-				//count--;
 			}
 			continue;
 		}
@@ -247,7 +257,6 @@ string enterStringWithoutSpaces()
 		{
 			continue;
 		}
-		//count++;
 		buffer += symbol;
 		cout << symbol;
 	}
@@ -288,10 +297,12 @@ void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 		}
 		switch (code)
 		{
-		case 0: system("cls");
+		case 0: 
+			system("cls");
 			user(vec_of_accounts, vec_of_students, index_of_user);
 			break;
-		case 1: system("cls");
+		case 1:
+			system("cls");
 			admin(vec_of_accounts, vec_of_students, index_of_user);
 			break;
 		case -1:
@@ -311,14 +322,18 @@ int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, i
 		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_USER);//chooseMenu(message, max_of_range);
 		switch (item)
 		{
-		case 1:system("cls");
+		case 1:
+			system("cls");
 			workWithStudents(vec_of_students);
 			break;
-		case 2:system("cls");
+		case 2:
+			system("cls");
 			changePassword(vec_of_accounts, index_of_user);
 			break;
-		case 0: flag = false;
+		case 0:
+			flag = false;
 			break;
+		default: cout << ERROR_MESSAGE << endl;
 		}
 	}
 	system("cls");
@@ -334,17 +349,22 @@ int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, 
 		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_ADMIN);
 		switch (item)
 		{
-		case 1: system("cls");
+		case 1: 
+			system("cls");
 			workWithStudents(vec_of_students);
 			break;
-		case 2: system("cls");
+		case 2:
+			system("cls");
 			workWithAccounts(vec_of_accounts, index_of_user);
 			break;
-		case 3: system("cls");
+		case 3: 
+			system("cls");
 			changePassword(vec_of_accounts, index_of_user);
 			break;
-		case 0: flag = false;
+		case 0: 
+			flag = false;
 			break;
+		default: cout << ERROR_MESSAGE << endl;
 		}
 	}
 	system("cls");
@@ -427,51 +447,38 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 		}
 		switch (item)
 		{
-			//case 1:system("cls");
-				//showAccounts(vec_of_accounts);
-				//break;
 		case 1:
-			deleteAccount(vec_of_accounts, index_of_user);
-			/*cout << "Какой аккаунт вы хотите удалить?\n Отмена - 0" << endl;
-			int index_for_delete = IndexOfAccountForChange(vec_of_accounts);
-			if (index_for_delete != 0)
-			{
-
-
-				if (isChangebable(index_for_delete, index_of_user))
-				{
-					deleteAccount(vec_of_accounts, index_for_delete);
-				}
-				else
-				{
-					cout << "Нельзя удалить самого себя!" << endl;
-				}
-			}*/
+			system("cls");
+			sortAccounts(vec_of_accounts);
 			update_access = true;
 			system("cls");
 			break;
 		case 2:
-			updateAccountAccess(vec_of_accounts, index_of_user);
-			//update_access = true;
+			deleteAccount(vec_of_accounts, index_of_user);
+			update_access = true;
 			system("cls");
 			break;
 		case 3:
-			updateAccountRole(vec_of_accounts, index_of_user);
+			updateAccountAccess(vec_of_accounts, index_of_user);
 			system("cls");
 			break;
 		case 4:
-			system("cls");
-			addAccount(vec_of_accounts, true);
+			updateAccountRole(vec_of_accounts, index_of_user);
 			system("cls");
 			break;
 		case 5:
 			system("cls");
-			//confirmAccessOfAccounts(vec_of_accounts, array);
+			addAccount(vec_of_accounts, true);
+			system("cls");
+			break;
+		case 6:
+			system("cls");
 			workWithAccessOfAccounts(vec_of_accounts, array);
 			system("cls");
 			break;
 		case 0: flag = false;
 			break;
+		default: cout << ERROR_MESSAGE << endl;
 		}
 	}
 	system("cls");
@@ -480,6 +487,50 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 void workWithStudents(vector <Student>& vec_of_students)
 {
 
+}
+
+void sortAccounts(vector <Account>& vec_of_accounts)
+{
+	int number;
+	bool is_ascending;
+	cout << MENU_OF_SORTS_ACCOUNTS << endl;
+	number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SORTS_ACCOUNTS);
+	is_ascending = isAscending();
+	switch (number)
+	{
+	case 1:
+		if (is_ascending)sortAccountsBy(vec_of_accounts, mySortByLoginAscending);
+		else sortAccountsBy(vec_of_accounts, mySortByLoginDescending);
+		break;
+	case 2:
+		if (is_ascending)sortAccountsBy(vec_of_accounts, mySortByRoleAscending);
+		else sortAccountsBy(vec_of_accounts, mySortByRoleDescending);
+		break;
+	case 3:
+		if (is_ascending)sortAccountsBy(vec_of_accounts, mySortByAccessAscending);
+		else sortAccountsBy(vec_of_accounts, mySortByAccessDescending);
+		break;
+	case 0:
+		break;
+	default: cout << ERROR_MESSAGE << endl;
+	}
+}
+
+bool isAscending()
+{
+	int number;
+	cout << MENU_OF_ASCENDING_DESCENDING << endl;
+	number = enterNumberInRange(1, MAX_OF_RANGE_MENU_OF_ASCENDING_DESCENDING);
+	switch (number)
+	{
+	case 1: 
+		return true;
+	case 2:
+		return false;
+	default: 
+		cout << ERROR_MESSAGE << endl;
+		return false;
+	}
 }
 
 void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)
@@ -500,17 +551,22 @@ void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& a
 			}
 			cout << SEPARATOR << endl;
 			cout << MENU_OF_ACCESS << endl;
-			//cout << " Назад - 0" << endl;
 			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_ACCESS);
 			switch (number)
 			{
-			case 1: confirmAccessOfAccounts(vec_of_accounts, array);
+			case 1: 
+				confirmAccessOfAccounts(vec_of_accounts, array);
 				system("cls");
 				break;
-			case 2: rejectAccessOfAccounts(vec_of_accounts, array);
+			case 2: 
+				rejectAccessOfAccounts(vec_of_accounts, array);
 				system("cls");
 				break;
-			default: flag = false;
+			case 0: 
+				flag = false;
+				break;
+			default: 
+				cout << ERROR_MESSAGE << endl;
 			}
 		}
 		else
@@ -522,46 +578,6 @@ void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& a
 
 void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)
 {
-	/*bool flag = true;
-	int number;
-	while (flag)
-	{
-		if (array.size() != 0)
-		{
-			cout << "Выберите учётную запись, которую вы хотите подтвердить:" << endl;
-			cout << endl;
-			cout << "№\t|" << "Логин\t|" << "Роль\t|" << endl;
-			cout << SEPARATOR << endl;
-			for (unsigned int i = 0; i < array.size(); i++)
-			{
-				cout << i + 1 << "\t|" << vec_of_accounts.at(array.at(i)).login << "\t|"
-					<< vec_of_accounts.at(array.at(i)).role << "\t|" << endl;
-			}
-			cout << SEPARATOR << endl;
-			cout << endl;
-			//cout << "1)Подтвердить доступ\n2)Удалить учётную запись\n0) Назад" << endl;
-			cout << " Назад - 0" << endl;
-			number = enterNumberInRange(0, array.size());
-			if (number != 0)
-			{
-				number--;
-				//vec_of_accounts.at(array.at(number)).access = true;
-				vec_of_accounts.at(array.at(number)).access = 1;
-				array.erase(array.begin() + number);
-				system("cls");
-				cout << "Учётная запись подтверждена." << endl;
-				system("pause");
-			}
-			else
-			{
-				flag = false;
-			}
-		}
-		else
-		{
-			flag = false;
-		}
-	}*/
 	int number;
 	cout << "Выберите учётную запись, которую вы хотите подтвердить:" << endl;
 	cout << " Назад - 0" << endl;
@@ -569,7 +585,6 @@ void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& ar
 	if (number != 0)
 	{
 		number--;
-		//vec_of_accounts.at(array.at(number)).access = true;
 		vec_of_accounts.at(array.at(number)).access = 1;
 		array.erase(array.begin() + number);
 		system("cls");
@@ -587,7 +602,6 @@ void rejectAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& arr
 	if (number != 0)
 	{
 		number--;
-		//vec_of_accounts.at(array.at(number)).access = true;
 		vec_of_accounts.at(array.at(number)).access = -1;
 		array.erase(array.begin() + number);
 		system("cls");
@@ -615,7 +629,7 @@ void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
 	while (true)
 	{
 		cout << "\nЛогин: ";
-		login = enterStringWithoutSpaces();//проверка на пробелы
+		login = enterStringWithoutSpaces();
 		if (isGoodLogin(vec_of_accounts, login))
 		{
 			temp_account.login = login;
@@ -665,7 +679,6 @@ void showAccounts(vector <Account>& vec_of_accounts)
 
 void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
 {
-	//int size,
 	int answer, index_for_delete;
 	cout << "Какой аккаунт вы хотите удалить?\n Отмена - 0" << endl;
 	index_for_delete = IndexOfAccountForChange(vec_of_accounts);
@@ -675,7 +688,7 @@ void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
 		if (index_for_delete != index_of_user)
 		{
 			system("cls");
-			cout << "Вы действительно хотите удалить этот аккаунт? \nДа - 1 \nНет - 0" << endl;
+			cout << "Вы действительно хотите удалить аккаунт " << vec_of_accounts.at(index_for_delete).login << "? \nДа - 1 \nНет - 0" << endl;
 			answer = enterNumberInRange(0, 1);
 			if (answer == 1)
 			{
@@ -691,19 +704,6 @@ void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
 		}
 	}
 }
-
-/*void deleteAccount(vector <Account>& vec_of_accounts, int index_for_delete)
-{
-	int answer;
-	index_for_delete--;
-	system("cls");
-	cout << "Вы действительно хотите удалить этот аккаунт? \nДа - 1 \nНет - 0" << endl;
-	answer = enterNumberInRange(0, 1);
-	if (answer == 1)
-	{
-		vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
-	}
-}*/
 
 int enterNumberInRange(int min, int max)
 {
@@ -861,7 +861,6 @@ void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user)
 		index_for_change--;
 		if (index_for_change != index_of_user)
 		{
-			//vec_of_accounts.at(index_for_change).access = !vec_of_accounts.at(index_for_change).access;
 			if (vec_of_accounts.at(index_for_change).access == 1)
 			{
 				vec_of_accounts.at(index_for_change).access = -1;
@@ -878,11 +877,6 @@ void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user)
 		}
 	}
 }
-
-//bool isChangebable(int index_for_change, int index_of_user)
-//{
-	//return index_for_change - 1 != index_of_user;
-//}
 
 void updateAccountRole(vector <Account>& vec_of_accounts, int index_of_user)
 {
@@ -916,4 +910,39 @@ int getCountOfStructures(string file_path)
 	}
 	file.close();
 	return number_of_strings;
+}
+
+void sortAccountsBy(vector <Account>& vec_of_accounts, bool (*comparisonFunction)(Account, Account))
+{
+	sort(vec_of_accounts.begin(), vec_of_accounts.end(), comparisonFunction);
+}
+
+bool mySortByAccessAscending(Account acc_1, Account acc_2)
+{
+	return acc_1.access < acc_2.access;
+}
+
+bool mySortByAccessDescending(Account acc_1, Account acc_2)
+{
+	return acc_1.access > acc_2.access;
+}
+
+bool mySortByRoleAscending(Account acc_1, Account acc_2)
+{
+	return acc_1.role < acc_2.role;
+}
+
+bool mySortByRoleDescending(Account acc_1, Account acc_2)
+{
+	return acc_1.role > acc_2.role;
+}
+
+bool mySortByLoginAscending(Account acc_1, Account acc_2)
+{
+	return acc_1.login < acc_2.login;
+}
+
+bool mySortByLoginDescending(Account acc_1, Account acc_2)
+{
+	return acc_1.login > acc_2.login;
 }
