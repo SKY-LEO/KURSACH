@@ -478,6 +478,7 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 	vector <int> array;
 	while (flag)
 	{
+		system("cls");
 		showAccounts(vec_of_accounts);
 		if (update_access)//если удален аккаунт без доступа к системе или изменён доступ, то надо обновить массив аккаунтов, требующих подтверждения
 		{
@@ -501,30 +502,24 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 			system("cls");
 			sortAccounts(vec_of_accounts);
 			update_access = true;
-			system("cls");
 			break;
 		case 2:
 			deleteAccount(vec_of_accounts, index_of_user);
 			update_access = true;
-			system("cls");
 			break;
 		case 3:
 			updateAccountAccess(vec_of_accounts, index_of_user);
-			system("cls");
 			break;
 		case 4:
 			updateAccountRole(vec_of_accounts, index_of_user);
-			system("cls");
 			break;
 		case 5:
 			system("cls");
 			addAccount(vec_of_accounts, true);
-			system("cls");
 			break;
 		case 6:
 			system("cls");
 			workWithAccessOfAccounts(vec_of_accounts, array);
-			system("cls");
 			break;
 		case 0: flag = false;
 			break;
@@ -1027,7 +1022,8 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 		{
 			while (!fin.eof())
 			{
-				getline(fin, temp_student.FIO, '\0');
+				getline(fin,temp_student.FIO, '\0');
+				temp_student.FIO += '\0';
 				fin >> temp_student.num_of_group
 					>> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
 					>> temp_student.offset.history >> temp_student.offset.phys_culture
