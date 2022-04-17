@@ -43,16 +43,27 @@ const string MAIN_MENU_ADMIN = "\n1) Стипендии\n2) Работа с учётными записями\n3
 //const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Запросы на доступ - 4\n Выход - 0";
 const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";// Выход - 0";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
-const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n0) Выход";
+const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n0) Назад";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Выход - 0";
 //const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
 const string MAIN_MENU_USER = "\n1) Стипендии\n2) Сменить пароль\n0) Выход";
 //const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
 const string START_MENU = "\n1) Войти в существующую учётную запись\n2) Создать новую учётную запись\n0) Завершение работы";
+const string STUDENT_MENU_ADMIN = "\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n4) Добавить студента\n5) Редактировать данные\n6) Удалить студента\n0) Назад";
+const string STUDENT_MENU_USER = "\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n0) Назад";
 const string MENU_OF_ACCESS = "\n1) Подтвердить доступ\n2) Заблокировать доступ\n0) Назад";
 const string MENU_OF_SORTS_ACCOUNTS = "Сортировать по:\n1) Логину\n2) Роли\n3) Доступу\n0) Назад";
 const string MENU_OF_ASCENDING_DESCENDING = "Упорядочить по:\n1) Возрастанию\n2) Убыванию";
 const string ERROR_MESSAGE = "Ошибка!";
+const string OAIP = "ОАиП";
+const string MATH = "МА";
+const string ENGLISH = "ИнЯз";
+const string PHYSICS = "Физика";
+const string OOPIP = "ООПиП";
+const string DISCRETE_MATH = "ДМ";
+const string INAD = "ИнАД";
+const string HISTORY = "Ист";
+const string PHYS_CULTURE = "ФизК";
 const int MAX_OF_RANGE_MENU_ADMIN = 6;
 const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 5;
 const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
@@ -61,6 +72,13 @@ const int MAX_OF_START_MENU = 2;
 const int MAX_OF_RANGE_MENU_ACCESS = 2;
 const int MAX_OF_RANGE_MENU_OF_SORTS_ACCOUNTS = 3;
 const int MAX_OF_RANGE_MENU_OF_ASCENDING_DESCENDING = 2;
+const int MAX_OF_STUDENT_MENU_ADMIN = 6;
+const int MAX_OF_STUDENT_MENU_USER = 3;
+const int MIN_EXAM = 4;
+const int MAX_EXAM = 10;
+const int MIN_OFFSET = 0;
+const int MAX_OFFSET = 1;
+
 //const string ACCESS[3] = { "Какому аккаунту вы хотите изменить доступ?", "Вы действительно хотите изменить доступ этому аккаунту?", "Изменён успешно!" };
 //const string ROLE[3] = { "Какому аккаунту вы хотите изменить роль?", "Вы действительно хотите изменить роль этому аккаунту?", "Изменена успешно!" };
 //const string DELETE_ACCOUNT[3] = { "Какой аккаунт вы хотите удалить?", "Вы действительно хотите удалить этот аккаунт?", "Удалён успешно!" };
@@ -76,12 +94,33 @@ struct Account
 	int access = 0;
 };
 
+struct Offsets
+{
+	bool oopip;
+	bool discrete_math;
+	bool inad;
+	bool history;
+	bool phys_culture;
+};
+
+struct Exams
+{
+	int oaip;
+	int math;
+	int english;
+	int physics;
+};
+
 struct Student
 {
-	string login;
-	string password;
-	bool role = false;
+	string FIO;
+	string num_of_group;
+	Offsets offset;
+	Exams exam;
+	bool is_budget_student;
+	bool is_social_work;
 };
+
 
 /*typedef void(*ToFunction)(vector <Account>& vec_of_accounts, int index_for_change);
 void updateAccountAccess(vector <Account>& vec_of_accounts, int index_for_change);
@@ -115,7 +154,7 @@ int enterNumberInRange(int min, int max);
 void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
 int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index_of_user);
 int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index_of_user);
-void workWithStudents(vector <Student>& vec_of_students);
+void workWithStudents(vector <Student>& vec_of_students, bool is_admin);
 void changePassword(vector <Account>& vec_of_accounts, int index_of_user);
 void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user);
 bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user);
@@ -137,6 +176,20 @@ bool mySortByLoginAscending(Account acc_1, Account acc_2);
 bool mySortByLoginDescending(Account acc_1, Account acc_2);
 void sortAccounts(vector <Account>& vec_of_accounts);
 bool isAscending();
+
+void showStudents(vector <Student>& vec_of_students);
+void calculateStipends(vector <Student>& vec_of_students);
+void sortStudents(vector <Student>& vec_of_students);
+void searchStudents(vector <Student>& vec_of_students);
+void addStudent(vector <Student>& vec_of_students);
+void editStudent(vector <Student>& vec_of_students);
+void deleteStudent(vector <Student>& vec_of_students);
+int IndexOfStudentForChange(vector <Student>& vec_of_students);
+bool isGoodFio(vector <Student>& vec_of_students, string fio);
+string enterStringWithoutNumbers();
+void setOffsets(Student& temp_student);
+void setExams(Student& temp_student);
+int rateStudent(int min_range, int max_of_range, string subject);
 
 int main()
 {
@@ -163,13 +216,13 @@ int initialisation(vector <Account>& vec_of_accounts)
 	system("cls");
 	switch (item)
 	{
-	case 1: 
+	case 1:
 		return enterAccount(vec_of_accounts);
-	case 2: 
+	case 2:
 		addAccount(vec_of_accounts);
 		return initialisation(vec_of_accounts);
-	case 0: 
-		return -2; 
+	case 0:
+		return -2;
 	default: cout << ERROR_MESSAGE << endl;
 		return item;
 	}
@@ -216,22 +269,19 @@ int enterAccount(vector <Account>& vec_of_accounts)
 
 string enterGoodPassword()
 {
-	int count = 0;
 	char symbol;
 	string password;
 	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
 	{
 		if (symbol == '\b')//backspace
 		{
-			if (count != 0)
+			if (!password.empty())
 			{
 				cout << '\b' << ' ' << '\b';
 				password.erase(password.length() - 1);
-				count--;
 			}
 			continue;
 		}
-		count++;
 		password += symbol;
 		cout << '*';
 	}
@@ -246,9 +296,9 @@ string enterStringWithoutSpaces()
 	{
 		if (symbol == '\b')//backspace
 		{
-			if (buffer.size() != 0)
+			if (!buffer.empty())
 			{
-				cout << '\b' << ' ' << '\b';
+				cout << "\b \b";
 				buffer.erase(buffer.length() - 1);
 			}
 			continue;
@@ -297,7 +347,7 @@ void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 		}
 		switch (code)
 		{
-		case 0: 
+		case 0:
 			system("cls");
 			user(vec_of_accounts, vec_of_students, index_of_user);
 			break;
@@ -324,7 +374,7 @@ int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, i
 		{
 		case 1:
 			system("cls");
-			workWithStudents(vec_of_students);
+			workWithStudents(vec_of_students, false);
 			break;
 		case 2:
 			system("cls");
@@ -349,19 +399,19 @@ int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, 
 		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_ADMIN);
 		switch (item)
 		{
-		case 1: 
+		case 1:
 			system("cls");
-			workWithStudents(vec_of_students);
+			workWithStudents(vec_of_students, true);
 			break;
 		case 2:
 			system("cls");
 			workWithAccounts(vec_of_accounts, index_of_user);
 			break;
-		case 3: 
+		case 3:
 			system("cls");
 			changePassword(vec_of_accounts, index_of_user);
 			break;
-		case 0: 
+		case 0:
 			flag = false;
 			break;
 		default: cout << ERROR_MESSAGE << endl;
@@ -442,7 +492,7 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 		}
 		else
 		{
-			cout << ACCOUNT_MENU_ADMIN << "(Новых запросов: " << size_of_array << ")\n0) Выход" << endl;
+			cout << ACCOUNT_MENU_ADMIN << "(Новых запросов: " << size_of_array << ")\n0) Назад" << endl;
 			item = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN);
 		}
 		switch (item)
@@ -484,9 +534,206 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int index_of_user)
 	system("cls");
 }
 
-void workWithStudents(vector <Student>& vec_of_students)
+void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 {
+	//cout << "Здравствуйте, гость! Пожалуйста, выберите пункт меню:" << endl;
+	int item;
+	bool flag = true;
+	while (flag)
+	{
+		system("cls");
+		showStudents(vec_of_students);
+		if (is_admin)
+		{
+			cout << STUDENT_MENU_ADMIN << endl;
+			item = enterNumberInRange(0, MAX_OF_STUDENT_MENU_ADMIN);
+		}
+		else
+		{
+			cout << STUDENT_MENU_USER << endl;
+			item = enterNumberInRange(0, MAX_OF_STUDENT_MENU_USER);
+		}
+		switch (item)
+		{
+		case 1:
+			calculateStipends(vec_of_students);
+			break;
+		case 2:
+			sortStudents(vec_of_students);
+			break;
+		case 3:
+			searchStudents(vec_of_students);
+			break;
+		case 4:
+			system("cls");
+			addStudent(vec_of_students);
+			break;
+		case 5:
+			editStudent(vec_of_students);
+			break;
+		case 6:
+			deleteStudent(vec_of_students);
+			break;
+		case 0:
+			flag = false;
+			break;
+		default: cout << ERROR_MESSAGE << endl;
+		}
+	}
+	system("cls");
+}
 
+void showStudents(vector <Student>& vec_of_students)
+{
+	cout << endl;
+	cout << "№\t|" << "ФИО\t|" << "№ группы\t|" << "ООПиП\t|" << "ДМ\t|" << "ИнАД\t|" << "Ист\t|" << "ФизК\t|"
+		<< "ОАиП\t|" << "МА\t|" << "ИнЯз\t|" << "Физика\t|" << "Бюджет\t|" << "Активность\t|" << endl;
+	cout << SEPARATOR << endl;
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		cout << i + 1 << "\t|" << vec_of_students.at(i).FIO << "\t|" << vec_of_students.at(i).num_of_group
+			<< "\t|" << vec_of_students.at(i).offset.oopip << "\t|" << vec_of_students.at(i).offset.discrete_math
+			<< "\t|" << vec_of_students.at(i).offset.inad << "\t|" << vec_of_students.at(i).offset.history
+			<< "\t|" << vec_of_students.at(i).offset.phys_culture
+			<< "\t|" << vec_of_students.at(i).exam.oaip << "\t|" << vec_of_students.at(i).exam.math
+			<< "\t|" << vec_of_students.at(i).exam.english << "\t|" << vec_of_students.at(i).exam.physics
+			<< "\t|" << vec_of_students.at(i).is_budget_student << "\t|" << vec_of_students.at(i).is_social_work << endl;
+	}
+	cout << SEPARATOR << endl;
+	cout << endl;
+}
+
+void calculateStipends(vector <Student>& vec_of_students) {}
+
+void sortStudents(vector <Student>& vec_of_students) {}
+
+void searchStudents(vector <Student>& vec_of_students) {}
+
+void addStudent(vector <Student>& vec_of_students)
+{
+	Student temp_student;
+	string fio;
+	while (true)
+	{
+		cout << "\nФИО: ";
+		fio = enterStringWithoutNumbers();
+		if (isGoodFio(vec_of_students, fio))
+		{
+			temp_student.FIO = fio;
+			break;
+		}
+		else
+		{
+			system("cls");
+			cout << "\nСтудент с таким ФИО уже существует! Введите другое.";
+		}
+	}
+	cout << "\nНомер группы: ";
+	temp_student.num_of_group = enterStringWithoutSpaces();
+	setOffsets(temp_student);
+	setExams(temp_student);
+	cout << "\nФорма обучения (Платная - 0, Бюджетная - 1): ";
+	temp_student.is_budget_student = enterNumberInRange(0, 1);
+	cout << "\nУчастие в общественной работе (Неактивное - 0, Активное - 1): ";
+	temp_student.is_social_work = enterNumberInRange(0, 1);
+	vec_of_students.push_back(temp_student);
+}
+
+bool isGoodFio(vector <Student>& vec_of_students, string fio)
+{
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		if (fio == vec_of_students.at(i).FIO)
+		{
+			return 0;
+		}
+	}
+	return 1;
+}
+
+string enterStringWithoutNumbers()
+{
+	char symbol;
+	string buffer;
+	while ((symbol = _getch()) != '\r')
+	{
+		if (symbol == '\b')
+		{
+			if (!buffer.empty())
+			{
+				cout << "\b \b";
+				buffer.erase(buffer.size() - 1);
+			}
+			continue;
+		}
+		if (!((symbol >= 'а' && symbol <= 'я') || (symbol >= 'А' && symbol <= 'Я') || symbol == ' ' || symbol == '.'))
+		{
+			continue;
+		}
+		else if ((!buffer.empty() && symbol == ' ' && buffer.at(buffer.size() - 1) == ' ') || (buffer.empty() && symbol == ' '))
+		{
+			continue;
+		}
+		buffer += symbol;
+		cout << symbol;
+	}
+	buffer += '\0';
+	return buffer;
+}
+
+void setOffsets(Student& temp_student)
+{
+	cout << "\nЗачеты (Не зачтено - " << MIN_OFFSET << ", Зачтено - " << MAX_OFFSET << ")" << endl;
+	temp_student.offset.oopip = rateStudent(MIN_OFFSET, MAX_OFFSET, OOPIP);
+	temp_student.offset.discrete_math = rateStudent(MIN_OFFSET, MAX_OFFSET, DISCRETE_MATH);
+	temp_student.offset.inad = rateStudent(MIN_OFFSET, MAX_OFFSET, INAD);
+	temp_student.offset.history = rateStudent(MIN_OFFSET, MAX_OFFSET, HISTORY);
+	temp_student.offset.phys_culture = rateStudent(MIN_OFFSET, MAX_OFFSET, PHYS_CULTURE);
+}
+
+void setExams(Student& temp_student)
+{
+	cout << "\nЭкзамены (Минимальная оценка - " << MIN_EXAM << ", Максимальная оценка - " << MAX_EXAM << ")" << endl;
+	temp_student.exam.oaip = rateStudent(MIN_EXAM, MAX_EXAM, OAIP);
+	temp_student.exam.math = rateStudent(MIN_EXAM, MAX_EXAM, MATH);
+	temp_student.exam.english = rateStudent(MIN_EXAM, MAX_EXAM, ENGLISH);
+	temp_student.exam.physics = rateStudent(MIN_EXAM, MAX_EXAM, PHYSICS);
+}
+
+int rateStudent(int min_range, int max_of_range, string subject)
+{
+	cout << subject << ": ";
+	return enterNumberInRange(min_range, max_of_range);
+}
+
+void editStudent(vector <Student>& vec_of_students) {}
+
+void deleteStudent(vector <Student>& vec_of_students)
+{
+	int answer, index_for_delete;
+	cout << "Какого студента вы хотите удалить?\n Отмена - 0" << endl;
+	index_for_delete = IndexOfStudentForChange(vec_of_students);
+	if (index_for_delete != 0)
+	{
+		index_for_delete--;
+
+		system("cls");
+		cout << "Вы действительно хотите удалить студента " << vec_of_students.at(index_for_delete).FIO << "? \nДа - 1 \nНет - 0" << endl;
+		answer = enterNumberInRange(0, 1);
+		if (answer == 1)
+		{
+			vec_of_students.erase(vec_of_students.begin() + index_for_delete);
+			cout << "Успешно удалён!" << endl;
+			system("pause");
+		}
+	}
+}
+
+int IndexOfStudentForChange(vector <Student>& vec_of_students)
+{
+	int size;
+	size = vec_of_students.size();
+	return enterNumberInRange(0, size);
 }
 
 void sortAccounts(vector <Account>& vec_of_accounts)
@@ -523,11 +770,11 @@ bool isAscending()
 	number = enterNumberInRange(1, MAX_OF_RANGE_MENU_OF_ASCENDING_DESCENDING);
 	switch (number)
 	{
-	case 1: 
+	case 1:
 		return true;
 	case 2:
 		return false;
-	default: 
+	default:
 		cout << ERROR_MESSAGE << endl;
 		return false;
 	}
@@ -554,18 +801,18 @@ void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& a
 			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_ACCESS);
 			switch (number)
 			{
-			case 1: 
+			case 1:
 				confirmAccessOfAccounts(vec_of_accounts, array);
 				system("cls");
 				break;
-			case 2: 
+			case 2:
 				rejectAccessOfAccounts(vec_of_accounts, array);
 				system("cls");
 				break;
-			case 0: 
+			case 0:
 				flag = false;
 				break;
-			default: 
+			default:
 				cout << ERROR_MESSAGE << endl;
 			}
 		}
@@ -773,11 +1020,6 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 	if (!fin.is_open())
 	{
 		cout << "Файла со студентами не существует! Создан новый." << endl;
-		temp_student.login = ADMIN_LOGIN;
-		temp_student.password = ADMIN_PASSWORD;
-		temp_student.role = ADMIN_ROLE;
-		vec_of_students.push_back(temp_student);
-		writeFileOfStudents(vec_of_students);
 	}
 	else
 	{
@@ -785,7 +1027,12 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 		{
 			while (!fin.eof())
 			{
-				fin >> temp_student.login >> temp_student.password >> temp_student.role;
+				getline(fin, temp_student.FIO, '\0');
+				fin >> temp_student.num_of_group
+					>> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
+					>> temp_student.offset.history >> temp_student.offset.phys_culture
+					>> temp_student.exam.oaip >> temp_student.exam.math >> temp_student.exam.english >> temp_student.exam.physics
+					>> temp_student.is_budget_student >> temp_student.is_social_work;
 				vec_of_students.push_back(temp_student);
 			}
 		}
@@ -817,7 +1064,13 @@ void writeFileOfStudents(vector <Student>& vec_of_students)
 	ofstream fout(FILE_OF_STUDENTS, ios::out);
 	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
-		fout << vec_of_students.at(i).login << " " << vec_of_students.at(i).password << " " << vec_of_students.at(i).role;
+		fout << vec_of_students.at(i).FIO << " " << vec_of_students.at(i).num_of_group
+			<< " " << vec_of_students.at(i).offset.oopip << " " << vec_of_students.at(i).offset.discrete_math
+			<< " " << vec_of_students.at(i).offset.inad << " " << vec_of_students.at(i).offset.history
+			<< " " << vec_of_students.at(i).offset.phys_culture
+			<< " " << vec_of_students.at(i).exam.oaip << " " << vec_of_students.at(i).exam.math
+			<< " " << vec_of_students.at(i).exam.english << " " << vec_of_students.at(i).exam.physics
+			<< " " << vec_of_students.at(i).is_budget_student << " " << vec_of_students.at(i).is_social_work;
 		if (i < vec_of_students.size() - 1)
 		{
 			fout << endl;
@@ -847,9 +1100,9 @@ int correctInputInt()
 
 int IndexOfAccountForChange(vector <Account>& vec_of_accounts)
 {
-	int index_for_change, size;
+	int size;
 	size = vec_of_accounts.size();
-	return index_for_change = enterNumberInRange(0, size);
+	return enterNumberInRange(0, size);
 }
 
 void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user)
