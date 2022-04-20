@@ -1,11 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <cstring>
-#include <fstream> //Надо ли?
 #include "sha256.h"
 #include <ctime>
-
-
 
 const unsigned int SHA256::sha256_k[64] = //UL = uint32
 { 0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
@@ -149,7 +146,6 @@ std::string generateSalt(int salt_size)
 	return salt;
 }
 
-
 std::string getSymbolsForSalt()
 {
 	std::string symbols;
@@ -165,4 +161,9 @@ std::string getSymbolsForSalt()
 		if (k < 10) symbols.push_back(number++);
 	}
 	return symbols;
+}
+
+std::string hashPassword(std::string password, std::string salt)
+{
+	return sha256(sha256(password + salt) + sha256(password));
 }

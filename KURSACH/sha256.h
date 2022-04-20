@@ -36,6 +36,7 @@ std::string generateSalt(int salt_size); // функция генерации соли
 std::string getSymbolsForSalt(); // функция формирования набора символов
 // вида: aA0bB1cC2dD3eE4fF5gG6hH7iI8jJ9kKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ
 std::string sha256(std::string input);
+std::string hashPassword(std::string password, std::string salt);
 
 #define SHA2_SHFR(x, n)    (x >> n)
 #define SHA2_ROTR(x, n)   ((x >> n) | (x << ((sizeof(x) << 3) - n)))
