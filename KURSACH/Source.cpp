@@ -12,31 +12,31 @@
 #include <Windows.h>
 
 #include <vector>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <conio.h>
-#include <algorithm>
+#include <fstream>//потом убрать
+#include <iostream>//потом убрать
+#include <string>//потом убрать
+#include <conio.h>//потом убрать
+#include <algorithm>//потом убрать
 
 //----hash----
-#include "sha256.h"
+#include "sha256.h"//потом убрать
 //----hash----
 #include "Accounts.h"
-#include "Validations.h"
+#include "Validations.h"//потом убрать
 #include "Menus.h"
 
-using namespace std;
+using namespace std;//потом убрать
 
-const string ADMIN_LOGIN = "ADMIN";
-const string ADMIN_PASSWORD = "BSUIR";
-const bool ADMIN_ROLE = 1;
+//const string ADMIN_LOGIN = "ADMIN";
+//const string ADMIN_PASSWORD = "BSUIR";
+//const bool ADMIN_ROLE = 1;
 //const bool ADMIN_ACCESS = 1;
-const int ADMIN_ACCESS = 1;
+//const int ADMIN_ACCESS = 1;
 
-const string FILE_OF_ACCOUNTS = "accounts.txt";
+//const string FILE_OF_ACCOUNTS = "accounts.txt";
 const string FILE_OF_STUDENTS = "students.txt";
-const int NUMBER_OF_SYMBOLS = 20;
-const int NUMBER_OF_ATTEMPTS = 3;
+//const int NUMBER_OF_SYMBOLS = 20;
+//const int NUMBER_OF_ATTEMPTS = 3;
 
 //const string SEPARATOR = "------------------------------------------------";
 
@@ -140,40 +140,40 @@ void doSomethingWithAccount(vector <Account>& vec_of_accounts, const string* mes
 
 //void updateAccount(vector <Account>& vec_of_accounts);
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students);
-void readFileOfAccounts(vector <Account>& vec_of_accounts);
+//void readFileOfAccounts(vector <Account>& vec_of_accounts);
 void readFileOfStudents(vector <Student>& vec_of_students);
-void writeFileOfAccounts(vector <Account>& vec_of_accounts);
+//void writeFileOfAccounts(vector <Account>& vec_of_accounts);
 void writeFileOfStudents(vector <Student>& vec_of_students);
 int getCountOfStructures(string file_path);
 //int correctInputInt();
 //int menu(vector <Account>& vec_of_accounts, string message, int max_of_range);
 //int chooseMenu(string message, int max_of_range);
 int initialisation(vector <Account>& vec_of_accounts);
-int enterAccount(vector <Account>& vec_of_accounts);
-int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password);
+//int enterAccount(vector <Account>& vec_of_accounts);
+//int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password);
 //string hashPassword(string password, string salt);
-string enterGoodPassword();
+//string enterGoodPassword();
 //string enterStringWithoutSpaces();
 //bool isGoodLogin(vector <Account>& vec_of_accounts, string login);
-void createFirstAccount(vector <Account>& vec_of_accounts);
+//void createFirstAccount(vector <Account>& vec_of_accounts);
 //int enterNumberInRange(int min, int max);
-void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
+//void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
 int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index_of_user);
 int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index_of_user);
 void workWithStudents(vector <Student>& vec_of_students, bool is_admin);
-void changePassword(vector <Account>& vec_of_accounts, int index_of_user);
+//void changePassword(vector <Account>& vec_of_accounts, int index_of_user);
 void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user);
-bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user);
+//bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user);
 bool isLoginEquals(vector <Account>& vec_of_accounts, string login, int index_of_user);
-void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <int>& array);
-void updateAccountRole(vector <Account>& vec_of_accounts, int index_of_user);
-void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user);
-//int IndexOfAccountForChange(vector <Account>& vec_of_accounts);
-int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user);
+//void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <int>& array);
+//void updateAccountRole(vector <Account>& vec_of_accounts, int index_of_user);
+//void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user);
+//int indexOfVectorForChange(vector <Account>& vec_of_accounts);
+//int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user);
 
 void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
 
-void rejectAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
+//void rejectAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
 void sortAccountsBy(vector <Account>& vec_of_accounts, bool (*comparisonFunction)(Account, Account));
 bool mySortByAccessAscending(Account acc_1, Account acc_2);
 bool mySortByAccessDescending(Account acc_1, Account acc_2);
@@ -191,9 +191,9 @@ void searchStudents(vector <Student>& vec_of_students);
 void addStudent(vector <Student>& vec_of_students);
 void editStudent(vector <Student>& vec_of_students);
 void deleteStudent(vector <Student>& vec_of_students);
-int IndexOfStudentForChange(vector <Student>& vec_of_students);
+int indexOfVectorForChange(vector <Student>& vec_of_students);
 bool isGoodFio(vector <Student>& vec_of_students, string fio);
-string enterStringWithoutNumbers();
+//string enterStringWithoutNumbers();
 void setOffsets(Student& temp_student);
 void setExams(Student& temp_student);
 int rateStudent(int min_range, int max_of_range, string subject);
@@ -235,7 +235,7 @@ int initialisation(vector <Account>& vec_of_accounts)
 	}
 }
 
-int enterAccount(vector <Account>& vec_of_accounts)
+/*int enterAccount(vector <Account>& vec_of_accounts)
 {
 	string login, password;
 	int index;
@@ -272,9 +272,9 @@ int enterAccount(vector <Account>& vec_of_accounts)
 	}
 	cout << "Доступ запрещён. Завершение работы..." << endl;
 	return -2;
-}
+}*/
 
-string enterGoodPassword()
+/*string enterGoodPassword()
 {
 	char symbol;
 	string password;
@@ -293,7 +293,7 @@ string enterGoodPassword()
 		cout << '*';
 	}
 	return password;
-}
+}*/
 
 /*string enterStringWithoutSpaces()
 {
@@ -428,7 +428,7 @@ int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, 
 	return 0;
 }
 
-void changePassword(vector <Account>& vec_of_accounts, int index_of_user)
+/*void changePassword(vector <Account>& vec_of_accounts, int index_of_user)
 {
 	string password;
 	for (int i = 0; i < NUMBER_OF_ATTEMPTS; i++)
@@ -454,9 +454,9 @@ void changePassword(vector <Account>& vec_of_accounts, int index_of_user)
 		}
 	}
 	system("cls");
-}
+}*/
 
-bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user)
+/*bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user)
 {
 	return vec_of_accounts.at(index_of_user).salted_hash_password == hashPassword(password, vec_of_accounts.at(index_of_user).salt);
 }
@@ -464,9 +464,9 @@ bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int in
 bool isLoginEquals(vector <Account>& vec_of_accounts, string login, int index_of_user)
 {
 	return vec_of_accounts.at(index_of_user).login == login;
-}
+}*/
 
-int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password)
+/*int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password)
 {
 	for (unsigned int index = 0; index < vec_of_accounts.size(); index++)
 	{
@@ -476,7 +476,7 @@ int checkDataEquals(vector <Account>& vec_of_accounts, string login, string pass
 		}
 	}
 	return -1;
-}
+}*/
 
 void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user)
 {
@@ -538,7 +538,7 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user)
 	system("cls");
 }
 
-int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user)
+/*int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user)
 {
 	for (int i = 0; i < vec_of_accounts.size(); i++)
 	{
@@ -547,7 +547,7 @@ int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user)
 			return i;
 		}
 	}
-}
+}*/
 
 void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 {
@@ -666,7 +666,7 @@ bool isGoodFio(vector <Student>& vec_of_students, string fio)
 	return 1;
 }
 
-string enterStringWithoutNumbers()
+/*string enterStringWithoutNumbers()
 {
 	char symbol;
 	string buffer;
@@ -694,7 +694,7 @@ string enterStringWithoutNumbers()
 	}
 	buffer += '\0';
 	return buffer;
-}
+}*/
 
 void setOffsets(Student& temp_student)
 {
@@ -727,7 +727,7 @@ void deleteStudent(vector <Student>& vec_of_students)
 {
 	int answer, index_for_delete;
 	cout << "Какого студента вы хотите удалить?\n Отмена - 0" << endl;
-	index_for_delete = IndexOfStudentForChange(vec_of_students);
+	index_for_delete = indexOfVectorForChange(vec_of_students);
 	if (index_for_delete != 0)
 	{
 		index_for_delete--;
@@ -744,7 +744,7 @@ void deleteStudent(vector <Student>& vec_of_students)
 	}
 }
 
-int IndexOfStudentForChange(vector <Student>& vec_of_students)
+int indexOfVectorForChange(vector <Student>& vec_of_students)
 {
 	int size;
 	size = vec_of_students.size();
@@ -754,22 +754,20 @@ int IndexOfStudentForChange(vector <Student>& vec_of_students)
 void sortAccounts(vector <Account>& vec_of_accounts)
 {
 	int number;
-	bool is_ascending;
 	cout << MENU_OF_SORTS_ACCOUNTS << endl;
 	number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SORTS_ACCOUNTS);
-	is_ascending = isAscending();
 	switch (number)
 	{
 	case 1:
-		if (is_ascending)sortAccountsBy(vec_of_accounts, mySortByLoginAscending);
+		if (isAscending())sortAccountsBy(vec_of_accounts, mySortByLoginAscending);
 		else sortAccountsBy(vec_of_accounts, mySortByLoginDescending);
 		break;
 	case 2:
-		if (is_ascending)sortAccountsBy(vec_of_accounts, mySortByRoleAscending);
+		if (isAscending())sortAccountsBy(vec_of_accounts, mySortByRoleAscending);
 		else sortAccountsBy(vec_of_accounts, mySortByRoleDescending);
 		break;
 	case 3:
-		if (is_ascending)sortAccountsBy(vec_of_accounts, mySortByAccessAscending);
+		if (isAscending())sortAccountsBy(vec_of_accounts, mySortByAccessAscending);
 		else sortAccountsBy(vec_of_accounts, mySortByAccessDescending);
 		break;
 	case 0:
@@ -837,7 +835,7 @@ void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& a
 		}
 	}
 }
-
+/*
 void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)
 {
 	int number;
@@ -882,7 +880,7 @@ void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <i
 			array.push_back(i);
 		}
 	}
-}
+}*/
 /*
 void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
 {
@@ -943,7 +941,7 @@ void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
 {
 	int answer, index_for_delete;
 	cout << "Какой аккаунт вы хотите удалить?\n Отмена - 0" << endl;
-	index_for_delete = IndexOfAccountForChange(vec_of_accounts);
+	index_for_delete = indexOfVectorForChange(vec_of_accounts);
 	if (index_for_delete != 0)
 	{
 		index_for_delete--;
@@ -985,7 +983,7 @@ void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
 	return number;
 }*/
 
-void createFirstAccount(vector <Account>& vec_of_accounts)
+/*void createFirstAccount(vector <Account>& vec_of_accounts)
 {
 	ifstream fin(FILE_OF_ACCOUNTS, ios::in);
 	Account temp_account;
@@ -997,9 +995,9 @@ void createFirstAccount(vector <Account>& vec_of_accounts)
 	vec_of_accounts.push_back(temp_account);
 	writeFileOfAccounts(vec_of_accounts);
 	fin.close();
-}
+}*/
 
-void readFileOfAccounts(vector <Account>& vec_of_accounts)
+/*void readFileOfAccounts(vector <Account>& vec_of_accounts)
 {
 	ifstream fin(FILE_OF_ACCOUNTS, ios::in);
 	Account temp_account;
@@ -1026,7 +1024,7 @@ void readFileOfAccounts(vector <Account>& vec_of_accounts)
 		}
 	}
 	fin.close();
-}
+}*/
 
 void readFileOfStudents(vector <Student>& vec_of_students)
 {
@@ -1060,7 +1058,7 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 	fin.close();
 }
 
-void writeFileOfAccounts(vector <Account>& vec_of_accounts)
+/*void writeFileOfAccounts(vector <Account>& vec_of_accounts)
 {
 	ofstream fout(FILE_OF_ACCOUNTS, ios::out);
 	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
@@ -1073,7 +1071,7 @@ void writeFileOfAccounts(vector <Account>& vec_of_accounts)
 		}
 	}
 	fout.close();
-}
+}*/
 
 void writeFileOfStudents(vector <Student>& vec_of_students)
 {
@@ -1114,17 +1112,17 @@ void writeFileOfStudents(vector <Student>& vec_of_students)
 	return a;
 }*/
 
-/*int IndexOfAccountForChange(vector <Account>& vec_of_accounts)
+/*int indexOfVectorForChange(vector <Account>& vec_of_accounts)
 {
 	int size;
 	size = vec_of_accounts.size();
 	return enterNumberInRange(0, size);
 }*/
-
+/*
 void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user)
 {
 	cout << "Какому аккаунту вы хотите изменить доступ?\n Отмена - 0" << endl;
-	int index_for_change = IndexOfAccountForChange(vec_of_accounts);
+	int index_for_change = indexOfVectorForChange(vec_of_accounts);
 	if (index_for_change != 0)
 	{
 		index_for_change--;
@@ -1150,7 +1148,7 @@ void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user)
 void updateAccountRole(vector <Account>& vec_of_accounts, int index_of_user)
 {
 	cout << "Какому аккаунту вы хотите изменить роль?\n Отмена - 0" << endl;
-	int index_for_change = IndexOfAccountForChange(vec_of_accounts);
+	int index_for_change = indexOfVectorForChange(vec_of_accounts);
 	if (index_for_change != 0)
 	{
 		index_for_change--;
@@ -1164,7 +1162,7 @@ void updateAccountRole(vector <Account>& vec_of_accounts, int index_of_user)
 			system("pause");
 		}
 	}
-}
+}*/
 
 int getCountOfStructures(string file_path)
 {

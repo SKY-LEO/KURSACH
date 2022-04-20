@@ -61,3 +61,54 @@ int correctInputInt()
 	}
 	return a;
 }
+
+string enterGoodPassword()
+{
+	char symbol;
+	string password;
+	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
+	{
+		if (symbol == '\b')//backspace
+		{
+			if (!password.empty())
+			{
+				cout << '\b' << ' ' << '\b';
+				password.erase(password.length() - 1);
+			}
+			continue;
+		}
+		password += symbol;
+		cout << '*';
+	}
+	return password;
+}
+
+string enterStringWithoutNumbers()
+{
+	char symbol;
+	string buffer;
+	while ((symbol = _getch()) != '\r')
+	{
+		if (symbol == '\b')
+		{
+			if (!buffer.empty())
+			{
+				cout << "\b \b";
+				buffer.erase(buffer.size() - 1);
+			}
+			continue;
+		}
+		if (!((symbol >= 'а' && symbol <= 'я') || (symbol >= 'А' && symbol <= 'Я') || symbol == ' ' || symbol == '.'))
+		{
+			continue;
+		}
+		else if ((!buffer.empty() && symbol == ' ' && buffer.at(buffer.size() - 1) == ' ') || (buffer.empty() && symbol == ' '))
+		{
+			continue;
+		}
+		buffer += symbol;
+		cout << symbol;
+	}
+	buffer += '\0';
+	return buffer;
+}

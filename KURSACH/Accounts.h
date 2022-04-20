@@ -1,10 +1,18 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "Validations.h"
 #include "Menus.h"
 #include "sha256.h"
 using namespace std;
+const int NUMBER_OF_ATTEMPTS = 3;
+const string FILE_OF_ACCOUNTS = "accounts.txt";
+const string ADMIN_LOGIN = "ADMIN";
+const string ADMIN_PASSWORD = "BSUIR";
+const bool ADMIN_ROLE = 1;
+//const bool ADMIN_ACCESS = 1;
+const int ADMIN_ACCESS = 1;
 const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";// Выход - 0";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
 const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n0) Назад";
@@ -27,5 +35,19 @@ struct Account
 void showAccounts(vector <Account>& vec_of_accounts);
 void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin = false);
 void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user);
-int IndexOfAccountForChange(vector <Account>& vec_of_accounts);
+int indexOfVectorForChange(vector <Account>& vec_of_accounts);
 bool isGoodLogin(vector <Account>& vec_of_accounts, string login);
+bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user);
+bool isLoginEquals(vector <Account>& vec_of_accounts, string login, int index_of_user);
+int enterAccount(vector <Account>& vec_of_accounts);
+int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password);
+int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user);
+void changePassword(vector <Account>& vec_of_accounts, int index_of_user);
+void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
+void rejectAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
+void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <int>& array);
+void createFirstAccount(vector <Account>& vec_of_accounts);
+void readFileOfAccounts(vector <Account>& vec_of_accounts);
+void writeFileOfAccounts(vector <Account>& vec_of_accounts);
+void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user);
+void updateAccountRole(vector <Account>& vec_of_accounts, int index_of_user);
