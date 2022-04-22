@@ -33,6 +33,8 @@ struct Student
 	Exams exam;
 	bool is_budget_student;
 	bool is_social_work;
+	double average_score;
+	double stipend = 0.;
 };
 
 const int MIN_EXAM = 4;
@@ -56,7 +58,6 @@ const string PHYS_CULTURE = "‘ËÁ ";
 
 void showStudents(vector <Student>& vec_of_students);
 void calculateStipends(vector <Student>& vec_of_students);
-void sortStudents(vector <Student>& vec_of_students);
 void searchStudents(vector <Student>& vec_of_students);
 void addStudent(vector <Student>& vec_of_students);
 bool isGoodFio(vector <Student>& vec_of_students, string fio);
@@ -68,3 +69,4 @@ void deleteStudent(vector <Student>& vec_of_students);
 int indexOfVectorForChange(vector <Student>& vec_of_students);
 void writeFileOfStudents(vector <Student>& vec_of_students);
 void readFileOfStudents(vector <Student>& vec_of_students);
+

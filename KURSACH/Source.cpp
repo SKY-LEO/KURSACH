@@ -25,7 +25,7 @@
 #include "Students.h"
 #include "Validations.h"//потом убрать
 //#include "Menus.h"
-
+//template <class To>
 //using namespace std;//потом убрать
 
 //const string ADMIN_LOGIN = "ADMIN";
@@ -72,6 +72,13 @@ const string MENU_OF_SORTS_ACCOUNTS = "Сортировать по:\n1) Логину\n2) Роли\n3) Д
 const int MAX_OF_RANGE_MENU_ADMIN = 6;
 const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 5;
 */
+const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";// Выход - 0";
+//const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
+const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n0) Назад";
+const string MENU_OF_ACCESS = "\n1) Подтвердить доступ\n2) Заблокировать доступ\n0) Назад";
+const string MENU_OF_SORTS_ACCOUNTS = "Сортировать по:\n1) Логину\n2) Роли\n3) Доступу\n0) Назад";
+const string MENU_OF_SORTS_STUDENTS = "Сортировать по:\n1) Фамилии\n2) Номеру группы\n3) Среднему баллу\n4) Стипендии\n5) Сдаче зачетов\n6) Сдаче экзаменов\n7) Форме обучения\n8) Участию в общественной работе\n0) Назад";
+const string MENU_OF_SORTS_STUDENTS_OFFSETS = "Сортировать по:\n1) ООПиП\n2) ДМ\n3) ИнАД\n4) Ист\n5) ФизК\n0) Назад";
 const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
 const int MAX_OF_RANGE_MAIN_MENU_USER = 2;
 const int MAX_OF_START_MENU = 2;
@@ -80,6 +87,8 @@ const int MAX_OF_RANGE_MENU_OF_SORTS_ACCOUNTS = 3;
 const int MAX_OF_RANGE_MENU_OF_ASCENDING_DESCENDING = 2;
 const int MAX_OF_STUDENT_MENU_ADMIN = 6;
 const int MAX_OF_STUDENT_MENU_USER = 3;
+const int MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS = 8;
+const int MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS_OFFSETS = 5;
 /*const int MIN_EXAM = 4;
 const int MAX_EXAM = 10;
 const int MIN_OFFSET = 0;
@@ -184,6 +193,26 @@ bool mySortByLoginAscending(Account acc_1, Account acc_2);
 bool mySortByLoginDescending(Account acc_1, Account acc_2);
 void sortAccounts(vector <Account>& vec_of_accounts);
 bool isAscending();
+
+void sortStudents(vector <Student>& vec_of_students);
+void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student, Student));
+bool mySortBySurnameAscending(Student stu_1, Student stu_2);
+bool mySortBySurnameDescending(Student stu_1, Student stu_2);
+bool mySortByGroupNumberAscending(Student stu_1, Student stu_2);
+bool mySortByGroupNumberDescending(Student stu_1, Student stu_2);
+bool mySortByAverageScoreAscending(Student stu_1, Student stu_2);
+bool mySortByAverageScoreDescending(Student stu_1, Student stu_2);
+bool mySortByStipendAscending(Student stu_1, Student stu_2);
+bool mySortByStipendDescending(Student stu_1, Student stu_2);
+bool mySortByFormOfEducationAscending(Student stu_1, Student stu_2);
+bool mySortByFormOfEducationDescending(Student stu_1, Student stu_2);
+bool mySortBySocialWorkAscending(Student stu_1, Student stu_2);
+bool mySortBySocialWorkDescending(Student stu_1, Student stu_2);
+//bool mySortByAscending(Student stu_1, Student stu_2, string Student::* x);
+//bool mySortByDescending(Student stu_1, Student stu_2, string Student::* x);
+void sortStudents(vector <Student>& vec_of_students);
+void sortStudentOffsets(vector <Student>& vec_of_students);
+//void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student, Student, string Student::* x));
 
 //void showStudents(vector <Student>& vec_of_students);
 //void calculateStipends(vector <Student>& vec_of_students);
@@ -576,10 +605,10 @@ void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 			calculateStipends(vec_of_students);
 			break;
 		case 2:
-			sortStudents(vec_of_students);
+			searchStudents(vec_of_students);
 			break;
 		case 3:
-			searchStudents(vec_of_students);
+			sortStudents(vec_of_students);
 			break;
 		case 4:
 			system("cls");
@@ -776,6 +805,165 @@ void sortAccounts(vector <Account>& vec_of_accounts)
 		break;
 	default: cout << ERROR_MESSAGE << endl;
 	}
+}
+
+void sortStudents(vector <Student>& vec_of_students)
+{
+	int number;
+	cout << MENU_OF_SORTS_STUDENTS << endl;
+	number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS);
+	switch (number)
+	{
+	case 1:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortBySurnameAscending);
+		else sortStudentsBy(vec_of_students, mySortBySurnameDescending);
+		break;
+	case 2:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortByGroupNumberAscending);
+		else sortStudentsBy(vec_of_students, mySortByGroupNumberDescending);
+		break;
+	case 3:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortByAverageScoreAscending);
+		else sortStudentsBy(vec_of_students, mySortByAverageScoreDescending);
+		break;
+	case 4:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortByStipendAscending);
+		else sortStudentsBy(vec_of_students, mySortByStipendDescending);
+		break;
+	case 5:
+		//if (isAscending())sortStudentsBy(vec_of_students, mySortByOffsetsAscending);
+		//else sortStudentsBy(vec_of_students, mySortByOffsetsDescending);
+		sortStudentOffsets(vec_of_students);
+		break;
+	case 6:
+		//if (isAscending())sortStudentsBy(vec_of_students, mySortByExamsAscending);
+		//else sortStudentsBy(vec_of_students, mySortByExamsDescending);
+		break;
+	case 7:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortByFormOfEducationAscending);
+		else sortStudentsBy(vec_of_students, mySortByFormOfEducationAscending);
+		break;
+	case 8:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortBySocialWorkAscending);
+		else sortStudentsBy(vec_of_students, mySortBySocialWorkAscending);
+		break;
+	case 0:
+		break;
+	default: cout << ERROR_MESSAGE << endl;
+	}
+}
+
+void sortStudentOffsets(vector <Student>& vec_of_students)
+{
+	/*int number;
+	cout << MENU_OF_SORTS_STUDENTS_OFFSETS << endl;
+	number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS_OFFSETS);
+	switch (number)
+	{
+	case 1:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortByAscending);
+		else sortStudentsBy(vec_of_students, mySortByDescending);
+		break;
+	case 2:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortByGroupNumberAscending);
+		else sortStudentsBy(vec_of_students, mySortByGroupNumberDescending);
+		break;
+	case 3:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortByAverageScoreAscending);
+		else sortStudentsBy(vec_of_students, mySortByAverageScoreDescending);
+		break;
+	case 4:
+		if (isAscending())sortStudentsBy(vec_of_students, mySortByStipendAscending);
+		else sortStudentsBy(vec_of_students, mySortByStipendDescending);
+		break;
+	case 5:
+		//if (isAscending())sortStudentsBy(vec_of_students, mySortByOffsetsAscending);
+		//else sortStudentsBy(vec_of_students, mySortByOffsetsDescending);
+		break;
+	case 0:
+		break;
+	default: cout << ERROR_MESSAGE << endl;
+	}*/
+}
+
+void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student, Student))
+{
+	sort(vec_of_students.begin(), vec_of_students.end(), comparisonFunction);
+}
+
+/*void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student, Student, string Student::* x))
+{
+	sort(vec_of_students.begin(), vec_of_students.end(), comparisonFunction);
+}
+
+bool mySortByAscending(Student stu_1, Student stu_2, string Student::*x)
+{
+	return stu_1.*x < stu_2.*x;
+}*/
+ 
+bool mySortByDescending(Student stu_1, Student stu_2, string Student::* x)
+{
+	return stu_1.*x > stu_2.*x;
+}
+
+bool mySortBySurnameAscending(Student stu_1, Student stu_2)
+{
+	return stu_1.FIO < stu_2.FIO;
+}
+
+bool mySortBySurnameDescending(Student stu_1, Student stu_2)
+{
+	return stu_1.FIO > stu_2.FIO;
+}
+
+bool mySortByGroupNumberAscending(Student stu_1, Student stu_2)
+{
+	return stu_1.num_of_group < stu_2.num_of_group;
+}
+
+bool mySortByGroupNumberDescending(Student stu_1, Student stu_2)
+{
+	return stu_1.num_of_group > stu_2.num_of_group;
+}
+
+bool mySortByAverageScoreAscending(Student stu_1, Student stu_2)
+{
+	return stu_1.average_score < stu_2.average_score;
+}
+
+bool mySortByAverageScoreDescending(Student stu_1, Student stu_2)
+{
+	return stu_1.average_score > stu_2.average_score;
+}
+
+bool mySortByStipendAscending(Student stu_1, Student stu_2)
+{
+	return stu_1.stipend < stu_2.stipend;
+}
+
+bool mySortByStipendDescending(Student stu_1, Student stu_2)
+{
+	return stu_1.stipend > stu_2.stipend;
+}
+
+bool mySortByFormOfEducationAscending(Student stu_1, Student stu_2)
+{
+	return stu_1.is_budget_student < stu_2.is_budget_student;
+}
+
+bool mySortByFormOfEducationDescending(Student stu_1, Student stu_2)
+{
+	return stu_1.is_budget_student > stu_2.is_budget_student;
+}
+
+bool mySortBySocialWorkAscending(Student stu_1, Student stu_2)
+{
+	return stu_1.is_social_work < stu_2.is_social_work;
+}
+
+bool mySortBySocialWorkDescending(Student stu_1, Student stu_2)
+{
+	return stu_1.is_social_work > stu_2.is_social_work;
 }
 
 bool isAscending()

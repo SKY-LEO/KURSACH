@@ -14,7 +14,8 @@ void showStudents(vector <Student>& vec_of_students)
 			<< "\t|" << vec_of_students.at(i).offset.phys_culture
 			<< "\t|" << vec_of_students.at(i).exam.oaip << "\t|" << vec_of_students.at(i).exam.math
 			<< "\t|" << vec_of_students.at(i).exam.english << "\t|" << vec_of_students.at(i).exam.physics
-			<< "\t|" << vec_of_students.at(i).is_budget_student << "\t|" << vec_of_students.at(i).is_social_work << endl;
+			<< "\t|" << vec_of_students.at(i).is_budget_student << "\t|" << vec_of_students.at(i).is_social_work 
+			<< "\t|" << vec_of_students.at(i).average_score << "\t|" << vec_of_students.at(i).stipend << endl;
 	}
 	cout << SEPARATOR_STUDENT << endl;
 	cout << endl;
@@ -22,7 +23,7 @@ void showStudents(vector <Student>& vec_of_students)
 
 void calculateStipends(vector <Student>& vec_of_students) {}
 
-void sortStudents(vector <Student>& vec_of_students) {}
+
 
 void searchStudents(vector <Student>& vec_of_students) {}
 
@@ -85,6 +86,7 @@ void setExams(Student& temp_student)
 	temp_student.exam.math = rateStudent(MIN_EXAM, MAX_EXAM, MATH);
 	temp_student.exam.english = rateStudent(MIN_EXAM, MAX_EXAM, ENGLISH);
 	temp_student.exam.physics = rateStudent(MIN_EXAM, MAX_EXAM, PHYSICS);
+	temp_student.average_score = (temp_student.exam.oaip + temp_student.exam.math + temp_student.exam.english + temp_student.exam.physics) / 4.;
 }
 
 int rateStudent(int min_range, int max_of_range, string subject)
@@ -136,7 +138,8 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 					>> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
 					>> temp_student.offset.history >> temp_student.offset.phys_culture
 					>> temp_student.exam.oaip >> temp_student.exam.math >> temp_student.exam.english >> temp_student.exam.physics
-					>> temp_student.is_budget_student >> temp_student.is_social_work;
+					>> temp_student.is_budget_student >> temp_student.is_social_work 
+					>> temp_student.average_score >> temp_student.stipend;
 				vec_of_students.push_back(temp_student);
 			}
 		}
@@ -159,7 +162,8 @@ void writeFileOfStudents(vector <Student>& vec_of_students)
 			<< " " << vec_of_students.at(i).offset.phys_culture
 			<< " " << vec_of_students.at(i).exam.oaip << " " << vec_of_students.at(i).exam.math
 			<< " " << vec_of_students.at(i).exam.english << " " << vec_of_students.at(i).exam.physics
-			<< " " << vec_of_students.at(i).is_budget_student << " " << vec_of_students.at(i).is_social_work;
+			<< " " << vec_of_students.at(i).is_budget_student << " " << vec_of_students.at(i).is_social_work
+			<< " " << vec_of_students.at(i).average_score << " " << vec_of_students.at(i).stipend;
 		if (i < vec_of_students.size() - 1)
 		{
 			fout << endl;
