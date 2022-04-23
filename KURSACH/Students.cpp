@@ -3,18 +3,21 @@
 void showStudents(vector <Student>& vec_of_students)
 {
 	cout << endl;
-	cout << "¹\t|" << "ÔÈÎ\t|" << "¹ ãğóïïû\t|" << "ÎÎÏèÏ\t|" << "ÄÌ\t|" << "ÈíÀÄ\t|" << "Èñò\t|" << "ÔèçÊ\t|"
-		<< "ÎÀèÏ\t|" << "ÌÀ\t|" << "Èíßç\t|" << "Ôèçèêà\t|" << "Áşäæåò\t|" << "Àêòèâíîñòü\t|" << endl;
+	cout << setw(4) << "¹" << setw(4) << "|" << setw(12) << "ÔÈÎ" << setw(10) << "|" << setw(11) << "¹ ãğóïïû" << setw(4) << "|"
+		<< setw(7) << "ÎÏÏèÏ" << setw(3) << "|" << setw(4) << "ÄÌ" << setw(3) << "|" << setw(6) << "ÈíÀÄ" << setw(3) << "|"
+		<< setw(5) << "Èñò" << setw(3) << "|" << setw(6) << "ÔèçÊ" << setw(3) << "|" << setw(6) << "ÎÀèÏ" << setw(3) << "|"
+		<< setw(4) << "ÌÀ" << setw(3) << "|" << setw(6) << "Èíßç" << setw(3) << "|" << setw(8) << "Ôèçèêà" << setw(3) << "|"
+		<< setw(8) << "Áşäæåò" << setw(3) << "|" << "Àêòèâíîñòü" << endl;
 	cout << SEPARATOR_STUDENT << endl;
 	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
-		cout << i + 1 << "\t|" << vec_of_students.at(i).FIO << "\t|" << vec_of_students.at(i).num_of_group
-			<< "\t|" << vec_of_students.at(i).offset.oopip << "\t|" << vec_of_students.at(i).offset.discrete_math
-			<< "\t|" << vec_of_students.at(i).offset.inad << "\t|" << vec_of_students.at(i).offset.history
-			<< "\t|" << vec_of_students.at(i).offset.phys_culture
-			<< "\t|" << vec_of_students.at(i).exam.oaip << "\t|" << vec_of_students.at(i).exam.math
-			<< "\t|" << vec_of_students.at(i).exam.english << "\t|" << vec_of_students.at(i).exam.physics
-			<< "\t|" << vec_of_students.at(i).is_budget_student << "\t|" << vec_of_students.at(i).is_social_work 
+		cout << setw(4)<<i + 1 << setw(4) << "|"<<setw(22) << vec_of_students.at(i).FIO << "|"<<setw(14) << vec_of_students.at(i).num_of_group
+			<< "|"<<setw(9) << vec_of_students.at(i).offset.oopip << "|"<<setw(6) << vec_of_students.at(i).offset.discrete_math
+			<< "|"<<setw(8) << vec_of_students.at(i).offset.inad << "|"<<setw(7) << vec_of_students.at(i).offset.history
+			<< "|"<<setw(8) << vec_of_students.at(i).offset.phys_culture
+			<< "|"<<setw(8) << vec_of_students.at(i).exam.oaip << "|" << setw(6) << vec_of_students.at(i).exam.math
+			<< "|" << setw(8) << vec_of_students.at(i).exam.english << "|" << setw(10) << vec_of_students.at(i).exam.physics
+			<< "|" << setw(10) << vec_of_students.at(i).is_budget_student << "|" << setw(8) << vec_of_students.at(i).is_social_work
 			<< "\t|" << vec_of_students.at(i).average_score << "\t|" << vec_of_students.at(i).stipend << endl;
 	}
 	cout << SEPARATOR_STUDENT << endl;
@@ -138,7 +141,7 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 					>> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
 					>> temp_student.offset.history >> temp_student.offset.phys_culture
 					>> temp_student.exam.oaip >> temp_student.exam.math >> temp_student.exam.english >> temp_student.exam.physics
-					>> temp_student.is_budget_student >> temp_student.is_social_work 
+					>> temp_student.is_budget_student >> temp_student.is_social_work
 					>> temp_student.average_score >> temp_student.stipend;
 				vec_of_students.push_back(temp_student);
 			}
