@@ -951,22 +951,22 @@ bool mySortBySurnameDescending(Student stu_1, Student stu_2)
 
 bool mySortByGroupNumberAscending(Student stu_1, Student stu_2)
 {
-	return stu_1.num_of_group < stu_2.num_of_group;
+	return stoi(stu_1.num_of_group) < stoi(stu_2.num_of_group);
 }
 
 bool mySortByGroupNumberDescending(Student stu_1, Student stu_2)
 {
-	return stu_1.num_of_group > stu_2.num_of_group;
+	return stoi(stu_1.num_of_group) > stoi(stu_2.num_of_group);
 }
 
 bool mySortByAverageScoreAscending(Student stu_1, Student stu_2)
 {
-	return stu_1.average_score < stu_2.average_score;
+	return stu_1.exam.average_score < stu_2.exam.average_score;
 }
 
 bool mySortByAverageScoreDescending(Student stu_1, Student stu_2)
 {
-	return stu_1.average_score > stu_2.average_score;
+	return stu_1.exam.average_score > stu_2.exam.average_score;
 }
 
 bool mySortByStipendAscending(Student stu_1, Student stu_2)

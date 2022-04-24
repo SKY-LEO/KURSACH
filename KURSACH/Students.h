@@ -24,6 +24,7 @@ struct Exams
 	int math;
 	int english;
 	int physics;
+	double average_score;
 };
 
 struct Student
@@ -34,7 +35,6 @@ struct Student
 	Exams exam;
 	bool is_budget_student;
 	bool is_social_work;
-	double average_score;
 	double stipend = 0.;
 };
 
@@ -43,7 +43,8 @@ const int MAX_EXAM = 10;
 const int MIN_OFFSET = 0;
 const int MAX_OFFSET = 1;
 
-const string SEPARATOR_STUDENT = "------------------------------------------------";
+const string SEPARATOR_STUDENT = "|-------+---------------------+--------------+---------+------+--------+-------+--------+--------+------+--------+----------+------------+----------+--------------+-------------|";
+const string SEPARATOR_OFFSETS_EXAMS = "------------------------------------------|-----------------------------------";
 const string FILE_OF_STUDENTS = "students.txt";
 const string STUDENT_MENU_ADMIN = "\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n4) Добавить студента\n5) Редактировать данные\n6) Удалить студента\n0) Назад";
 const string STUDENT_MENU_USER = "\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n0) Назад";
@@ -70,4 +71,8 @@ void deleteStudent(vector <Student>& vec_of_students);
 int indexOfVectorForChange(vector <Student>& vec_of_students);
 void writeFileOfStudents(vector <Student>& vec_of_students);
 void readFileOfStudents(vector <Student>& vec_of_students);
+void calculateStipends(vector <Student>& vec_of_students);
+double calculateCoefficient(Student& student);
+double enterBaseStipend();
+bool isGoodStipend(double stipend);
 

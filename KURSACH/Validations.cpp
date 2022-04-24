@@ -62,6 +62,25 @@ int correctInputInt()
 	return a;
 }
 
+double correctInputDouble()
+{
+	double a;
+	while (true)
+	{
+		cin >> a;
+		if (cin.get() == '\n') {
+			break;
+		}
+		else
+		{
+			cin.clear();
+			cin.ignore(256, '\n');
+			cout << "ќшибка! ¬ведите число." << endl;
+		}
+	}
+	return a;
+}
+
 string enterGoodPassword()
 {
 	char symbol;
@@ -109,6 +128,5 @@ string enterStringWithoutNumbers()
 		buffer += symbol;
 		cout << symbol;
 	}
-	buffer += '\0';
 	return buffer;
 }
