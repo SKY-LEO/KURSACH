@@ -4,8 +4,18 @@ string enterStringWithoutSpaces()
 {
 	char symbol;
 	string buffer;
-	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
+	while (true)//пока вводимый символ не равен сиволу переноса каретки(enter)
 	{
+		symbol = (char)_getch();
+		if (symbol == '\r')
+		{
+			if (buffer.empty())
+			{
+				cout << "Строка пуста! Повторите ввод." << endl;
+				continue;
+			}
+			break;
+		}
 		if (symbol == '\b')//backspace
 		{
 			if (!buffer.empty())
@@ -85,8 +95,18 @@ string enterGoodPassword()
 {
 	char symbol;
 	string password;
-	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
+	while (true)//пока вводимый символ не равен сиволу переноса каретки(enter)
 	{
+		symbol = (char)_getch();
+		if (symbol == '\r')
+		{
+			if (password.empty())
+			{
+				cout << "Строка пуста! Повторите ввод." << endl;
+				continue;
+			}
+			break;
+		}
 		if (symbol == '\b')//backspace
 		{
 			if (!password.empty())
@@ -106,8 +126,23 @@ string enterStringWithoutNumbers()
 {
 	char symbol;
 	string buffer;
-	while ((symbol = _getch()) != '\r')
+	while (true)
 	{
+		symbol = (char)_getch();
+		if (symbol == '\r')
+		{
+			if (buffer.empty())
+			{
+				cout << "Строка пуста! Повторите ввод." << endl;
+				continue;
+			}
+			if (buffer.at(buffer.size() - 1) == ' ')
+			{
+				cout << "\b \b";
+				buffer.erase(buffer.size() - 1);
+			}
+			break;
+		}
 		if (symbol == '\b')
 		{
 			if (!buffer.empty())
@@ -122,6 +157,41 @@ string enterStringWithoutNumbers()
 			continue;
 		}
 		else if ((!buffer.empty() && symbol == ' ' && buffer.at(buffer.size() - 1) == ' ') || (buffer.empty() && symbol == ' '))
+		{
+			continue;
+		}
+		buffer += symbol;
+		cout << symbol;
+	}
+	return buffer;
+}
+
+string enterStringWithoutSpacesAndSpecialSym()
+{
+	char symbol;
+	string buffer;
+	while (true)//пока вводимый символ не равен сиволу переноса каретки(enter)
+	{
+		symbol = (char)_getch();
+		if (symbol == '\r')
+		{
+			if (buffer.empty())
+			{
+				cout << "Строка пуста! Повторите ввод." << endl;
+				continue;
+			}
+			break;
+		}
+		if (symbol == '\b')//backspace
+		{
+			if (!buffer.empty())
+			{
+				cout << "\b \b";
+				buffer.erase(buffer.length() - 1);
+			}
+			continue;
+		}
+		if (!((symbol >= 'а' && symbol <= 'я') || (symbol >= 'А' && symbol <= 'Я') || (symbol >= '0' && symbol <= '9')))
 		{
 			continue;
 		}

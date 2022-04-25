@@ -42,44 +42,29 @@
 //const string SEPARATOR = "------------------------------------------------";
 
 //const string MAIN_MENU_ADMIN = "\n Стипендии - 1\n Работа с учётными записями - 2\n Сменить пароль - 3\n Выход - 0";
-const string MAIN_MENU_ADMIN = "\n1) Стипендии\n2) Работа с учётными записями\n3) Сменить пароль\n0) Выход";
+const string MAIN_MENU_ADMIN = "Вы находитесь в главном меню администратора.\n1) Стипендии\n2) Работа с учётными записями\n3) Сменить пароль\n0) Выход";
 //const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Запросы на доступ - 5\n Выход - 0";
 //const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Запросы на доступ - 4\n Выход - 0";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Выход - 0";
 //const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
-const string MAIN_MENU_USER = "\n1) Стипендии\n2) Сменить пароль\n0) Выход";
+const string MAIN_MENU_USER = "Вы находитесь в главном меню пользователя.\n1) Стипендии\n2) Сменить пароль\n0) Выход";
 //const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
-const string START_MENU = "\n1) Войти в существующую учётную запись\n2) Создать новую учётную запись\n0) Завершение работы";
+const string START_MENU = "Здравствуйте, гость! Пожалуйста, выберите пункт меню:\n1) Войти в существующую учётную запись\n2) Создать новую учётную запись\n0) Завершение работы";
 //const string STUDENT_MENU_ADMIN = "\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n4) Добавить студента\n5) Редактировать данные\n6) Удалить студента\n0) Назад";
 //const string STUDENT_MENU_USER = "\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n0) Назад";
 const string MENU_OF_ASCENDING_DESCENDING = "Упорядочить по:\n1) Возрастанию\n2) Убыванию";
 const string ERROR_MESSAGE = "Ошибка!";
-/*const string OAIP = "ОАиП";
-const string MATH = "МА";
-const string ENGLISH = "ИнЯз";
-const string PHYSICS = "Физика";
-const string OOPIP = "ООПиП";
-const string DISCRETE_MATH = "ДМ";
-const string INAD = "ИнАД";
-const string HISTORY = "Ист";
-const string PHYS_CULTURE = "ФизК";*/
-/*
-const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";// Выход - 0";
+
+const string ACCOUNT_MENU_ADMIN = "Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";// Выход - 0";
 //const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
 const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n0) Назад";
-const string MENU_OF_ACCESS = "\n1) Подтвердить доступ\n2) Заблокировать доступ\n0) Назад";
-const string MENU_OF_SORTS_ACCOUNTS = "Сортировать по:\n1) Логину\n2) Роли\n3) Доступу\n0) Назад";
-const int MAX_OF_RANGE_MENU_ADMIN = 6;
-const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 5;
-*/
-const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";// Выход - 0";
-//const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
-const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n0) Назад";
-const string MENU_OF_ACCESS = "\n1) Подтвердить доступ\n2) Заблокировать доступ\n0) Назад";
-const string MENU_OF_SORTS_ACCOUNTS = "Сортировать по:\n1) Логину\n2) Роли\n3) Доступу\n0) Назад";
-const string MENU_OF_SORTS_STUDENTS = "Сортировать по:\n1) Фамилии\n2) Номеру группы\n3) Среднему баллу\n4) Стипендии\n5) Сдаче зачетов\n6) Сдаче экзаменов\n7) Форме обучения\n8) Участию в общественной работе\n0) Назад";
-const string MENU_OF_SORTS_STUDENTS_OFFSETS = "Выберите предмет:\n1) ООПиП\n2) ДМ\n3) ИнАД\n4) Ист\n5) ФизК\n0) Назад";
-const string MENU_OF_SORTS_STUDENTS_EXAMS = "Выберите предмет:\n1) ОАиП\n2) МА\n3) ИнЯз\n4) Физика\n0) Назад";
+const string MENU_OF_ACCESS = "Вы находитесь в меню работы с заявками на доступ к системе.\n1) Подтвердить доступ\n2) Заблокировать доступ\n0) Назад";
+const string MENU_OF_SORTS_ACCOUNTS = "Вы находитесь в меню сортировки учётных записей.\nСортировать по:\n1) Логину\n2) Роли\n3) Доступу\n0) Назад";
+const string MENU_OF_SORTS_STUDENTS = "Вы находитесь в меню сортировки студентов.\nСортировать по:\n1) Фамилии\n2) Номеру группы\n3) Среднему баллу\n4) Стипендии\n5) Сдаче зачетов\n6) Сдаче экзаменов\n7) Форме обучения\n8) Участию в общественной работе\n0) Назад";
+const string MENU_OF_STUDENTS_OFFSETS = "Вы находитесь в меню выбора зачета.\nВыберите предмет:\n1) ООПиП\n2) ДМ\n3) ИнАД\n4) Ист\n5) ФизК\n0) Назад";
+const string MENU_OF_STUDENTS_EXAMS = "Вы находитесь в меню выбора экзамена.\nВыберите предмет:\n1) ОАиП\n2) МА\n3) ИнЯз\n4) Физика\n0) Назад";
+const string MENU_OF_EDIT_STUDENT = "Вы находитесь в меню редактирования студентов.\nОтредактировать: \n1) ФИО\n2) Номер группы\n3) Зачеты\n4) Экзамены\n5) Форму обучения\n6) Участие в общественной работе\n0) Назад";
+const string MENU_OF_SEARCH_STUDENTS = "Вы находитесь в меню поиска студентов.\nИскать по:\n1) ФИО\n2) Номеру группы\n3) Стипендии\n0) Назад";
 const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
 const int MAX_OF_RANGE_MAIN_MENU_USER = 2;
 const int MAX_OF_START_MENU = 2;
@@ -89,103 +74,20 @@ const int MAX_OF_RANGE_MENU_OF_ASCENDING_DESCENDING = 2;
 const int MAX_OF_STUDENT_MENU_ADMIN = 6;
 const int MAX_OF_STUDENT_MENU_USER = 3;
 const int MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS = 8;
-const int MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS_OFFSETS = 5;
-const int MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS_EXAMS = 4;
-/*const int MIN_EXAM = 4;
-const int MAX_EXAM = 10;
-const int MIN_OFFSET = 0;
-const int MAX_OFFSET = 1;
-*/
-//const string ACCESS[3] = { "Какому аккаунту вы хотите изменить доступ?", "Вы действительно хотите изменить доступ этому аккаунту?", "Изменён успешно!" };
-//const string ROLE[3] = { "Какому аккаунту вы хотите изменить роль?", "Вы действительно хотите изменить роль этому аккаунту?", "Изменена успешно!" };
-//const string DELETE_ACCOUNT[3] = { "Какой аккаунт вы хотите удалить?", "Вы действительно хотите удалить этот аккаунт?", "Удалён успешно!" };
+const int MAX_OF_RANGE_MENU_OF_STUDENTS_OFFSETS = 5;
+const int MAX_OF_RANGE_MENU_OF_STUDENTS_EXAMS = 4;
+const int MAX_OF_RANGE_MENU_OF_EDIT_STUDENT = 6;
+const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS = 3;
 
-
-/*struct Account
-{
-	string login;
-	string salted_hash_password;
-	string salt;
-	bool role = false;//
-	//bool access = false;
-	int access = 0;
-};*/
-/*
-struct Offsets
-{
-	bool oopip;
-	bool discrete_math;
-	bool inad;
-	bool history;
-	bool phys_culture;
-};
-
-struct Exams
-{
-	int oaip;
-	int math;
-	int english;
-	int physics;
-};
-
-struct Student
-{
-	string FIO;
-	string num_of_group;
-	Offsets offset;
-	Exams exam;
-	bool is_budget_student;
-	bool is_social_work;
-};
-*/
-
-/*typedef void(*ToFunction)(vector <Account>& vec_of_accounts, int index_for_change);
-void updateAccountAccess(vector <Account>& vec_of_accounts, int index_for_change);
-void updateAccountRole(vector <Account>& vec_of_accounts, int index_for_change);
-void deleteAccount(vector <Account>& vec_of_accounts, int index_for_delete);
-void doSomethingWithAccount(vector <Account>& vec_of_accounts, const string* message, ToFunction function);*/
-
-
-//void showAccounts(vector <Account>& vec_of_accounts);
-//void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin = false);
-//void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user);
-
-//void updateAccount(vector <Account>& vec_of_accounts);
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students);
-//void readFileOfAccounts(vector <Account>& vec_of_accounts);
-//void readFileOfStudents(vector <Student>& vec_of_students);
-//void writeFileOfAccounts(vector <Account>& vec_of_accounts);
-//void writeFileOfStudents(vector <Student>& vec_of_students);
 int getCountOfStructures(string file_path);
-//int correctInputInt();
-//int menu(vector <Account>& vec_of_accounts, string message, int max_of_range);
-//int chooseMenu(string message, int max_of_range);
 int initialisation(vector <Account>& vec_of_accounts);
-//int enterAccount(vector <Account>& vec_of_accounts);
-//int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password);
-//string hashPassword(string password, string salt);
-//string enterGoodPassword();
-//string enterStringWithoutSpaces();
-//bool isGoodLogin(vector <Account>& vec_of_accounts, string login);
-//void createFirstAccount(vector <Account>& vec_of_accounts);
-//int enterNumberInRange(int min, int max);
-//void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
 int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index_of_user);
 int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, int index_of_user);
 void workWithStudents(vector <Student>& vec_of_students, bool is_admin);
-//void changePassword(vector <Account>& vec_of_accounts, int index_of_user);
 void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user);
-//bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user);
-//bool isLoginEquals(vector <Account>& vec_of_accounts, string login, int index_of_user);
-//void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <int>& array);
-//void updateAccountRole(vector <Account>& vec_of_accounts, int index_of_user);
-//void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user);
-//int indexOfVectorForChange(vector <Account>& vec_of_accounts);
-//int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user);
-
 void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
 
-//void rejectAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
 void sortAccountsBy(vector <Account>& vec_of_accounts, bool (*comparisonFunction)(Account, Account));
 bool mySortByAccessAscending(Account acc_1, Account acc_2);
 bool mySortByAccessDescending(Account acc_1, Account acc_2);
@@ -197,57 +99,50 @@ void sortAccounts(vector <Account>& vec_of_accounts);
 bool isAscending();
 
 void sortStudents(vector <Student>& vec_of_students);
-void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student, Student));
-bool mySortBySurnameAscending(Student stu_1, Student stu_2);
-bool mySortBySurnameDescending(Student stu_1, Student stu_2);
-bool mySortByGroupNumberAscending(Student stu_1, Student stu_2);
-bool mySortByGroupNumberDescending(Student stu_1, Student stu_2);
-bool mySortByAverageScoreAscending(Student stu_1, Student stu_2);
-bool mySortByAverageScoreDescending(Student stu_1, Student stu_2);
-bool mySortByStipendAscending(Student stu_1, Student stu_2);
-bool mySortByStipendDescending(Student stu_1, Student stu_2);
-bool mySortByFormOfEducationAscending(Student stu_1, Student stu_2);
-bool mySortByFormOfEducationDescending(Student stu_1, Student stu_2);
-bool mySortBySocialWorkAscending(Student stu_1, Student stu_2);
-bool mySortBySocialWorkDescending(Student stu_1, Student stu_2);
-//bool mySortByAscending(Student stu_1, Student stu_2, string Student::* x);
-//bool mySortByDescending(Student stu_1, Student stu_2, string Student::* x);
+void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student&, Student&));
+bool mySortBySurnameAscending(Student& stu_1, Student& stu_2);
+bool mySortBySurnameDescending(Student& stu_1, Student& stu_2);
+bool mySortByGroupNumberAscending(Student& stu_1, Student& stu_2);
+bool mySortByGroupNumberDescending(Student& stu_1, Student& stu_2);
+bool mySortByAverageScoreAscending(Student& stu_1, Student& stu_2);
+bool mySortByAverageScoreDescending(Student& stu_1, Student& stu_2);
+bool mySortByStipendAscending(Student& stu_1, Student& stu_2);
+bool mySortByStipendDescending(Student& stu_1, Student& stu_2);
+bool mySortByFormOfEducationAscending(Student& stu_1, Student& stu_2);
+bool mySortByFormOfEducationDescending(Student& stu_1, Student& stu_2);
+bool mySortBySocialWorkAscending(Student& stu_1, Student& stu_2);
+bool mySortBySocialWorkDescending(Student& stu_1, Student& stu_2);
+
 void sortStudents(vector <Student>& vec_of_students);
 void sortStudentOffsets(vector <Student>& vec_of_students);
-bool mySortByOopipAscending(Student stu_1, Student stu_2);
-bool mySortByOopipDescending(Student stu_1, Student stu_2);
-bool mySortByDiscreteMathAscending(Student stu_1, Student stu_2);
-bool mySortByDiscreteMathDescending(Student stu_1, Student stu_2);
-bool mySortByInadAscending(Student stu_1, Student stu_2);
-bool mySortByInadDescending(Student stu_1, Student stu_2);
-bool mySortByHistoryAscending(Student stu_1, Student stu_2);
-bool mySortByHistoryDescending(Student stu_1, Student stu_2);
-bool mySortByPhysCultureAscending(Student stu_1, Student stu_2);
-bool mySortByPhysCultureDescending(Student stu_1, Student stu_2);
+bool mySortByOopipAscending(Student& stu_1, Student& stu_2);
+bool mySortByOopipDescending(Student& stu_1, Student& stu_2);
+bool mySortByDiscreteMathAscending(Student& stu_1, Student& stu_2);
+bool mySortByDiscreteMathDescending(Student& stu_1, Student& stu_2);
+bool mySortByInadAscending(Student& stu_1, Student& stu_2);
+bool mySortByInadDescending(Student& stu_1, Student& stu_2);
+bool mySortByHistoryAscending(Student& stu_1, Student& stu_2);
+bool mySortByHistoryDescending(Student& stu_1, Student& stu_2);
+bool mySortByPhysCultureAscending(Student& stu_1, Student& stu_2);
+bool mySortByPhysCultureDescending(Student& stu_1, Student& stu_2);
 void sortStudentExams(vector <Student>& vec_of_students);
-bool mySortByOaipAscending(Student stu_1, Student stu_2);
-bool mySortByOaipDescending(Student stu_1, Student stu_2);
-bool mySortByMathAscending(Student stu_1, Student stu_2);
-bool mySortByMathDescending(Student stu_1, Student stu_2);
-bool mySortByEnglishAscending(Student stu_1, Student stu_2);
-bool mySortByEnglishDescending(Student stu_1, Student stu_2);
-bool mySortByPhysicsAscending(Student stu_1, Student stu_2);
-bool mySortByPhysicsDescending(Student stu_1, Student stu_2);
-//void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student, Student, string Student::* x));
-
-//void showStudents(vector <Student>& vec_of_students);
-//void calculateStipends(vector <Student>& vec_of_students);
-//void sortStudents(vector <Student>& vec_of_students);
-//void searchStudents(vector <Student>& vec_of_students);
-//void addStudent(vector <Student>& vec_of_students);
-//void editStudent(vector <Student>& vec_of_students);
-//void deleteStudent(vector <Student>& vec_of_students);
-//int indexOfVectorForChange(vector <Student>& vec_of_students);
-//bool isGoodFio(vector <Student>& vec_of_students, string fio);
-//string enterStringWithoutNumbers();
-//void setOffsets(Student& temp_student);
-//void setExams(Student& temp_student);
-//int rateStudent(int min_range, int max_of_range, string subject);
+bool mySortByOaipAscending(Student& stu_1, Student& stu_2);
+bool mySortByOaipDescending(Student& stu_1, Student& stu_2);
+bool mySortByMathAscending(Student& stu_1, Student& stu_2);
+bool mySortByMathDescending(Student& stu_1, Student& stu_2);
+bool mySortByEnglishAscending(Student& stu_1, Student& stu_2);
+bool mySortByEnglishDescending(Student& stu_1, Student& stu_2);
+bool mySortByPhysicsAscending(Student& stu_1, Student& stu_2);
+bool mySortByPhysicsDescending(Student& stu_1, Student& stu_2);
+void editStudent(vector <Student>& vec_of_students);
+void editExams(Student& temp_student);
+void editOffsets(Student& temp_student);
+void editFormOfEducation(Student& temp_student);
+void searchStudents(vector <Student>& vec_of_students);
+void searchByStipend(vector <Student>& vec_of_students);
+void searchByFio(vector <Student>& vec_of_students);
+void searchByNumberOfGroup(vector <Student>& vec_of_students);
+void editActivityOfSocialWork(Student& temp_student);
 
 int main()
 {
@@ -268,7 +163,6 @@ int main()
 
 int initialisation(vector <Account>& vec_of_accounts)
 {
-	cout << "Здравствуйте, гость! Пожалуйста, выберите пункт меню:" << endl;
 	cout << START_MENU << endl;
 	int item = enterNumberInRange(0, MAX_OF_START_MENU);
 	system("cls");
@@ -281,112 +175,11 @@ int initialisation(vector <Account>& vec_of_accounts)
 		return initialisation(vec_of_accounts);
 	case 0:
 		return -2;
-	default: cout << ERROR_MESSAGE << endl;
+	default:
+		cout << ERROR_MESSAGE << endl;
 		return item;
 	}
 }
-
-/*int enterAccount(vector <Account>& vec_of_accounts)
-{
-	string login, password;
-	int index;
-	for (int i = 0; i < NUMBER_OF_ATTEMPTS; i++)
-	{
-		cout << "Осталось попыток: " << NUMBER_OF_ATTEMPTS - i << endl;
-		cout << "Введите логин: ";
-		login = enterStringWithoutSpaces();
-		cout << "\nВведите пароль: ";
-		password = enterGoodPassword();
-		index = checkDataEquals(vec_of_accounts, login, password);
-		system("cls");
-		if (index >= 0)
-		{
-			if (vec_of_accounts.at(index).access == 1)
-			{
-				return index;
-			}
-			else if (vec_of_accounts.at(index).access == 0)
-			{
-				cout << "\nВаша учетная запись ещё не подтверждена администратором, доступ запрещён." << endl;
-				return -1;
-			}
-			else
-			{
-				cout << "\nВаша учетная запись заблокирована, доступ запрещён." << endl;
-				return -2;
-			}
-		}
-		else
-		{
-			cout << "Введён неверный логин или пароль! Повторите попытку." << endl;
-		}
-	}
-	cout << "Доступ запрещён. Завершение работы..." << endl;
-	return -2;
-}*/
-
-/*string enterGoodPassword()
-{
-	char symbol;
-	string password;
-	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
-	{
-		if (symbol == '\b')//backspace
-		{
-			if (!password.empty())
-			{
-				cout << '\b' << ' ' << '\b';
-				password.erase(password.length() - 1);
-			}
-			continue;
-		}
-		password += symbol;
-		cout << '*';
-	}
-	return password;
-}*/
-
-/*string enterStringWithoutSpaces()
-{
-	char symbol;
-	string buffer;
-	while ((symbol = _getch()) != '\r')//пока вводимый символ не равен сиволу переноса каретки(enter)
-	{
-		if (symbol == '\b')//backspace
-		{
-			if (!buffer.empty())
-			{
-				cout << "\b \b";
-				buffer.erase(buffer.length() - 1);
-			}
-			continue;
-		}
-		if (symbol == ' ')
-		{
-			continue;
-		}
-		buffer += symbol;
-		cout << symbol;
-	}
-	return buffer;
-}*/
-
-/*string hashPassword(string password, string salt)
-{
-	return sha256(sha256(password + salt) + sha256(password));
-}*/
-
-/*bool isGoodLogin(vector <Account>& vec_of_accounts, string login)
-{
-	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
-	{
-		if (login == vec_of_accounts.at(i).login)
-		{
-			return 0;
-		}
-	}
-	return 1;
-}*/
 
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 {
@@ -416,7 +209,7 @@ void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students)
 		case -1:
 			break;
 		default:
-			flag = false;//return;
+			flag = false;
 		}
 	}
 }
@@ -427,7 +220,7 @@ int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, i
 	while (flag)
 	{
 		cout << MAIN_MENU_USER << endl;
-		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_USER);//chooseMenu(message, max_of_range);
+		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_USER);
 		switch (item)
 		{
 		case 1:
@@ -441,7 +234,8 @@ int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, i
 		case 0:
 			flag = false;
 			break;
-		default: cout << ERROR_MESSAGE << endl;
+		default:
+			cout << ERROR_MESSAGE << endl;
 		}
 	}
 	system("cls");
@@ -472,62 +266,13 @@ int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, 
 		case 0:
 			flag = false;
 			break;
-		default: cout << ERROR_MESSAGE << endl;
+		default:
+			cout << ERROR_MESSAGE << endl;
 		}
 	}
 	system("cls");
 	return 0;
 }
-
-/*void changePassword(vector <Account>& vec_of_accounts, int index_of_user)
-{
-	string password;
-	for (int i = 0; i < NUMBER_OF_ATTEMPTS; i++)
-	{
-		cout << "Осталось попыток: " << NUMBER_OF_ATTEMPTS - i << endl;
-		cout << "Введите текущий пароль: ";
-		password = enterGoodPassword();
-		if (isPasswordEquals(vec_of_accounts, password, index_of_user))
-		{
-			cout << "\nВведите новый пароль: ";
-			password = enterStringWithoutSpaces();
-			vec_of_accounts.at(index_of_user).salt = generateSalt(SALT_SIZE);
-			vec_of_accounts.at(index_of_user).salted_hash_password = hashPassword(password, vec_of_accounts.at(index_of_user).salt);
-			system("cls");
-			cout << "\nПароль изменён успешно!" << endl;
-			system("pause");
-			break;
-		}
-		else
-		{
-			system("cls");
-			cout << "Введён неверный пароль! Повторите попытку." << endl;
-		}
-	}
-	system("cls");
-}*/
-
-/*bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user)
-{
-	return vec_of_accounts.at(index_of_user).salted_hash_password == hashPassword(password, vec_of_accounts.at(index_of_user).salt);
-}
-
-bool isLoginEquals(vector <Account>& vec_of_accounts, string login, int index_of_user)
-{
-	return vec_of_accounts.at(index_of_user).login == login;
-}*/
-
-/*int checkDataEquals(vector <Account>& vec_of_accounts, string login, string password)
-{
-	for (unsigned int index = 0; index < vec_of_accounts.size(); index++)
-	{
-		if (isLoginEquals(vec_of_accounts, login, index) && isPasswordEquals(vec_of_accounts, password, index))
-		{
-			return index;
-		}
-	}
-	return -1;
-}*/
 
 void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user)
 {
@@ -584,22 +329,12 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user)
 			break;
 		case 0: flag = false;
 			break;
-		default: cout << ERROR_MESSAGE << endl;
+		default:
+			cout << ERROR_MESSAGE << endl;
 		}
 	}
 	system("cls");
 }
-
-/*int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user)
-{
-	for (int i = 0; i < vec_of_accounts.size(); i++)
-	{
-		if (login_of_user == vec_of_accounts.at(i).login)
-		{
-			return i;
-		}
-	}
-}*/
 
 void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 {
@@ -626,6 +361,7 @@ void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 			calculateStipends(vec_of_students);
 			break;
 		case 2:
+			system("cls");
 			searchStudents(vec_of_students);
 			break;
 		case 3:
@@ -645,165 +381,106 @@ void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 		case 0:
 			flag = false;
 			break;
-		default: cout << ERROR_MESSAGE << endl;
+		default:
+			cout << ERROR_MESSAGE << endl;
 		}
 	}
 	system("cls");
 }
 
-/*void showStudents(vector <Student>& vec_of_students)
+void searchStudents(vector <Student>& vec_of_students)
 {
-	cout << endl;
-	cout << "№\t|" << "ФИО\t|" << "№ группы\t|" << "ООПиП\t|" << "ДМ\t|" << "ИнАД\t|" << "Ист\t|" << "ФизК\t|"
-		<< "ОАиП\t|" << "МА\t|" << "ИнЯз\t|" << "Физика\t|" << "Бюджет\t|" << "Активность\t|" << endl;
-	cout << SEPARATOR << endl;
-	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	int number;
+	bool flag = true;
+	while (flag)
 	{
-		cout << i + 1 << "\t|" << vec_of_students.at(i).FIO << "\t|" << vec_of_students.at(i).num_of_group
-			<< "\t|" << vec_of_students.at(i).offset.oopip << "\t|" << vec_of_students.at(i).offset.discrete_math
-			<< "\t|" << vec_of_students.at(i).offset.inad << "\t|" << vec_of_students.at(i).offset.history
-			<< "\t|" << vec_of_students.at(i).offset.phys_culture
-			<< "\t|" << vec_of_students.at(i).exam.oaip << "\t|" << vec_of_students.at(i).exam.math
-			<< "\t|" << vec_of_students.at(i).exam.english << "\t|" << vec_of_students.at(i).exam.physics
-			<< "\t|" << vec_of_students.at(i).is_budget_student << "\t|" << vec_of_students.at(i).is_social_work << endl;
-	}
-	cout << SEPARATOR << endl;
-	cout << endl;
-}*/
-/*
-void calculateStipends(vector <Student>& vec_of_students) {}
-
-void sortStudents(vector <Student>& vec_of_students) {}
-
-void searchStudents(vector <Student>& vec_of_students) {}
-
-void addStudent(vector <Student>& vec_of_students)
-{
-	Student temp_student;
-	string fio;
-	while (true)
-	{
-		cout << "\nФИО: ";
-		fio = enterStringWithoutNumbers();
-		if (isGoodFio(vec_of_students, fio))
+		cout << MENU_OF_SEARCH_STUDENTS << endl;
+		number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS);
+		switch (number)
 		{
-			temp_student.FIO = fio;
+		case 1:
+			searchByFio(vec_of_students);
 			break;
-		}
-		else
-		{
-			system("cls");
-			cout << "\nСтудент с таким ФИО уже существует! Введите другое.";
+		case 2:
+			searchByNumberOfGroup(vec_of_students);
+			break;
+		case 3:
+			searchByStipend(vec_of_students);
+			break;
+		case 0:
+			flag = false;
+			break;
+		default:
+			cout << ERROR_MESSAGE << endl;
 		}
 	}
-	cout << "\nНомер группы: ";
-	temp_student.num_of_group = enterStringWithoutSpaces();
-	setOffsets(temp_student);
-	setExams(temp_student);
-	cout << "\nФорма обучения (Платная - 0, Бюджетная - 1): ";
-	temp_student.is_budget_student = enterNumberInRange(0, 1);
-	cout << "\nУчастие в общественной работе (Неактивное - 0, Активное - 1): ";
-	temp_student.is_social_work = enterNumberInRange(0, 1);
-	vec_of_students.push_back(temp_student);
 }
-*/
-/*bool isGoodFio(vector <Student>& vec_of_students, string fio)
+
+void searchByFio(vector <Student>& vec_of_students)
 {
+	cout << "ФИО: ";
+	string fio = enterStringWithoutNumbers();
+	system("cls");
+	drawHeader();
+	int k = 0;
 	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
-		if (fio == vec_of_students.at(i).FIO)
+		if (vec_of_students.at(i).FIO == fio)
 		{
-			return 0;
+			displayStudent(vec_of_students.at(i), k++);
 		}
 	}
-	return 1;
-}*/
-
-/*string enterStringWithoutNumbers()
-{
-	char symbol;
-	string buffer;
-	while ((symbol = _getch()) != '\r')
+	if (k == 0)
 	{
-		if (symbol == '\b')
-		{
-			if (!buffer.empty())
-			{
-				cout << "\b \b";
-				buffer.erase(buffer.size() - 1);
-			}
-			continue;
-		}
-		if (!((symbol >= 'а' && symbol <= 'я') || (symbol >= 'А' && symbol <= 'Я') || symbol == ' ' || symbol == '.'))
-		{
-			continue;
-		}
-		else if ((!buffer.empty() && symbol == ' ' && buffer.at(buffer.size() - 1) == ' ') || (buffer.empty() && symbol == ' '))
-		{
-			continue;
-		}
-		buffer += symbol;
-		cout << symbol;
+		cout << setw(99) << "Ничего не нашлось..." << endl;
+		cout << SEPARATOR_STUDENT << endl;
 	}
-	buffer += '\0';
-	return buffer;
-}*/
-/*
-void setOffsets(Student& temp_student)
-{
-	cout << "\nЗачеты (Не зачтено - " << MIN_OFFSET << ", Зачтено - " << MAX_OFFSET << ")" << endl;
-	temp_student.offset.oopip = rateStudent(MIN_OFFSET, MAX_OFFSET, OOPIP);
-	temp_student.offset.discrete_math = rateStudent(MIN_OFFSET, MAX_OFFSET, DISCRETE_MATH);
-	temp_student.offset.inad = rateStudent(MIN_OFFSET, MAX_OFFSET, INAD);
-	temp_student.offset.history = rateStudent(MIN_OFFSET, MAX_OFFSET, HISTORY);
-	temp_student.offset.phys_culture = rateStudent(MIN_OFFSET, MAX_OFFSET, PHYS_CULTURE);
+	cout << endl;
 }
 
-void setExams(Student& temp_student)
+void searchByNumberOfGroup(vector <Student>& vec_of_students)
 {
-	cout << "\nЭкзамены (Минимальная оценка - " << MIN_EXAM << ", Максимальная оценка - " << MAX_EXAM << ")" << endl;
-	temp_student.exam.oaip = rateStudent(MIN_EXAM, MAX_EXAM, OAIP);
-	temp_student.exam.math = rateStudent(MIN_EXAM, MAX_EXAM, MATH);
-	temp_student.exam.english = rateStudent(MIN_EXAM, MAX_EXAM, ENGLISH);
-	temp_student.exam.physics = rateStudent(MIN_EXAM, MAX_EXAM, PHYSICS);
-}
-
-int rateStudent(int min_range, int max_of_range, string subject)
-{
-	cout << subject << ": ";
-	return enterNumberInRange(min_range, max_of_range);
-}
-
-void editStudent(vector <Student>& vec_of_students) {}
-
-void deleteStudent(vector <Student>& vec_of_students)
-{
-	int answer, index_for_delete;
-	cout << "Какого студента вы хотите удалить?\n Отмена - 0" << endl;
-	index_for_delete = indexOfVectorForChange(vec_of_students);
-	if (index_for_delete != 0)
+	cout << "Номер группы: ";
+	string num_of_group = enterStringWithoutSpacesAndSpecialSym();
+	system("cls");
+	drawHeader();
+	int k = 0;
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
-		index_for_delete--;
-
-		system("cls");
-		cout << "Вы действительно хотите удалить студента " << vec_of_students.at(index_for_delete).FIO << "? \nДа - 1 \nНет - 0" << endl;
-		answer = enterNumberInRange(0, 1);
-		if (answer == 1)
+		if (vec_of_students.at(i).num_of_group == num_of_group)
 		{
-			vec_of_students.erase(vec_of_students.begin() + index_for_delete);
-			cout << "Успешно удалён!" << endl;
-			system("pause");
+			displayStudent(vec_of_students.at(i), k++);
 		}
 	}
+	if (k == 0)
+	{
+		cout << setw(99) << "Ничего не нашлось..." << endl;
+		cout << SEPARATOR_STUDENT << endl;
+	}
+	cout << endl;
 }
 
-int indexOfVectorForChange(vector <Student>& vec_of_students)
+void searchByStipend(vector <Student>& vec_of_students)
 {
-	int size;
-	size = vec_of_students.size();
-	return enterNumberInRange(0, size);
+	double stipend = enterStipend();
+	system("cls");
+	drawHeader();
+	int k = 0;
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		if (vec_of_students.at(i).stipend == stipend)
+		{
+			displayStudent(vec_of_students.at(i), k++);
+		}
+	}
+	if (k == 0)
+	{
+		cout << setw(99) << "Ничего не нашлось..." << endl;
+		cout << SEPARATOR_STUDENT << endl;
+	}
+	cout << endl;
 }
-*/
+
 void sortAccounts(vector <Account>& vec_of_accounts)
 {
 	int number;
@@ -825,7 +502,120 @@ void sortAccounts(vector <Account>& vec_of_accounts)
 		break;
 	case 0:
 		break;
-	default: cout << ERROR_MESSAGE << endl;
+	default:
+		cout << ERROR_MESSAGE << endl;
+	}
+}
+
+void editStudent(vector <Student>& vec_of_students)
+{
+	bool flag = true;
+	cout << "Какого студента вы хотите отредактировать?\nНазад - 0" << endl;
+	int index_for_change = indexOfVectorForChange(vec_of_students);
+	if (index_for_change == 0)return;
+	else index_for_change--;
+	while (flag)
+	{
+		system("cls");
+		showStudents(vec_of_students);
+		cout << "Выбран студент " << vec_of_students.at(index_for_change).FIO << endl;
+		cout << MENU_OF_EDIT_STUDENT << endl;
+		int number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_EDIT_STUDENT);
+		switch (number)
+		{
+		case 1:
+			setFio(vec_of_students, vec_of_students.at(index_for_change));
+			break;
+		case 2:
+			setNumOfGroup(vec_of_students.at(index_for_change));
+			break;
+		case 3:
+			editOffsets(vec_of_students.at(index_for_change));
+			setIsOffsetsSubmited(vec_of_students.at(index_for_change));
+			editStipends(vec_of_students);
+			break;
+		case 4:
+			editExams(vec_of_students.at(index_for_change));
+			setAverageScore(vec_of_students.at(index_for_change));
+			editStipends(vec_of_students);
+			break;
+		case 5:
+			editFormOfEducation(vec_of_students.at(index_for_change));
+			editStipends(vec_of_students);
+			break;
+		case 6:
+			editActivityOfSocialWork(vec_of_students.at(index_for_change));
+			editStipends(vec_of_students);
+			break;
+		case 0:
+			flag = false;
+			break;
+		default:
+			cout << ERROR_MESSAGE << endl;
+		}
+	}
+}
+
+void editFormOfEducation(Student& temp_student)
+{
+	temp_student.is_budget_student = !temp_student.is_budget_student;
+}
+
+void editActivityOfSocialWork(Student& temp_student)
+{
+	temp_student.is_social_work = !temp_student.is_social_work;
+}
+
+void editOffsets(Student& temp_student)
+{
+	cout << MENU_OF_STUDENTS_OFFSETS << endl;
+	int number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_STUDENTS_OFFSETS);
+	switch (number)
+	{
+	case 1:
+		temp_student.offset.oopip = !temp_student.offset.oopip;
+		break;
+	case 2:
+		temp_student.offset.discrete_math = !temp_student.offset.discrete_math;
+		break;
+	case 3:
+		temp_student.offset.inad = !temp_student.offset.inad;
+		break;
+	case 4:
+		temp_student.offset.history = !temp_student.offset.history;
+		break;
+	case 5:
+		temp_student.offset.phys_culture = !temp_student.offset.phys_culture;
+		break;
+	case 0:
+		break;
+	default:
+		cout << ERROR_MESSAGE << endl;
+	}
+}
+
+void editExams(Student& temp_student)
+{
+	cout << MENU_OF_STUDENTS_EXAMS << endl;
+	int number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_STUDENTS_EXAMS);
+	switch (number)
+	{
+	case 1:
+		setOaip(temp_student);
+		break;
+	case 2:
+		setMath(temp_student);
+		break;
+	case 3:
+		setEnglish(temp_student);
+		break;
+	case 4:
+		setPhysics(temp_student);
+		break;
+	case 0:
+		break;
+	default:
+		cout << ERROR_MESSAGE << endl;
 	}
 }
 
@@ -868,15 +658,16 @@ void sortStudents(vector <Student>& vec_of_students)
 		break;
 	case 0:
 		break;
-	default: cout << ERROR_MESSAGE << endl;
+	default:
+		cout << ERROR_MESSAGE << endl;
 	}
 }
 
 void sortStudentOffsets(vector <Student>& vec_of_students)
 {
 	int number;
-	cout << MENU_OF_SORTS_STUDENTS_OFFSETS << endl;
-	number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS_OFFSETS);
+	cout << MENU_OF_STUDENTS_OFFSETS << endl;
+	number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_STUDENTS_OFFSETS);
 	switch (number)
 	{
 	case 1:
@@ -901,15 +692,16 @@ void sortStudentOffsets(vector <Student>& vec_of_students)
 		break;
 	case 0:
 		break;
-	default: cout << ERROR_MESSAGE << endl;
+	default:
+		cout << ERROR_MESSAGE << endl;
 	}
 }
 
 void sortStudentExams(vector <Student>& vec_of_students)
 {
 	int number;
-	cout << MENU_OF_SORTS_STUDENTS_EXAMS << endl;
-	number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS_EXAMS);
+	cout << MENU_OF_STUDENTS_EXAMS << endl;
+	number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_STUDENTS_EXAMS);
 	switch (number)
 	{
 	case 1:
@@ -930,161 +722,162 @@ void sortStudentExams(vector <Student>& vec_of_students)
 		break;
 	case 0:
 		break;
-	default: cout << ERROR_MESSAGE << endl;
+	default:
+		cout << ERROR_MESSAGE << endl;
 	}
 }
 
-void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student, Student))
+void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student&, Student&))
 {
 	sort(vec_of_students.begin(), vec_of_students.end(), comparisonFunction);
 }
 
-bool mySortBySurnameAscending(Student stu_1, Student stu_2)
+bool mySortBySurnameAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.FIO < stu_2.FIO;
 }
 
-bool mySortBySurnameDescending(Student stu_1, Student stu_2)
+bool mySortBySurnameDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.FIO > stu_2.FIO;
 }
 
-bool mySortByGroupNumberAscending(Student stu_1, Student stu_2)
+bool mySortByGroupNumberAscending(Student& stu_1, Student& stu_2)
 {
 	return stoi(stu_1.num_of_group) < stoi(stu_2.num_of_group);
 }
 
-bool mySortByGroupNumberDescending(Student stu_1, Student stu_2)
+bool mySortByGroupNumberDescending(Student& stu_1, Student& stu_2)
 {
 	return stoi(stu_1.num_of_group) > stoi(stu_2.num_of_group);
 }
 
-bool mySortByAverageScoreAscending(Student stu_1, Student stu_2)
+bool mySortByAverageScoreAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.average_score < stu_2.exam.average_score;
 }
 
-bool mySortByAverageScoreDescending(Student stu_1, Student stu_2)
+bool mySortByAverageScoreDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.average_score > stu_2.exam.average_score;
 }
 
-bool mySortByStipendAscending(Student stu_1, Student stu_2)
+bool mySortByStipendAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.stipend < stu_2.stipend;
 }
 
-bool mySortByStipendDescending(Student stu_1, Student stu_2)
+bool mySortByStipendDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.stipend > stu_2.stipend;
 }
 
-bool mySortByFormOfEducationAscending(Student stu_1, Student stu_2)
+bool mySortByFormOfEducationAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.is_budget_student < stu_2.is_budget_student;
 }
 
-bool mySortByFormOfEducationDescending(Student stu_1, Student stu_2)
+bool mySortByFormOfEducationDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.is_budget_student > stu_2.is_budget_student;
 }
 
-bool mySortBySocialWorkAscending(Student stu_1, Student stu_2)
+bool mySortBySocialWorkAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.is_social_work < stu_2.is_social_work;
 }
 
-bool mySortBySocialWorkDescending(Student stu_1, Student stu_2)
+bool mySortBySocialWorkDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.is_social_work > stu_2.is_social_work;
 }
 
-bool mySortByOopipAscending(Student stu_1, Student stu_2)
+bool mySortByOopipAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.oopip < stu_2.offset.oopip;
 }
 
-bool mySortByOopipDescending(Student stu_1, Student stu_2)
+bool mySortByOopipDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.oopip > stu_2.offset.oopip;
 }
 
-bool mySortByDiscreteMathAscending(Student stu_1, Student stu_2)
+bool mySortByDiscreteMathAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.discrete_math < stu_2.offset.discrete_math;
 }
 
-bool mySortByDiscreteMathDescending(Student stu_1, Student stu_2)
+bool mySortByDiscreteMathDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.discrete_math > stu_2.offset.discrete_math;
 }
 
-bool mySortByInadAscending(Student stu_1, Student stu_2)
+bool mySortByInadAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.inad < stu_2.offset.inad;
 }
 
-bool mySortByInadDescending(Student stu_1, Student stu_2)
+bool mySortByInadDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.inad > stu_2.offset.inad;
 }
 
-bool mySortByHistoryAscending(Student stu_1, Student stu_2)
+bool mySortByHistoryAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.history < stu_2.offset.history;
 }
 
-bool mySortByHistoryDescending(Student stu_1, Student stu_2)
+bool mySortByHistoryDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.history > stu_2.offset.history;
 }
 
-bool mySortByPhysCultureAscending(Student stu_1, Student stu_2)
+bool mySortByPhysCultureAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.phys_culture < stu_2.offset.phys_culture;
 }
 
-bool mySortByPhysCultureDescending(Student stu_1, Student stu_2)
+bool mySortByPhysCultureDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.offset.phys_culture > stu_2.offset.phys_culture;
 }
 
-bool mySortByOaipAscending(Student stu_1, Student stu_2)
+bool mySortByOaipAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.oaip < stu_2.exam.oaip;
 }
 
-bool mySortByOaipDescending(Student stu_1, Student stu_2)
+bool mySortByOaipDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.oaip > stu_2.exam.oaip;
 }
 
-bool mySortByMathAscending(Student stu_1, Student stu_2)
+bool mySortByMathAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.math < stu_2.exam.math;
 }
 
-bool mySortByMathDescending(Student stu_1, Student stu_2)
+bool mySortByMathDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.math > stu_2.exam.math;
 }
 
-bool mySortByEnglishAscending(Student stu_1, Student stu_2)
+bool mySortByEnglishAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.english < stu_2.exam.english;
 }
 
-bool mySortByEnglishDescending(Student stu_1, Student stu_2)
+bool mySortByEnglishDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.english > stu_2.exam.english;
 }
 
-bool mySortByPhysicsAscending(Student stu_1, Student stu_2)
+bool mySortByPhysicsAscending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.physics < stu_2.exam.physics;
 }
 
-bool mySortByPhysicsDescending(Student stu_1, Student stu_2)
+bool mySortByPhysicsDescending(Student& stu_1, Student& stu_2)
 {
 	return stu_1.exam.physics > stu_2.exam.physics;
 }
@@ -1114,15 +907,7 @@ void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& a
 	{
 		if (array.size() != 0)
 		{
-			cout << endl;
-			cout << "№\t|" << "Логин\t|" << "Роль\t|" << endl;
-			cout << SEPARATOR << endl;
-			for (unsigned int i = 0; i < array.size(); i++)
-			{
-				cout << i + 1 << "\t|" << vec_of_accounts.at(array.at(i)).login << "\t|"
-					<< vec_of_accounts.at(array.at(i)).role << "\t|" << endl;
-			}
-			cout << SEPARATOR << endl;
+			showRequestsOfAccounts(vec_of_accounts, array);
 			cout << MENU_OF_ACCESS << endl;
 			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_ACCESS);
 			switch (number)
@@ -1148,334 +933,6 @@ void workWithAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& a
 		}
 	}
 }
-/*
-void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)
-{
-	int number;
-	cout << "Выберите учётную запись, которую вы хотите подтвердить:" << endl;
-	cout << " Назад - 0" << endl;
-	number = enterNumberInRange(0, array.size());
-	if (number != 0)
-	{
-		number--;
-		vec_of_accounts.at(array.at(number)).access = 1;
-		array.erase(array.begin() + number);
-		system("cls");
-		cout << "Учётная запись подтверждена." << endl;
-		system("pause");
-	}
-}
-
-void rejectAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)
-{
-	int number;
-	cout << "Выберите учётную запись, которой вы хотите заблокировать доступ:" << endl;
-	cout << " Назад - 0" << endl;
-	number = enterNumberInRange(0, array.size());
-	if (number != 0)
-	{
-		number--;
-		vec_of_accounts.at(array.at(number)).access = -1;
-		array.erase(array.begin() + number);
-		system("cls");
-		cout << "Учётная запись заблокирована." << endl;
-		system("pause");
-	}
-}
-
-void fillVectorOfAccountsNeedAccess(vector <Account>& vec_of_accounts, vector <int>& array)
-{
-	array.clear();
-	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
-	{
-		if (vec_of_accounts.at(i).access == 0)
-		{
-			array.push_back(i);
-		}
-	}
-}*/
-/*
-void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
-{
-	Account temp_account;
-	string login, password;
-	while (true)
-	{
-		cout << "\nЛогин: ";
-		login = enterStringWithoutSpaces();
-		if (isGoodLogin(vec_of_accounts, login))
-		{
-			temp_account.login = login;
-			break;
-		}
-		else
-		{
-			system("cls");
-			cout << "\nТакой логин уже существует! Введите другой.";
-		}
-	}
-	cout << "\nПароль: ";
-	password = enterStringWithoutSpaces();
-	temp_account.salt = generateSalt(SALT_SIZE);
-	temp_account.salted_hash_password = hashPassword(password, temp_account.salt);
-	cout << "\nРоль (Пользователь - 0, Админ - 1): ";
-	int role;
-	role = enterNumberInRange(0, 1);//cin >> temp_account.role;
-	temp_account.role = role;
-	if (is_from_admin)
-	{
-		temp_account.access = 1;
-		cout << "Учётная запись создана!" << endl;
-		system("pause");
-	}
-	else
-	{
-		system("cls");
-		cout << "Учётная запись создана! Ожидйте подтверждения администратором." << endl;
-	}
-	vec_of_accounts.push_back(temp_account);
-}
-
-void showAccounts(vector <Account>& vec_of_accounts)
-{
-	cout << endl;
-	cout << "№\t|" << "Логин\t|" << "Роль\t|" << "Доступ\t|" << endl;
-	cout << SEPARATOR << endl;
-	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
-	{
-		cout << i + 1 << "\t|" << vec_of_accounts.at(i).login << "\t|" << vec_of_accounts.at(i).role << "\t|"
-			<< vec_of_accounts.at(i).access << "\t|" << endl;
-	}
-	cout << SEPARATOR << endl;
-	cout << endl;
-}
-
-void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
-{
-	int answer, index_for_delete;
-	cout << "Какой аккаунт вы хотите удалить?\n Отмена - 0" << endl;
-	index_for_delete = indexOfVectorForChange(vec_of_accounts);
-	if (index_for_delete != 0)
-	{
-		index_for_delete--;
-		if (index_for_delete != index_of_user)
-		{
-			system("cls");
-			cout << "Вы действительно хотите удалить аккаунт " << vec_of_accounts.at(index_for_delete).login << "? \nДа - 1 \nНет - 0" << endl;
-			answer = enterNumberInRange(0, 1);
-			if (answer == 1)
-			{
-				vec_of_accounts.erase(vec_of_accounts.begin() + index_for_delete);
-				cout << "Успешно удалён!" << endl;
-				system("pause");
-			}
-		}
-		else
-		{
-			cout << "Нельзя удалить самого себя! Обратитесь к другому администратору." << endl;
-			system("pause");
-		}
-	}
-}*/
-
-/*int enterNumberInRange(int min, int max)
-{
-	int number;
-	while (true)
-	{
-		number = correctInputInt();
-		if (number >= min && number <= max)
-		{
-			break;
-		}
-		else
-		{
-			cout << "Введите число в заданном промежутке!" << endl;
-		}
-	}
-	return number;
-}*/
-
-/*void createFirstAccount(vector <Account>& vec_of_accounts)
-{
-	ifstream fin(FILE_OF_ACCOUNTS, ios::in);
-	Account temp_account;
-	temp_account.login = ADMIN_LOGIN;
-	temp_account.salt = generateSalt(SALT_SIZE);
-	temp_account.salted_hash_password = hashPassword(ADMIN_PASSWORD, temp_account.salt);
-	temp_account.role = ADMIN_ROLE;
-	temp_account.access = ADMIN_ACCESS;
-	vec_of_accounts.push_back(temp_account);
-	writeFileOfAccounts(vec_of_accounts);
-	fin.close();
-}*/
-
-/*void readFileOfAccounts(vector <Account>& vec_of_accounts)
-{
-	ifstream fin(FILE_OF_ACCOUNTS, ios::in);
-	Account temp_account;
-	if (!fin.is_open())
-	{
-		cout << "Файла с учетными записями не существует! Создан новый с учётной записью администратора." << endl;
-		createFirstAccount(vec_of_accounts);
-	}
-	else
-	{
-		if (fin.peek() != EOF)
-		{
-			while (!fin.eof())
-			{
-				fin >> temp_account.login >> temp_account.salted_hash_password >> temp_account.salt >> temp_account.role
-					>> temp_account.access;
-				vec_of_accounts.push_back(temp_account);
-			}
-		}
-		else
-		{
-			cout << "Файл пуст! Создана учётная запись администратора." << endl;
-			createFirstAccount(vec_of_accounts);
-		}
-	}
-	fin.close();
-}*/
-/*
-void readFileOfStudents(vector <Student>& vec_of_students)
-{
-	ifstream fin(FILE_OF_STUDENTS, ios::in);
-	Student temp_student;
-	if (!fin.is_open())
-	{
-		cout << "Файла со студентами не существует! Создан новый." << endl;
-	}
-	else
-	{
-		if (fin.peek() != EOF)
-		{
-			while (!fin.eof())
-			{
-				getline(fin,temp_student.FIO, '\0');
-				temp_student.FIO += '\0';
-				fin >> temp_student.num_of_group
-					>> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
-					>> temp_student.offset.history >> temp_student.offset.phys_culture
-					>> temp_student.exam.oaip >> temp_student.exam.math >> temp_student.exam.english >> temp_student.exam.physics
-					>> temp_student.is_budget_student >> temp_student.is_social_work;
-				vec_of_students.push_back(temp_student);
-			}
-		}
-		else
-		{
-			cout << "Файл пуст!" << endl;
-		}
-	}
-	fin.close();
-}
-*/
-/*void writeFileOfAccounts(vector <Account>& vec_of_accounts)
-{
-	ofstream fout(FILE_OF_ACCOUNTS, ios::out);
-	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
-	{
-		fout << vec_of_accounts.at(i).login << " " << vec_of_accounts.at(i).salted_hash_password << " " << vec_of_accounts.at(i).salt
-			<< " " << vec_of_accounts.at(i).role << " " << vec_of_accounts.at(i).access;
-		if (i < vec_of_accounts.size() - 1)
-		{
-			fout << endl;
-		}
-	}
-	fout.close();
-}*/
-/*
-void writeFileOfStudents(vector <Student>& vec_of_students)
-{
-	ofstream fout(FILE_OF_STUDENTS, ios::out);
-	for (unsigned int i = 0; i < vec_of_students.size(); i++)
-	{
-		fout << vec_of_students.at(i).FIO << " " << vec_of_students.at(i).num_of_group
-			<< " " << vec_of_students.at(i).offset.oopip << " " << vec_of_students.at(i).offset.discrete_math
-			<< " " << vec_of_students.at(i).offset.inad << " " << vec_of_students.at(i).offset.history
-			<< " " << vec_of_students.at(i).offset.phys_culture
-			<< " " << vec_of_students.at(i).exam.oaip << " " << vec_of_students.at(i).exam.math
-			<< " " << vec_of_students.at(i).exam.english << " " << vec_of_students.at(i).exam.physics
-			<< " " << vec_of_students.at(i).is_budget_student << " " << vec_of_students.at(i).is_social_work;
-		if (i < vec_of_students.size() - 1)
-		{
-			fout << endl;
-		}
-	}
-	fout.close();
-}
-*/
-/*int correctInputInt()
-{
-	int a;
-	while (true)
-	{
-		cin >> a;
-		if (cin.get() == '\n') {
-			break;
-		}
-		else
-		{
-			cin.clear();
-			cin.ignore(256, '\n');
-			cout << "Ошибка! Введите целое число." << endl;
-		}
-	}
-	return a;
-}*/
-
-/*int indexOfVectorForChange(vector <Account>& vec_of_accounts)
-{
-	int size;
-	size = vec_of_accounts.size();
-	return enterNumberInRange(0, size);
-}*/
-/*
-void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user)
-{
-	cout << "Какому аккаунту вы хотите изменить доступ?\n Отмена - 0" << endl;
-	int index_for_change = indexOfVectorForChange(vec_of_accounts);
-	if (index_for_change != 0)
-	{
-		index_for_change--;
-		if (index_for_change != index_of_user)
-		{
-			if (vec_of_accounts.at(index_for_change).access == 1)
-			{
-				vec_of_accounts.at(index_for_change).access = -1;
-			}
-			else
-			{
-				vec_of_accounts.at(index_for_change).access = 1;
-			}
-		}
-		else
-		{
-			cout << "Нельзя изменить доступ самому себе! Обратитесь к другому администратору." << endl;
-			system("pause");
-		}
-	}
-}
-
-void updateAccountRole(vector <Account>& vec_of_accounts, int index_of_user)
-{
-	cout << "Какому аккаунту вы хотите изменить роль?\n Отмена - 0" << endl;
-	int index_for_change = indexOfVectorForChange(vec_of_accounts);
-	if (index_for_change != 0)
-	{
-		index_for_change--;
-		if (index_for_change != index_of_user)
-		{
-			vec_of_accounts.at(index_for_change).role = !vec_of_accounts.at(index_for_change).role;
-		}
-		else
-		{
-			cout << "Нельзя изменить роль самому себе! Обратитесь к другому администратору." << endl;
-			system("pause");
-		}
-	}
-}*/
 
 int getCountOfStructures(string file_path)
 {

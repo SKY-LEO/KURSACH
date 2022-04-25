@@ -3,15 +3,54 @@
 void showAccounts(vector <Account>& vec_of_accounts)
 {
 	cout << endl;
-	cout << "№\t|" << "Логин\t|" << "Роль\t|" << "Доступ\t|" << endl;
-	cout << SEPARATOR << endl;
+	cout << SEPARATOR_ACCOUNT << endl;
+	cout << "|" << setw(4) << "№" << setw(4) << "|" << setw(11) << "Логин" << setw(7) << "|" << setw(9) << "Роль" << setw(6) << "|"
+		<< setw(8) << "Доступ" << setw(3) << "|" << endl;
+	cout << SEPARATOR_ACCOUNT << endl;
 	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
 	{
-		cout << i + 1 << "\t|" << vec_of_accounts.at(i).login << "\t|" << vec_of_accounts.at(i).role << "\t|"
-			<< vec_of_accounts.at(i).access << "\t|" << endl;
+		cout << "|" << setw(4) << i + 1 << setw(4) << "|" << setw(17) << left << vec_of_accounts.at(i).login << "|"
+			<< setw(14) << right << tellIsUserOrAdminRole(vec_of_accounts.at(i).role) << "|"
+			<< setw(9) << tellIsActiveOrWaitOrBannedAccess(vec_of_accounts.at(i).access) << setw(2) << "|" << endl;
+		cout << SEPARATOR_ACCOUNT << endl;
+	}
+	cout << endl;
+}
+
+void showRequestsOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)
+{
+	cout << endl;
+	cout << "|" << setw(4) << "№" << setw(4) << "|" << setw(11) << "Логин" << setw(7) << "|"
+		<< setw(9) << "Роль" << setw(6) << "|" << endl;
+	cout << SEPARATOR << endl;
+	for (unsigned int i = 0; i < array.size(); i++)
+	{
+		cout << "|" << setw(4) << i + 1 << setw(4) << "|" << setw(17) << left << vec_of_accounts.at(i).login << "|"
+			<< setw(14) << right << tellIsUserOrAdminRole(vec_of_accounts.at(i).role) << "|" << endl;
 	}
 	cout << SEPARATOR << endl;
-	cout << endl;
+}
+
+string tellIsUserOrAdminRole(bool role)
+{
+	if (role)
+	{
+		return "администратор";
+	}
+	return "пользователь";
+}
+
+string tellIsActiveOrWaitOrBannedAccess(int access)
+{
+	if (access == 1)
+	{
+		return "разрешен";
+	}
+	else if (access == 0)
+	{
+		return "запрос";
+	}
+	return "запрещен";
 }
 
 void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
@@ -20,7 +59,7 @@ void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
 	string login, password;
 	while (true)
 	{
-		cout << "\nЛогин: ";
+		cout << "Логин: ";
 		login = enterStringWithoutSpaces();
 		if (isGoodLogin(vec_of_accounts, login))
 		{
@@ -39,7 +78,7 @@ void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
 	temp_account.salted_hash_password = hashPassword(password, temp_account.salt);
 	cout << "\nРоль (Пользователь - 0, Админ - 1): ";
 	int role;
-	role = enterNumberInRange(0, 1);//cin >> temp_account.role;
+	role = enterNumberInRange(0, 1);
 	temp_account.role = role;
 	if (is_from_admin)
 	{
@@ -133,12 +172,12 @@ int enterAccount(vector <Account>& vec_of_accounts)
 			}
 			else if (vec_of_accounts.at(index).access == 0)
 			{
-				cout << "\nВаша учетная запись ещё не подтверждена администратором, доступ запрещён." << endl;
+				cout << "Ваша учетная запись ещё не подтверждена администратором, доступ запрещён." << endl;
 				return -1;
 			}
 			else
 			{
-				cout << "\nВаша учетная запись заблокирована, доступ запрещён." << endl;
+				cout << "Ваша учетная запись заблокирована, доступ запрещён." << endl;
 				return -2;
 			}
 		}
@@ -193,13 +232,14 @@ void changePassword(vector <Account>& vec_of_accounts, int index_of_user)
 
 int updateIndexOfUser(vector <Account>& vec_of_accounts, string login_of_user)
 {
-	for (int i = 0; i < vec_of_accounts.size(); i++)
+	for (unsigned int i = 0; i < vec_of_accounts.size(); i++)
 	{
 		if (login_of_user == vec_of_accounts.at(i).login)
 		{
 			return i;
 		}
 	}
+	return -1;
 }
 
 void confirmAccessOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array)

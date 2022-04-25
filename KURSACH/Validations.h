@@ -9,3 +9,4 @@ int correctInputInt();
 double correctInputDouble();
 string enterGoodPassword();
 string enterStringWithoutNumbers();
+string enterStringWithoutSpacesAndSpecialSym();
