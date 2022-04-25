@@ -338,7 +338,6 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user)
 
 void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 {
-	//cout << "Здравствуйте, гость! Пожалуйста, выберите пункт меню:" << endl;
 	int item;
 	bool flag = true;
 	while (flag)

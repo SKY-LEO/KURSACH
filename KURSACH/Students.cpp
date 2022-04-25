@@ -2,10 +2,18 @@
 
 void showStudents(vector <Student>& vec_of_students)
 {
-	drawHeader();
-	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	
+	if (vec_of_students.size() != 0)
 	{
-		displayStudent(vec_of_students.at(i), i);
+		drawHeader();
+		for (unsigned int i = 0; i < vec_of_students.size(); i++)
+		{
+			displayStudent(vec_of_students.at(i), i);
+		}
+	}
+	else
+	{
+		cout << "Нет ни одного студента! Создайте первого" << endl;
 	}
 	cout << endl;
 }
@@ -140,15 +148,20 @@ bool isGoodStipend(double stipend)
 
 void addStudent(vector <Student>& vec_of_students)
 {
+	char code;
 	Student temp_student;
-	string fio;
-	setFio(vec_of_students, temp_student);
-	setNumOfGroup(temp_student);
-	setOffsets(temp_student);
-	setExams(temp_student);
-	setFormOfEducation(temp_student);
-	setActivityOfSocialWork(temp_student);
-	vec_of_students.push_back(temp_student);
+	do
+	{
+		setFio(vec_of_students, temp_student);
+		setNumOfGroup(temp_student);
+		setOffsets(temp_student);
+		setExams(temp_student);
+		setFormOfEducation(temp_student);
+		setActivityOfSocialWork(temp_student);
+		vec_of_students.push_back(temp_student);
+		cout << "\nВы хотите добавить ещё одного студента?(Д/Н)" << endl;
+		code = (char)_getch();
+	} while (code == 'Д' || code == 'д');
 }
 
 void setFio(vector <Student>& vec_of_students, Student& temp_student)
@@ -161,7 +174,7 @@ string enterFio(vector <Student>& vec_of_students)
 	string fio;
 	while (true)
 	{
-		cout << "\nФИО: ";
+		cout << "ФИО: ";
 		fio = enterStringWithoutNumbers();
 		if (isGoodFio(vec_of_students, fio))
 		{
@@ -184,7 +197,7 @@ void setFormOfEducation(Student& temp_student)
 
 void setActivityOfSocialWork(Student& temp_student)
 {
-	cout << "\nУчастие в общественной работе (Неактивное - 0, Активное - 1): ";
+	cout << "Участие в общественной работе (Неактивное - 0, Активное - 1): ";
 	temp_student.is_social_work = enterNumberInRange(0, 1);
 }
 
@@ -195,7 +208,7 @@ bool isGoodFio(vector <Student>& vec_of_students, string fio)
 		if (fio == vec_of_students.at(i).FIO)
 		{
 			system("cls");
-			cout << "\nСтудент с таким ФИО уже существует! Введите другое.";
+			cout << "\nСтудент с таким ФИО уже существует! Введите другое." << endl;;
 			return false;
 		}
 	}
@@ -204,7 +217,7 @@ bool isGoodFio(vector <Student>& vec_of_students, string fio)
 
 void setOffsets(Student& temp_student)
 {
-	cout << "\nЗачеты (Не зачтено - " << MIN_OFFSET << ", Зачтено - " << MAX_OFFSET << ")" << endl;
+	cout << "\n\nЗачеты (Не зачтено - " << MIN_OFFSET << ", Зачтено - " << MAX_OFFSET << ")" << endl;
 	setOopip(temp_student);
 	setDiscreteMath(temp_student);
 	setInad(temp_student);
@@ -337,7 +350,7 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 		}
 		else
 		{
-			cout << "Файл пуст!" << endl;
+			cout << "Файл со студентами пуст!" << endl;
 		}
 	}
 	fin.close();

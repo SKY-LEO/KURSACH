@@ -56,30 +56,10 @@ string tellIsActiveOrWaitOrBannedAccess(int access)
 void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
 {
 	Account temp_account;
-	string login, password;
-	while (true)
-	{
-		cout << "Логин: ";
-		login = enterStringWithoutSpaces();
-		if (isGoodLogin(vec_of_accounts, login))
-		{
-			temp_account.login = login;
-			break;
-		}
-		else
-		{
-			system("cls");
-			cout << "\nТакой логин уже существует! Введите другой.";
-		}
-	}
-	cout << "\nПароль: ";
-	password = enterStringWithoutSpaces();
-	temp_account.salt = generateSalt(SALT_SIZE);
-	temp_account.salted_hash_password = hashPassword(password, temp_account.salt);
-	cout << "\nРоль (Пользователь - 0, Админ - 1): ";
-	int role;
-	role = enterNumberInRange(0, 1);
-	temp_account.role = role;
+	setLogin(vec_of_accounts, temp_account);
+	setSalt(temp_account);
+	setPassword(temp_account);
+	setRole(temp_account);
 	if (is_from_admin)
 	{
 		temp_account.access = 1;
@@ -92,6 +72,47 @@ void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
 		cout << "Учётная запись создана! Ожидйте подтверждения администратором." << endl;
 	}
 	vec_of_accounts.push_back(temp_account);
+}
+
+void setRole(Account& temp_account)
+{
+	cout << "\nРоль (Пользователь - 0, Админ - 1): ";
+	temp_account.role = enterNumberInRange(0, 1);
+}
+
+void setSalt(Account& temp_account)
+{
+	temp_account.salt = generateSalt(SALT_SIZE);
+}
+
+void setPassword(Account& temp_account)
+{
+	temp_account.salted_hash_password = hashPassword(enterPassword(), temp_account.salt);
+}
+
+string enterPassword()
+{
+	cout << "\nПароль: ";
+	return enterStringWithoutSpaces();
+}
+
+void setLogin(vector <Account>& vec_of_accounts, Account& temp_account)
+{
+	temp_account.login = enterLogin(vec_of_accounts);
+}
+
+string enterLogin(vector <Account>& vec_of_accounts)
+{
+	string login;
+	while (true)
+	{
+		cout << "Логин: ";
+		login = enterStringWithoutSpaces();
+		if (isGoodLogin(vec_of_accounts, login))
+		{
+			return login;
+		}
+	}
 }
 
 void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
@@ -135,10 +156,12 @@ bool isGoodLogin(vector <Account>& vec_of_accounts, string login)
 	{
 		if (login == vec_of_accounts.at(i).login)
 		{
-			return 0;
+			system("cls");
+			cout << "\nТакой логин уже существует! Введите другой.";
+			return false;
 		}
 	}
-	return 1;
+	return true;
 }
 
 bool isPasswordEquals(vector <Account>& vec_of_accounts, string password, int index_of_user)
@@ -212,12 +235,11 @@ void changePassword(vector <Account>& vec_of_accounts, int index_of_user)
 		password = enterGoodPassword();
 		if (isPasswordEquals(vec_of_accounts, password, index_of_user))
 		{
-			cout << "\nВведите новый пароль: ";
-			password = enterStringWithoutSpaces();
-			vec_of_accounts.at(index_of_user).salt = generateSalt(SALT_SIZE);
-			vec_of_accounts.at(index_of_user).salted_hash_password = hashPassword(password, vec_of_accounts.at(index_of_user).salt);
+			cout << "\nУспешно! Введите новый пароль.";
+			setSalt(vec_of_accounts.at(index_of_user));
+			setPassword(vec_of_accounts.at(index_of_user));
 			system("cls");
-			cout << "\nПароль изменён успешно!" << endl;
+			cout << "Пароль изменён успешно!" << endl;
 			system("pause");
 			break;
 		}
@@ -324,7 +346,7 @@ void readFileOfAccounts(vector <Account>& vec_of_accounts)
 		}
 		else
 		{
-			cout << "Файл пуст! Создана учётная запись администратора." << endl;
+			cout << "Файл с учеными записями пуст! Создана учётная запись администратора." << endl;
 			createFirstAccount(vec_of_accounts);
 		}
 	}
