@@ -44,6 +44,10 @@ const int MIN_EXAM = 4;
 const int MAX_EXAM = 10;
 const int MIN_OFFSET = 0;
 const int MAX_OFFSET = 1;
+const double MIN_MARK_FOR_STIPEND = 5;
+const double MIN_MARK_FOR_HIGH_STIPEND = 9;
+const double COEFFICIENT_FOR_HIGH_STIPEND = 1.25;
+const double COEFFICIENT_FOR_HIGHEST_STIPEND = 1.5;
 
 const string SEPARATOR_STUDENT = "|-------+---------------------+--------------+-------+--------+--------+-------+--------+--------+------+--------+----------+------------+-------------+--------------+-------------|";
 const string SEPARATOR_OFFSETS_EXAMS = "------------------------------------------|-----------------------------------";
@@ -61,8 +65,6 @@ const string HISTORY = "Èñò";
 const string PHYS_CULTURE = "ÔèçÊ";
 
 void showStudents(vector <Student>& vec_of_students);
-void drawHeader();
-void displayStudent(Student& temp_student, int i);
 void calculateStipends(vector <Student>& vec_of_students);
 void addStudent(vector <Student>& vec_of_students);
 bool isGoodFio(vector <Student>& vec_of_students, string fio);

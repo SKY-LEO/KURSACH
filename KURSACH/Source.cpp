@@ -64,20 +64,22 @@ const string MENU_OF_SORTS_STUDENTS = "Вы находитесь в меню сортировки студентов
 const string MENU_OF_STUDENTS_OFFSETS = "Вы находитесь в меню выбора зачета.\nВыберите предмет:\n1) ООПиП\n2) ДМ\n3) ИнАД\n4) Ист\n5) ФизК\n0) Назад";
 const string MENU_OF_STUDENTS_EXAMS = "Вы находитесь в меню выбора экзамена.\nВыберите предмет:\n1) ОАиП\n2) МА\n3) ИнЯз\n4) Физика\n0) Назад";
 const string MENU_OF_EDIT_STUDENT = "Вы находитесь в меню редактирования студентов.\nОтредактировать: \n1) ФИО\n2) Номер группы\n3) Зачеты\n4) Экзамены\n5) Форму обучения\n6) Участие в общественной работе\n0) Назад";
-const string MENU_OF_SEARCH_STUDENTS = "Вы находитесь в меню поиска студентов.\nИскать по:\n1) ФИО\n2) Номеру группы\n3) Стипендии\n0) Назад";
+const string MENU_OF_SEARCH_STUDENTS = "Вы находитесь в меню поиска студентов.\n1) Искать по ФИО\n2) Искать по номеру группы\n3) Искать по стипендии\n4) Отсортировать результат\n0) Назад";
+const string MENU_OF_SEARCH_STUDENTS_WITHOUT_SORTS = "Вы находитесь в меню поиска студентов.\n1) Искать по ФИО\n2) Искать по номеру группы\n3) Искать по стипендии\n0) Назад";
 const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
 const int MAX_OF_RANGE_MAIN_MENU_USER = 2;
-const int MAX_OF_START_MENU = 2;
+const int MAX_OF_RANGE_START_MENU = 2;
 const int MAX_OF_RANGE_MENU_ACCESS = 2;
 const int MAX_OF_RANGE_MENU_OF_SORTS_ACCOUNTS = 3;
 const int MAX_OF_RANGE_MENU_OF_ASCENDING_DESCENDING = 2;
-const int MAX_OF_STUDENT_MENU_ADMIN = 6;
-const int MAX_OF_STUDENT_MENU_USER = 3;
+const int MAX_OF_RANGE_MENU_OF_STUDENTS_ADMIN = 6;
+const int MAX_OF_RANGE_MENU_OF_STUDENTS_USER = 3;
 const int MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS = 8;
 const int MAX_OF_RANGE_MENU_OF_STUDENTS_OFFSETS = 5;
 const int MAX_OF_RANGE_MENU_OF_STUDENTS_EXAMS = 4;
 const int MAX_OF_RANGE_MENU_OF_EDIT_STUDENT = 6;
-const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS = 3;
+const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS = 4;
+const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_WITHOUT_SORTS = 3;
 
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students);
 int getCountOfStructures(string file_path);
@@ -139,10 +141,11 @@ void editExams(Student& temp_student);
 void editOffsets(Student& temp_student);
 void editFormOfEducation(Student& temp_student);
 void searchStudents(vector <Student>& vec_of_students);
-void searchByStipend(vector <Student>& vec_of_students);
-void searchByFio(vector <Student>& vec_of_students);
-void searchByNumberOfGroup(vector <Student>& vec_of_students);
+void searchByStipend(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+void searchByFio(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+void searchByNumberOfGroup(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
 void editActivityOfSocialWork(Student& temp_student);
+void clearNotEmptyVector(vector<Student>& vec);
 
 int main()
 {
@@ -164,9 +167,9 @@ int main()
 int initialisation(vector <Account>& vec_of_accounts)
 {
 	cout << START_MENU << endl;
-	int item = enterNumberInRange(0, MAX_OF_START_MENU);
+	int number = enterNumberInRange(0, MAX_OF_RANGE_START_MENU);
 	system("cls");
-	switch (item)
+	switch (number)
 	{
 	case 1:
 		return enterAccount(vec_of_accounts);
@@ -177,7 +180,7 @@ int initialisation(vector <Account>& vec_of_accounts)
 		return -2;
 	default:
 		cout << ERROR_MESSAGE << endl;
-		return item;
+		return number;
 	}
 }
 
@@ -220,8 +223,8 @@ int user(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, i
 	while (flag)
 	{
 		cout << MAIN_MENU_USER << endl;
-		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_USER);
-		switch (item)
+		int number = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_USER);
+		switch (number)
 		{
 		case 1:
 			system("cls");
@@ -248,8 +251,8 @@ int admin(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students, 
 	while (flag)
 	{
 		cout << MAIN_MENU_ADMIN << endl;
-		int item = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_ADMIN);
-		switch (item)
+		int number = enterNumberInRange(0, MAX_OF_RANGE_MAIN_MENU_ADMIN);
+		switch (number)
 		{
 		case 1:
 			system("cls");
@@ -278,7 +281,7 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user)
 {
 	string login_of_user = vec_of_accounts.at(index_of_user).login;
 	bool flag = true, update_access = true;
-	int item, size_of_array;
+	int number, size_of_array;
 	vector <int> array;
 	while (flag)
 	{
@@ -293,14 +296,14 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user)
 		if (size_of_array == 0)
 		{
 			cout << ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS << endl;
-			item = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS);
+			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS);
 		}
 		else
 		{
 			cout << ACCOUNT_MENU_ADMIN << "(Новых запросов: " << size_of_array << ")\n0) Назад" << endl;
-			item = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN);
+			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_ADMIN);
 		}
-		switch (item)
+		switch (number)
 		{
 		case 1:
 			system("cls");
@@ -338,7 +341,7 @@ void workWithAccounts(vector <Account>& vec_of_accounts, int& index_of_user)
 
 void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 {
-	int item;
+	int number;
 	bool flag = true;
 	while (flag)
 	{
@@ -347,14 +350,14 @@ void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 		if (is_admin)
 		{
 			cout << STUDENT_MENU_ADMIN << endl;
-			item = enterNumberInRange(0, MAX_OF_STUDENT_MENU_ADMIN);
+			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_STUDENTS_ADMIN);
 		}
 		else
 		{
 			cout << STUDENT_MENU_USER << endl;
-			item = enterNumberInRange(0, MAX_OF_STUDENT_MENU_USER);
+			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_STUDENTS_USER);
 		}
-		switch (item)
+		switch (number)
 		{
 		case 1:
 			calculateStipends(vec_of_students);
@@ -390,21 +393,39 @@ void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 void searchStudents(vector <Student>& vec_of_students)
 {
 	int number;
-	bool flag = true;
+	bool flag = true, is_empty = true;
+	vector <Student> vec_of_finded_students;
 	while (flag)
 	{
-		cout << MENU_OF_SEARCH_STUDENTS << endl;
-		number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS);
+		system("cls");
+		if (!vec_of_finded_students.empty())
+		{
+			showStudents(vec_of_finded_students);
+			is_empty = false;
+		}
+		if(!is_empty)
+		{
+			cout << MENU_OF_SEARCH_STUDENTS << endl;
+			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS);
+		}
+		else
+		{
+			cout << MENU_OF_SEARCH_STUDENTS_WITHOUT_SORTS << endl;
+			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_WITHOUT_SORTS);
+		}
 		switch (number)
 		{
 		case 1:
-			searchByFio(vec_of_students);
+			searchByFio(vec_of_students, vec_of_finded_students);
 			break;
 		case 2:
-			searchByNumberOfGroup(vec_of_students);
+			searchByNumberOfGroup(vec_of_students, vec_of_finded_students);
 			break;
 		case 3:
-			searchByStipend(vec_of_students);
+			searchByStipend(vec_of_students, vec_of_finded_students);
+			break;
+		case 4:
+			sortStudents(vec_of_finded_students);
 			break;
 		case 0:
 			flag = false;
@@ -415,69 +436,74 @@ void searchStudents(vector <Student>& vec_of_students)
 	}
 }
 
-void searchByFio(vector <Student>& vec_of_students)
+void searchByFio(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
 {
+	clearNotEmptyVector(vec_of_finded_students);
 	cout << "ФИО: ";
 	string fio = enterStringWithoutNumbers();
 	system("cls");
-	drawHeader();
-	int k = 0;
 	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
 		if (vec_of_students.at(i).FIO == fio)
 		{
-			displayStudent(vec_of_students.at(i), k++);
+			vec_of_finded_students.push_back(vec_of_students.at(i));
 		}
 	}
-	if (k == 0)
+	if (vec_of_finded_students.empty())
 	{
-		cout << setw(99) << "Ничего не нашлось..." << endl;
-		cout << SEPARATOR_STUDENT << endl;
+		cout << "Ничего не нашлось..." << endl;
+		system("pause");
 	}
 	cout << endl;
 }
 
-void searchByNumberOfGroup(vector <Student>& vec_of_students)
+void searchByNumberOfGroup(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
 {
+	clearNotEmptyVector(vec_of_finded_students);
 	cout << "Номер группы: ";
 	string num_of_group = enterStringWithoutSpacesAndSpecialSym();
 	system("cls");
-	drawHeader();
-	int k = 0;
 	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
 		if (vec_of_students.at(i).num_of_group == num_of_group)
 		{
-			displayStudent(vec_of_students.at(i), k++);
+			vec_of_finded_students.push_back(vec_of_students.at(i));
 		}
 	}
-	if (k == 0)
+	if (vec_of_finded_students.empty())
 	{
-		cout << setw(99) << "Ничего не нашлось..." << endl;
-		cout << SEPARATOR_STUDENT << endl;
+		cout << "Ничего не нашлось..." << endl;
+		system("pause");
 	}
 	cout << endl;
 }
 
-void searchByStipend(vector <Student>& vec_of_students)
+void searchByStipend(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
 {
+	clearNotEmptyVector(vec_of_finded_students);
 	double stipend = enterStipend();
 	system("cls");
-	drawHeader();
-	int k = 0;
 	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
 		if (vec_of_students.at(i).stipend == stipend)
 		{
-			displayStudent(vec_of_students.at(i), k++);
+			vec_of_finded_students.push_back(vec_of_students.at(i));
 		}
 	}
-	if (k == 0)
+	if (vec_of_finded_students.empty())
 	{
-		cout << setw(99) << "Ничего не нашлось..." << endl;
-		cout << SEPARATOR_STUDENT << endl;
+		cout << "Ничего не нашлось..." << endl;
+		system("pause");
 	}
 	cout << endl;
+}
+
+void clearNotEmptyVector(vector<Student>& vec)
+{
+	if (!vec.empty())
+	{
+		vec.clear();
+	}
 }
 
 void sortAccounts(vector <Account>& vec_of_accounts)

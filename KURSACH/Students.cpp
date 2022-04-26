@@ -2,56 +2,47 @@
 
 void showStudents(vector <Student>& vec_of_students)
 {
-	
 	if (vec_of_students.size() != 0)
 	{
-		drawHeader();
+		cout << endl;
+		cout << SEPARATOR_STUDENT << endl;
+		cout << "|" << setw(8) << "|" << setw(22) << "|" << setw(15) << "|" << setw(24) << "Зачеты" << setw(19) << "|"
+			<< setw(22) << "Экзамены" << setw(14) << "|" << setw(13) << "|" << setw(14) << "|" << setw(15) << "|" << setw(14) << "|" << endl;
+		cout << "|" << setw(4) << "№" << setw(4) << "|" << setw(12) << "ФИО" << setw(10) << "|" << setw(11) << "№ группы"
+			<< setw(4) << "|" << SEPARATOR_OFFSETS_EXAMS << "|"
+			<< setw(10) << "Ср. балл" << setw(3) << "|" << setw(12) << "Форма обуч." << setw(2) << "|"
+			<< setw(12) << "Соц. работа" << setw(3) << "|" << setw(11) << "Стипендия" << setw(3) << "|" << endl;
+		cout << "|" << setw(8) << "|" << setw(22) << "|" << setw(15) << "|" << setw(6) << "ОППиП" << setw(2) << "|"
+			<< setw(5) << "ДМ" << setw(4) << "|" << setw(6) << "ИнАД" << setw(3) << "|"
+			<< setw(5) << "Ист" << setw(3) << "|" << setw(6) << "ФизК" << setw(3) << "|" << setw(6) << "ОАиП" << setw(3) << "|"
+			<< setw(4) << "МА" << setw(3) << "|" << setw(6) << "ИнЯз" << setw(3) << "|" << setw(8) << "Физика" << setw(3) << "|"
+			<< setw(13) << "|" << setw(14) << "|" << setw(15) << "|" << setw(14) << "|" << endl;
+		cout << SEPARATOR_STUDENT << endl;
 		for (unsigned int i = 0; i < vec_of_students.size(); i++)
 		{
-			displayStudent(vec_of_students.at(i), i);
+			cout << "|" << setw(4) << i + 1 << setw(4) << "|" << setw(21) << left << vec_of_students.at(i).FIO
+				<< "|" << setw(14) << right << vec_of_students.at(i).num_of_group
+				<< "|" << setw(7) << tellIsPassOrFailOffset(vec_of_students.at(i).offset.oopip)
+				<< "|" << setw(8) << tellIsPassOrFailOffset(vec_of_students.at(i).offset.discrete_math)
+				<< "|" << setw(8) << tellIsPassOrFailOffset(vec_of_students.at(i).offset.inad)
+				<< "|" << setw(7) << tellIsPassOrFailOffset(vec_of_students.at(i).offset.history)
+				<< "|" << setw(8) << tellIsPassOrFailOffset(vec_of_students.at(i).offset.phys_culture)
+				<< "|" << setw(5) << vec_of_students.at(i).exam.oaip<<setw(4) 
+				<< "|" << setw(4) << vec_of_students.at(i).exam.math<<setw(3)
+				<< "|" << setw(5) << vec_of_students.at(i).exam.english << setw(4)
+				<< "|" << setw(6) << vec_of_students.at(i).exam.physics << setw(5)
+				<< "|" << setw(8) << vec_of_students.at(i).exam.average_score << setw(5)
+				<< "|" << setw(11) << tellIsBudgetOrPaidEducation(vec_of_students.at(i).is_budget_student) << setw(3)
+				<< "|" << setw(12) << tellIsActiveOrPassiveSocialWork(vec_of_students.at(i).is_social_work) << setw(3)
+				<< "|" << setw(13) << vec_of_students.at(i).stipend << "|" << endl;
+			cout << SEPARATOR_STUDENT << endl;
 		}
 	}
 	else
 	{
-		cout << "Нет ни одного студента! Создайте первого" << endl;
+		cout << "Нет ни одного студента!" << endl;
 	}
 	cout << endl;
-}
-
-void drawHeader()
-{
-	cout << endl;
-	cout << SEPARATOR_STUDENT << endl;
-	cout << "|" << setw(8) << "|" << setw(22) << "|" << setw(15) << "|" << setw(24) << "Зачеты" << setw(19) << "|"
-		<< setw(22) << "Экзамены" << setw(14) << "|" << setw(13) << "|" << setw(14) << "|" << setw(15) << "|" << setw(14) << "|" << endl;
-	cout << "|" << setw(4) << "№" << setw(4) << "|" << setw(12) << "ФИО" << setw(10) << "|" << setw(11) << "№ группы"
-		<< setw(4) << "|" << SEPARATOR_OFFSETS_EXAMS << "|"
-		<< setw(10) << "Ср. балл" << setw(3) << "|" << setw(12) << "Форма обуч." << setw(2) << "|"
-		<< setw(12) << "Соц. работа" << setw(3) << "|" << setw(11) << "Стипендия" << setw(3) << "|" << endl;
-	cout << "|" << setw(8) << "|" << setw(22) << "|" << setw(15) << "|" << setw(6) << "ОППиП" << setw(2) << "|"
-		<< setw(5) << "ДМ" << setw(4) << "|" << setw(6) << "ИнАД" << setw(3) << "|"
-		<< setw(5) << "Ист" << setw(3) << "|" << setw(6) << "ФизК" << setw(3) << "|" << setw(6) << "ОАиП" << setw(3) << "|"
-		<< setw(4) << "МА" << setw(3) << "|" << setw(6) << "ИнЯз" << setw(3) << "|" << setw(8) << "Физика" << setw(3) << "|"
-		<< setw(13) << "|" << setw(14) << "|" << setw(15) << "|" << setw(14) << "|" << endl;
-	cout << SEPARATOR_STUDENT << endl;
-}
-
-void displayStudent(Student& temp_student, int i)
-{
-	cout << "|" << setw(4) << i + 1 << setw(4) << "|" << setw(21) << left << temp_student.FIO
-		<< "|" << setw(14) << right << temp_student.num_of_group
-		<< "|" << setw(7) << tellIsPassOrFailOffset(temp_student.offset.oopip)
-		<< "|" << setw(8) << tellIsPassOrFailOffset(temp_student.offset.discrete_math)
-		<< "|" << setw(8) << tellIsPassOrFailOffset(temp_student.offset.inad)
-		<< "|" << setw(7) << tellIsPassOrFailOffset(temp_student.offset.history)
-		<< "|" << setw(8) << tellIsPassOrFailOffset(temp_student.offset.phys_culture)
-		<< "|" << setw(8) << temp_student.exam.oaip << "|" << setw(6) << temp_student.exam.math
-		<< "|" << setw(8) << temp_student.exam.english << "|" << setw(10) << temp_student.exam.physics
-		<< "|" << setw(12) << temp_student.exam.average_score
-		<< "|" << setw(11) << tellIsBudgetOrPaidEducation(temp_student.is_budget_student) << setw(3)
-		<< "|" << setw(12) << tellIsActiveOrPassiveSocialWork(temp_student.is_social_work) << setw(3)
-		<< "|" << setw(13) << temp_student.stipend << "|" << endl;
-	cout << SEPARATOR_STUDENT << endl;
 }
 
 string tellIsPassOrFailOffset(bool offset)
@@ -110,11 +101,13 @@ double calculateCoefficient(Student& student)
 	{
 		if (student.offset.is_offsets_submited)
 		{
-			if (student.exam.average_score > 5.)
+			if (student.exam.average_score > MIN_MARK_FOR_STIPEND)
 			{
 				coefficient = 1.;
-				if (student.exam.average_score >= 9. && student.is_social_work)coefficient = 1.5;
-				else if (student.exam.average_score >= 9. || student.is_social_work)coefficient = 1.25;
+				if (student.exam.average_score >= MIN_MARK_FOR_HIGH_STIPEND && student.is_social_work)
+					coefficient = COEFFICIENT_FOR_HIGHEST_STIPEND;
+				else if (student.exam.average_score >= MIN_MARK_FOR_HIGH_STIPEND || student.is_social_work)
+					coefficient = COEFFICIENT_FOR_HIGH_STIPEND;
 			}
 		}
 	}
@@ -305,22 +298,28 @@ int rateStudent(int min_range, int max_of_range, string subject)
 
 void deleteStudent(vector <Student>& vec_of_students)
 {
+	char code;
 	int answer, index_for_delete;
-	cout << "Какого студента вы хотите удалить?\n Отмена - 0" << endl;
-	index_for_delete = indexOfVectorForChange(vec_of_students);
-	if (index_for_delete != 0)
+	do
 	{
-		index_for_delete--;
-		system("cls");
-		cout << "Вы действительно хотите удалить студента " << vec_of_students.at(index_for_delete).FIO << "? \nДа - 1 \nНет - 0" << endl;
-		answer = enterNumberInRange(0, 1);
-		if (answer == 1)
+		cout << "Какого студента вы хотите удалить?\n Отмена - 0" << endl;
+		index_for_delete = indexOfVectorForChange(vec_of_students);
+		if (index_for_delete != 0)
 		{
-			vec_of_students.erase(vec_of_students.begin() + index_for_delete);
-			cout << "Успешно удалён!" << endl;
-			system("pause");
+			index_for_delete--;
+			system("cls");
+			cout << "Вы действительно хотите удалить студента " << vec_of_students.at(index_for_delete).FIO << "? \nДа - 1 \nНет - 0" << endl;
+			answer = enterNumberInRange(0, 1);
+			if (answer == 1)
+			{
+				vec_of_students.erase(vec_of_students.begin() + index_for_delete);
+				cout << "Успешно удалён!" << endl;
+				system("pause");
+			}
 		}
-	}
+		cout << "\nВы хотите удалить ещё одного студента?(Д/Н)" << endl;
+		code = (char)_getch();
+	} while (code == 'Д' || code == 'д');
 }
 
 void readFileOfStudents(vector <Student>& vec_of_students)
