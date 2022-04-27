@@ -12,51 +12,18 @@
 #include <Windows.h>
 
 #include <vector>
-//#include <fstream>//потом убрать
 #include <iostream>//потом убрать
-//#include <string>//потом убрать
-//#include <conio.h>//потом убрать
 #include <algorithm>//потом убрать
-
-//----hash----
-//#include "sha256.h"//потом убрать
-//----hash----
 #include "Accounts.h"
 #include "Students.h"
 #include "Validations.h"//потом убрать
-//#include "Menus.h"
-//template <class To>
-//using namespace std;//потом убрать
 
-//const string ADMIN_LOGIN = "ADMIN";
-//const string ADMIN_PASSWORD = "BSUIR";
-//const bool ADMIN_ROLE = 1;
-//const bool ADMIN_ACCESS = 1;
-//const int ADMIN_ACCESS = 1;
-
-//const string FILE_OF_ACCOUNTS = "accounts.txt";
-//const string FILE_OF_STUDENTS = "students.txt";
-//const int NUMBER_OF_SYMBOLS = 20;
-//const int NUMBER_OF_ATTEMPTS = 3;
-
-//const string SEPARATOR = "------------------------------------------------";
-
-//const string MAIN_MENU_ADMIN = "\n Стипендии - 1\n Работа с учётными записями - 2\n Сменить пароль - 3\n Выход - 0";
 const string MAIN_MENU_ADMIN = "Вы находитесь в главном меню администратора.\n1) Стипендии\n2) Работа с учётными записями\n3) Сменить пароль\n0) Выход";
-//const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1\n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Запросы на доступ - 5\n Выход - 0";
-//const string ACCOUNT_MENU_ADMIN = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Запросы на доступ - 4\n Выход - 0";
-//const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Удалить - 1\n Изменить доступ - 2\n Изменить роль - 3\n Выход - 0";
-//const string MAIN_MENU_USER = "\n Стипендии - 1\n Сменить пароль - 2\n Выход - 0";
 const string MAIN_MENU_USER = "Вы находитесь в главном меню пользователя.\n1) Стипендии\n2) Сменить пароль\n0) Выход";
-//const string START_MENU = "\n Войти в существующую учётную запись - 1\n Создать новую учётную запись - 2\n Завершение работы - 0";
 const string START_MENU = "Здравствуйте, гость! Пожалуйста, выберите пункт меню:\n1) Войти в существующую учётную запись\n2) Создать новую учётную запись\n0) Завершение работы";
-//const string STUDENT_MENU_ADMIN = "\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n4) Добавить студента\n5) Редактировать данные\n6) Удалить студента\n0) Назад";
-//const string STUDENT_MENU_USER = "\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n0) Назад";
 const string MENU_OF_ASCENDING_DESCENDING = "Упорядочить по:\n1) Возрастанию\n2) Убыванию";
 const string ERROR_MESSAGE = "Ошибка!";
-
-const string ACCOUNT_MENU_ADMIN = "Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";// Выход - 0";
-//const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n Просмотр - 1 \n Удалить - 2\n Изменить доступ - 3\n Изменить роль - 4\n Выход - 0";
+const string ACCOUNT_MENU_ADMIN = "Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n6) Запросы на доступ";
 const string ACCOUNT_MENU_ADMIN_WITHOUT_ACCESS = " Вы находитесь в меню работы с учётными записями.\n1) Сортировать\n2) Удалить\n3) Изменить доступ\n4) Изменить роль\n5) Создать аккаунт\n0) Назад";
 const string MENU_OF_ACCESS = "Вы находитесь в меню работы с заявками на доступ к системе.\n1) Подтвердить доступ\n2) Заблокировать доступ\n0) Назад";
 const string MENU_OF_SORTS_ACCOUNTS = "Вы находитесь в меню сортировки учётных записей.\nСортировать по:\n1) Логину\n2) Роли\n3) Доступу\n0) Назад";
@@ -64,8 +31,10 @@ const string MENU_OF_SORTS_STUDENTS = "Вы находитесь в меню сортировки студентов
 const string MENU_OF_STUDENTS_OFFSETS = "Вы находитесь в меню выбора зачета.\nВыберите предмет:\n1) ООПиП\n2) ДМ\n3) ИнАД\n4) Ист\n5) ФизК\n0) Назад";
 const string MENU_OF_STUDENTS_EXAMS = "Вы находитесь в меню выбора экзамена.\nВыберите предмет:\n1) ОАиП\n2) МА\n3) ИнЯз\n4) Физика\n0) Назад";
 const string MENU_OF_EDIT_STUDENT = "Вы находитесь в меню редактирования студентов.\nОтредактировать: \n1) ФИО\n2) Номер группы\n3) Зачеты\n4) Экзамены\n5) Форму обучения\n6) Участие в общественной работе\n0) Назад";
-const string MENU_OF_SEARCH_STUDENTS = "Вы находитесь в меню поиска студентов.\n1) Искать по ФИО\n2) Искать по номеру группы\n3) Искать по стипендии\n4) Отсортировать результат\n0) Назад";
-const string MENU_OF_SEARCH_STUDENTS_WITHOUT_SORTS = "Вы находитесь в меню поиска студентов.\n1) Искать по ФИО\n2) Искать по номеру группы\n3) Искать по стипендии\n0) Назад";
+const string MENU_OF_SEARCH_STUDENTS_ADMIN = "Вы находитесь в меню поиска студентов.\n1) Искать по ФИО\n2) Искать по номеру группы\n3) Искать по среднему баллу\n4) Отсортировать результат\n5) Редактировать данные\n6) Удалить студента\n0) Назад";
+const string MENU_OF_SEARCH_STUDENTS_USER = "Вы находитесь в меню поиска студентов.\n1) Искать по ФИО\n2) Искать по номеру группы\n3) Искать по среднему баллу\n4) Отсортировать результат\n0) Назад";
+const string MENU_OF_SEARCH_STUDENTS_ONLY_SEARCHES = "Вы находитесь в меню поиска студентов.\n1) Искать по ФИО\n2) Искать по номеру группы\n3) Искать по среднему баллу\n0) Назад";
+
 const int MAX_OF_RANGE_MAIN_MENU_ADMIN = 3;
 const int MAX_OF_RANGE_MAIN_MENU_USER = 2;
 const int MAX_OF_RANGE_START_MENU = 2;
@@ -78,8 +47,9 @@ const int MAX_OF_RANGE_MENU_OF_SORTS_STUDENTS = 8;
 const int MAX_OF_RANGE_MENU_OF_STUDENTS_OFFSETS = 5;
 const int MAX_OF_RANGE_MENU_OF_STUDENTS_EXAMS = 4;
 const int MAX_OF_RANGE_MENU_OF_EDIT_STUDENT = 6;
-const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS = 4;
-const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_WITHOUT_SORTS = 3;
+const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_ADMIN = 6;
+const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_USER = 4;
+const int MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_ONLY_SEARCHES = 3;
 
 void core(vector <Account>& vec_of_accounts, vector <Student>& vec_of_students);
 int getCountOfStructures(string file_path);
@@ -140,20 +110,25 @@ void editStudent(vector <Student>& vec_of_students);
 void editExams(Student& temp_student);
 void editOffsets(Student& temp_student);
 void editFormOfEducation(Student& temp_student);
-void searchStudents(vector <Student>& vec_of_students);
-void searchByStipend(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+void searchStudents(vector <Student>& vec_of_students, bool is_admin);
+void searchByAverageScore(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+//void searchByAverageScore(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students, vector <int>& arr);
 void searchByFio(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
 void searchByNumberOfGroup(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
 void editActivityOfSocialWork(Student& temp_student);
 void clearNotEmptyVector(vector<Student>& vec);
+void saveToMainVectorOfStudents(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+bool isGoodAverageScoreMin(double min);
+bool isGoodAverageScoreMax(double max);
+bool isMinLessMax(double min, double max);
 
 int main()
 {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	vector <Account> vec_of_accounts;//(getCountOfStructures(FILE_OF_ACCOUNTS));
+	vector <Account> vec_of_accounts;
 	vec_of_accounts.reserve(getCountOfStructures(FILE_OF_ACCOUNTS));
-	vector <Student> vec_of_students;//(getCountOfStructures(FILE_OF_STUDENTS));
+	vector <Student> vec_of_students;
 	vec_of_students.reserve(getCountOfStructures(FILE_OF_STUDENTS));
 	readFileOfAccounts(vec_of_accounts);
 	readFileOfStudents(vec_of_students);
@@ -364,7 +339,7 @@ void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 			break;
 		case 2:
 			system("cls");
-			searchStudents(vec_of_students);
+			searchStudents(vec_of_students, is_admin);
 			break;
 		case 3:
 			system("cls");
@@ -390,10 +365,10 @@ void workWithStudents(vector <Student>& vec_of_students, bool is_admin)
 	system("cls");
 }
 
-void searchStudents(vector <Student>& vec_of_students)
+void searchStudents(vector <Student>& vec_of_students, bool is_admin)
 {
 	int number;
-	bool flag = true, is_empty = true;
+	bool flag = true;
 	vector <Student> vec_of_finded_students;
 	while (flag)
 	{
@@ -401,38 +376,60 @@ void searchStudents(vector <Student>& vec_of_students)
 		if (!vec_of_finded_students.empty())
 		{
 			showStudents(vec_of_finded_students);
-			is_empty = false;
-		}
-		if(!is_empty)
-		{
-			cout << MENU_OF_SEARCH_STUDENTS << endl;
-			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS);
+			if (is_admin)
+			{
+				cout << MENU_OF_SEARCH_STUDENTS_ADMIN << endl;
+				number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_ADMIN);
+			}
+			else
+			{
+				cout << MENU_OF_SEARCH_STUDENTS_USER << endl;
+				number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_USER);
+			}
 		}
 		else
 		{
-			cout << MENU_OF_SEARCH_STUDENTS_WITHOUT_SORTS << endl;
-			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_WITHOUT_SORTS);
+			cout << MENU_OF_SEARCH_STUDENTS_ONLY_SEARCHES << endl;
+			number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_SEARCH_STUDENTS_ONLY_SEARCHES);
 		}
 		switch (number)
 		{
 		case 1:
+			saveToMainVectorOfStudents(vec_of_students, vec_of_finded_students);
 			searchByFio(vec_of_students, vec_of_finded_students);
 			break;
 		case 2:
+			saveToMainVectorOfStudents(vec_of_students, vec_of_finded_students);
 			searchByNumberOfGroup(vec_of_students, vec_of_finded_students);
 			break;
 		case 3:
-			searchByStipend(vec_of_students, vec_of_finded_students);
+			saveToMainVectorOfStudents(vec_of_students, vec_of_finded_students);
+			searchByAverageScore(vec_of_students, vec_of_finded_students);
 			break;
 		case 4:
 			sortStudents(vec_of_finded_students);
 			break;
+		case 5:
+			editStudent(vec_of_finded_students);
+			break;
+		case 6:
+			deleteStudent(vec_of_finded_students);
+			break;
 		case 0:
+			saveToMainVectorOfStudents(vec_of_students, vec_of_finded_students);
 			flag = false;
 			break;
 		default:
 			cout << ERROR_MESSAGE << endl;
 		}
+	}
+}
+
+void saveToMainVectorOfStudents(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
+{
+	for (unsigned int i = 0; i < vec_of_finded_students.size(); i++)
+	{
+		vec_of_students.push_back(vec_of_finded_students.at(i));
 	}
 }
 
@@ -447,6 +444,8 @@ void searchByFio(vector <Student>& vec_of_students, vector <Student>& vec_of_fin
 		if (vec_of_students.at(i).FIO == fio)
 		{
 			vec_of_finded_students.push_back(vec_of_students.at(i));
+			vec_of_students.erase(vec_of_students.begin() + i);
+			i--;
 		}
 	}
 	if (vec_of_finded_students.empty())
@@ -468,6 +467,8 @@ void searchByNumberOfGroup(vector <Student>& vec_of_students, vector <Student>& 
 		if (vec_of_students.at(i).num_of_group == num_of_group)
 		{
 			vec_of_finded_students.push_back(vec_of_students.at(i));
+			vec_of_students.erase(vec_of_students.begin() + i);
+			i--;
 		}
 	}
 	if (vec_of_finded_students.empty())
@@ -478,16 +479,27 @@ void searchByNumberOfGroup(vector <Student>& vec_of_students, vector <Student>& 
 	cout << endl;
 }
 
-void searchByStipend(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
+void searchByAverageScore(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
 {
+	double average_score_min, average_score_max;
 	clearNotEmptyVector(vec_of_finded_students);
-	double stipend = enterStipend();
+	do
+	{
+		cout << "От: ";
+		average_score_min = correctInputDouble();
+		cout << "До: ";
+		average_score_max = correctInputDouble();
+	} while (!isGoodAverageScoreMax(average_score_max)
+		|| !isGoodAverageScoreMin(average_score_min) || !isMinLessMax(average_score_min, average_score_max));
 	system("cls");
 	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
-		if (vec_of_students.at(i).stipend == stipend)
+		if (vec_of_students.at(i).exam.average_score >= average_score_min
+			&& vec_of_students.at(i).exam.average_score <= average_score_max)
 		{
 			vec_of_finded_students.push_back(vec_of_students.at(i));
+			vec_of_students.erase(vec_of_students.begin() + i);
+			i--;
 		}
 	}
 	if (vec_of_finded_students.empty())
@@ -496,6 +508,41 @@ void searchByStipend(vector <Student>& vec_of_students, vector <Student>& vec_of
 		system("pause");
 	}
 	cout << endl;
+}
+
+bool isMinLessMax(double min, double max)
+{
+	if (max < min)
+	{
+		cout << "Максимальное число меньше минимального!" << endl;
+		return false;
+	}
+	else if (min > max)
+	{
+		cout << "Минимальное число больше максимального!" << endl;
+		return false;
+	}
+	return true;
+}
+
+bool isGoodAverageScoreMin(double min)
+{
+	if (min > MAX_EXAM)
+	{
+		cout << "Минимальная оценка больше максимально возможной!" << endl;
+		return false;
+	}
+	return true;
+}
+
+bool isGoodAverageScoreMax(double max)
+{
+	if (max < MIN_EXAM)
+	{
+		cout << "Максимальная оценка меньше минимально возможной!" << endl;
+		return false;
+	}
+	return true;
 }
 
 void clearNotEmptyVector(vector<Student>& vec)
@@ -542,8 +589,9 @@ void editStudent(vector <Student>& vec_of_students)
 	while (flag)
 	{
 		system("cls");
-		showStudents(vec_of_students);
-		cout << "Выбран студент " << vec_of_students.at(index_for_change).FIO << endl;
+		drawHeader();
+		displayStudent(vec_of_students.at(index_for_change), index_for_change);
+		cout << endl;
 		cout << MENU_OF_EDIT_STUDENT << endl;
 		int number = enterNumberInRange(0, MAX_OF_RANGE_MENU_OF_EDIT_STUDENT);
 		switch (number)

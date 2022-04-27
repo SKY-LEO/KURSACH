@@ -65,6 +65,8 @@ const string HISTORY = "Èñò";
 const string PHYS_CULTURE = "ÔèçÊ";
 
 void showStudents(vector <Student>& vec_of_students);
+void drawHeader();
+void displayStudent(Student& temp_student, int i);
 void calculateStipends(vector <Student>& vec_of_students);
 void addStudent(vector <Student>& vec_of_students);
 bool isGoodFio(vector <Student>& vec_of_students, string fio);
@@ -99,4 +101,3 @@ void setInad(Student& temp_student);
 void setHistory(Student& temp_student);
 void setPhysCulture(Student& temp_student);
 void setIsOffsetsSubmited(Student& temp_student);
-
