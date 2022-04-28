@@ -1,22 +1,14 @@
 #pragma once
+
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <iomanip>
+
 #include "Validations.h"
-#include "Menus.h"
 #include "sha256.h"
+
 using namespace std;
-const int NUMBER_OF_ATTEMPTS = 3;
-const string FILE_OF_ACCOUNTS = "accounts.txt";
-const string ADMIN_LOGIN = "ADMIN";
-const string ADMIN_PASSWORD = "BSUIR";
-const bool ADMIN_ROLE = 1;
-const int ADMIN_ACCESS = 1;
-const string SEPARATOR = "|-------+-----------------+--------------|";
-const string SEPARATOR_ACCOUNT = "|-------+-----------------+--------------+----------|";
-const int MAX_OF_RANGE_MENU_ADMIN = 6;
-const int MAX_OF_RANGE_MENU_ADMIN_WITHOUT_ACCESS = 5;
 
 struct Account
 {
@@ -26,6 +18,16 @@ struct Account
 	bool role = false;
 	int access = 0;
 };
+
+const int NUMBER_OF_ATTEMPTS = 3;
+const string FILE_OF_ACCOUNTS = "accounts.txt";
+
+const bool ADMIN_ROLE = true;
+const int ADMIN_ACCESS = 1;
+const string ADMIN_LOGIN = "ADMIN";
+const string ADMIN_PASSWORD = "BSUIR";
+const string SEPARATOR = "|-------+-----------------+--------------|";
+const string SEPARATOR_ACCOUNT = "|-------+-----------------+--------------+----------|";
 
 void showAccounts(vector <Account>& vec_of_accounts);
 void showRequestsOfAccounts(vector <Account>& vec_of_accounts, vector <int>& array);
@@ -55,3 +57,4 @@ string enterPassword();
 void setPassword(Account& temp_account);
 void setSalt(Account& temp_account);
 void setRole(Account& temp_account);
+int getCountOfStructuresAccount(string file_path);

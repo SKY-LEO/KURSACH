@@ -27,8 +27,8 @@ void showRequestsOfAccounts(vector <Account>& vec_of_accounts, vector <int>& arr
 	{
 		cout << "|" << setw(4) << i + 1 << setw(4) << "|" << setw(17) << left << vec_of_accounts.at(i).login << "|"
 			<< setw(14) << right << tellIsUserOrAdminRole(vec_of_accounts.at(i).role) << "|" << endl;
+		cout << SEPARATOR << endl;
 	}
-	cout << SEPARATOR << endl;
 }
 
 string tellIsUserOrAdminRole(bool role)
@@ -145,9 +145,7 @@ void deleteAccount(vector <Account>& vec_of_accounts, int index_of_user)
 
 int indexOfVectorForChange(vector <Account>& vec_of_accounts)
 {
-	int size;
-	size = vec_of_accounts.size();
-	return enterNumberInRange(0, size);
+	return enterNumberInRange(0, vec_of_accounts.size());
 }
 
 bool isGoodLogin(vector <Account>& vec_of_accounts, string login)
@@ -366,6 +364,21 @@ void writeFileOfAccounts(vector <Account>& vec_of_accounts)
 		}
 	}
 	fout.close();
+}
+
+int getCountOfStructuresAccount(string file_path)
+{
+	ifstream file(file_path, ios::in);
+	int number_of_strings = 0;
+	if (file.is_open())
+	{
+		while (file.ignore(256, '\n'))
+		{
+			number_of_strings++;
+		}
+	}
+	file.close();
+	return number_of_strings;
 }
 
 void updateAccountAccess(vector <Account>& vec_of_accounts, int index_of_user)

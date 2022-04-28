@@ -7,7 +7,6 @@
 const int SALT_SIZE = 16; // длина соли
 const int SYMBOLS_SIZE = 62; // набор символов, из которых генерируется соль
 
-
 class SHA256
 {
 protected:

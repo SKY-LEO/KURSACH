@@ -4,8 +4,8 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+
 #include "Validations.h"
-#include "Menus.h"
 
 using namespace std;
 
@@ -40,10 +40,12 @@ struct Student
 	double base_stipend = 0.;
 };
 
-const int MIN_EXAM = 4;
-const int MAX_EXAM = 10;
+const string FILE_OF_STUDENTS = "students.txt";
+
 const int MIN_OFFSET = 0;
 const int MAX_OFFSET = 1;
+const int MIN_EXAM = 4;
+const int MAX_EXAM = 10;
 const double MIN_MARK_FOR_STIPEND = 5;
 const double MIN_MARK_FOR_HIGH_STIPEND = 9;
 const double COEFFICIENT_FOR_HIGH_STIPEND = 1.25;
@@ -51,7 +53,6 @@ const double COEFFICIENT_FOR_HIGHEST_STIPEND = 1.5;
 
 const string SEPARATOR_STUDENT = "|-------+---------------------+--------------+-------+--------+--------+-------+--------+--------+------+--------+----------+------------+-------------+--------------+-------------|";
 const string SEPARATOR_OFFSETS_EXAMS = "------------------------------------------|-----------------------------------";
-const string FILE_OF_STUDENTS = "students.txt";
 const string STUDENT_MENU_ADMIN = "Вы находитесь в меню работы со стипендиями.\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n4) Добавить студента\n5) Редактировать данные\n6) Удалить студента\n0) Назад";
 const string STUDENT_MENU_USER = "Вы находитесь в меню работы со стипендиями.\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n0) Назад";
 const string OAIP = "ОАиП";
@@ -101,3 +102,14 @@ void setInad(Student& temp_student);
 void setHistory(Student& temp_student);
 void setPhysCulture(Student& temp_student);
 void setIsOffsetsSubmited(Student& temp_student);
+void editActivityOfSocialWork(Student& temp_student);
+void editFormOfEducation(Student& temp_student);
+void saveToMainVectorOfStudents(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+void searchByAverageScore(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+void searchByFio(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+void searchByNumberOfGroup(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
+void clearNotEmptyVector(vector<Student>& vec);
+int getCountOfStructuresStudent(string file_path);
+bool isGoodAverageScoreMin(double min);
+bool isGoodAverageScoreMax(double max);
+bool isMinLessMax(double min, double max);

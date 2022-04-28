@@ -44,7 +44,7 @@ void displayStudent(Student& temp_student, int i)
 		<< "|" << setw(8) << tellIsPassOrFailOffset(temp_student.offset.inad)
 		<< "|" << setw(7) << tellIsPassOrFailOffset(temp_student.offset.history)
 		<< "|" << setw(8) << tellIsPassOrFailOffset(temp_student.offset.phys_culture)
-		<< "|" << setw(5) << temp_student.exam.oaip <<setw(4)
+		<< "|" << setw(5) << temp_student.exam.oaip << setw(4)
 		<< "|" << setw(4) << temp_student.exam.math << setw(3)
 		<< "|" << setw(5) << temp_student.exam.english << setw(4)
 		<< "|" << setw(6) << temp_student.exam.physics << setw(5)
@@ -86,7 +86,7 @@ void calculateStipends(vector <Student>& vec_of_students)
 {
 	double coefficient;
 	double base_stipend = enterStipend();
-	for (int i = 0; i < vec_of_students.size(); i++)
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
 		coefficient = calculateCoefficient(vec_of_students.at(i));
 		vec_of_students.at(i).stipend = base_stipend * coefficient;
@@ -97,7 +97,7 @@ void calculateStipends(vector <Student>& vec_of_students)
 void editStipends(vector <Student>& vec_of_students)
 {
 	double coefficient;
-	for (int i = 0; i < vec_of_students.size(); i++)
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
 		coefficient = calculateCoefficient(vec_of_students.at(i));
 		vec_of_students.at(i).stipend = vec_of_students.at(i).base_stipend * coefficient;
@@ -300,6 +300,16 @@ void setAverageScore(Student& temp_student)
 	temp_student.exam.average_score = (temp_student.exam.oaip + temp_student.exam.math + temp_student.exam.english + temp_student.exam.physics) / 4.;
 }
 
+void editFormOfEducation(Student& temp_student)
+{
+	temp_student.is_budget_student = !temp_student.is_budget_student;
+}
+
+void editActivityOfSocialWork(Student& temp_student)
+{
+	temp_student.is_social_work = !temp_student.is_social_work;
+}
+
 int rateStudent(int min_range, int max_of_range, string subject)
 {
 	cout << subject << ": ";
@@ -381,9 +391,150 @@ void writeFileOfStudents(vector <Student>& vec_of_students)
 	fout.close();
 }
 
+int getCountOfStructuresStudent(string file_path)
+{
+	ifstream file(file_path, ios::in);
+	int number_of_strings = 0;
+	if (file.is_open())
+	{
+		while (file.ignore(256, '\n'))
+		{
+			number_of_strings++;
+		}
+	}
+	file.close();
+	return number_of_strings;
+}
+
 int indexOfVectorForChange(vector <Student>& vec_of_students)
 {
-	int size;
-	size = vec_of_students.size();
-	return enterNumberInRange(0, size);
+	return enterNumberInRange(0, vec_of_students.size());
+}
+
+void saveToMainVectorOfStudents(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
+{
+	for (unsigned int i = 0; i < vec_of_finded_students.size(); i++)
+	{
+		vec_of_students.push_back(vec_of_finded_students.at(i));
+	}
+}
+
+void searchByFio(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
+{
+	clearNotEmptyVector(vec_of_finded_students);
+	cout << "ФИО: ";
+	string fio = enterStringWithoutNumbers();
+	system("cls");
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		if (vec_of_students.at(i).FIO == fio)
+		{
+			vec_of_finded_students.push_back(vec_of_students.at(i));
+			vec_of_students.erase(vec_of_students.begin() + i);
+			i--;
+		}
+	}
+	if (vec_of_finded_students.empty())
+	{
+		cout << "Ничего не нашлось..." << endl;
+		system("pause");
+	}
+	cout << endl;
+}
+
+void searchByNumberOfGroup(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
+{
+	clearNotEmptyVector(vec_of_finded_students);
+	cout << "Номер группы: ";
+	string num_of_group = enterStringWithoutSpacesAndSpecialSym();
+	system("cls");
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		if (vec_of_students.at(i).num_of_group == num_of_group)
+		{
+			vec_of_finded_students.push_back(vec_of_students.at(i));
+			vec_of_students.erase(vec_of_students.begin() + i);
+			i--;
+		}
+	}
+	if (vec_of_finded_students.empty())
+	{
+		cout << "Ничего не нашлось..." << endl;
+		system("pause");
+	}
+	cout << endl;
+}
+
+void searchByAverageScore(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
+{
+	double average_score_min, average_score_max;
+	clearNotEmptyVector(vec_of_finded_students);
+	do
+	{
+		cout << "От: ";
+		average_score_min = correctInputDouble();
+		cout << "До: ";
+		average_score_max = correctInputDouble();
+	} while (!isGoodAverageScoreMax(average_score_max)
+		|| !isGoodAverageScoreMin(average_score_min) || !isMinLessMax(average_score_min, average_score_max));
+	system("cls");
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		if (vec_of_students.at(i).exam.average_score >= average_score_min
+			&& vec_of_students.at(i).exam.average_score <= average_score_max)
+		{
+			vec_of_finded_students.push_back(vec_of_students.at(i));
+			vec_of_students.erase(vec_of_students.begin() + i);
+			i--;
+		}
+	}
+	if (vec_of_finded_students.empty())
+	{
+		cout << "Ничего не нашлось..." << endl;
+		system("pause");
+	}
+	cout << endl;
+}
+
+void clearNotEmptyVector(vector<Student>& vec)
+{
+	if (!vec.empty())
+	{
+		vec.clear();
+	}
+}
+
+bool isMinLessMax(double min, double max)
+{
+	if (max < min)
+	{
+		cout << "Максимальное число меньше минимального!" << endl;
+		return false;
+	}
+	else if (min > max)
+	{
+		cout << "Минимальное число больше максимального!" << endl;
+		return false;
+	}
+	return true;
+}
+
+bool isGoodAverageScoreMin(double min)
+{
+	if (min > MAX_EXAM)
+	{
+		cout << "Минимальная оценка больше максимально возможной!" << endl;
+		return false;
+	}
+	return true;
+}
+
+bool isGoodAverageScoreMax(double max)
+{
+	if (max < MIN_EXAM)
+	{
+		cout << "Максимальная оценка меньше минимально возможной!" << endl;
+		return false;
+	}
+	return true;
 }

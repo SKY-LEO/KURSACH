@@ -142,6 +142,7 @@
     <ClCompile Include="Accounts.cpp" />
     <ClCompile Include="Menus.cpp" />
     <ClCompile Include="sha256.cpp" />
+    <ClCompile Include="Sorts.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Students.cpp" />
     <ClCompile Include="Validations.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Accounts.h" />
     <ClInclude Include="Menus.h" />
     <ClInclude Include="sha256.h" />
+    <ClInclude Include="Sorts.h" />
     <ClInclude Include="Students.h" />
     <ClInclude Include="Validations.h" />
   </ItemGroup>
