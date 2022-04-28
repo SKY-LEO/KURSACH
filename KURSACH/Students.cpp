@@ -2,7 +2,7 @@
 
 void showStudents(vector <Student>& vec_of_students)
 {
-	if (vec_of_students.size() != 0)
+	if (!vec_of_students.empty())
 	{
 		drawHeader();
 		for (unsigned int i = 0; i < vec_of_students.size(); i++)
@@ -211,7 +211,7 @@ bool isGoodFio(vector <Student>& vec_of_students, string fio)
 		if (fio == vec_of_students.at(i).FIO)
 		{
 			system("cls");
-			cout << "\nСтудент с таким ФИО уже существует! Введите другое." << endl;;
+			cout << "\nСтудент с таким ФИО уже существует! Введите другое." << endl;
 			return false;
 		}
 	}

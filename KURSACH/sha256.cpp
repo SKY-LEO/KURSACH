@@ -153,7 +153,6 @@ std::string getSymbolsForSalt()
 	char little_letter = 'a';
 	char big_letter = 'A';
 	char number = '0';
-	int i = 0;
 	for (int k = 0; k < 26; k++)
 	{
 		symbols.push_back(little_letter++);
