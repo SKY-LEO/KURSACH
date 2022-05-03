@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -53,8 +54,6 @@ const double COEFFICIENT_FOR_HIGHEST_STIPEND = 1.5;
 
 const string SEPARATOR_STUDENT = "|-------+---------------------+--------------+-------+--------+--------+-------+--------+--------+------+--------+----------+------------+-------------+--------------+-------------|";
 const string SEPARATOR_OFFSETS_EXAMS = "------------------------------------------|-----------------------------------";
-const string STUDENT_MENU_ADMIN = "Вы находитесь в меню работы со стипендиями.\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n4) Добавить студента\n5) Редактировать данные\n6) Удалить студента\n0) Назад";
-const string STUDENT_MENU_USER = "Вы находитесь в меню работы со стипендиями.\n1) Расчет стипендии\n2) Поиск\n3) Сортировка\n0) Назад";
 const string OAIP = "ОАиП";
 const string MATH = "МА";
 const string ENGLISH = "ИнЯз";
@@ -68,48 +67,55 @@ const string PHYS_CULTURE = "ФизК";
 void showStudents(vector <Student>& vec_of_students);
 void drawHeader();
 void displayStudent(Student& temp_student, int i);
-void calculateStipends(vector <Student>& vec_of_students);
-void addStudent(vector <Student>& vec_of_students);
-bool isGoodFio(vector <Student>& vec_of_students, string fio);
-void setFio(vector <Student>& vec_of_students, Student& temp_student);
-string enterFio(vector <Student>& vec_of_students);
-void setNumOfGroup(Student& temp_student);
-void setFormOfEducation(Student& temp_student);
-void setActivityOfSocialWork(Student& temp_student);
-void setOffsets(Student& temp_student);
-void setExams(Student& temp_student);
-int rateStudent(int min_range, int max_of_range, string subject);
-void deleteStudent(vector <Student>& vec_of_students);
-int indexOfVectorForChange(vector <Student>& vec_of_students);
-void writeFileOfStudents(vector <Student>& vec_of_students);
-void readFileOfStudents(vector <Student>& vec_of_students);
-void calculateStipends(vector <Student>& vec_of_students);
-double calculateCoefficient(Student& student);
-double enterStipend();
-bool isGoodStipend(double stipend);
-void editStipends(vector <Student>& vec_of_students);
 string tellIsPassOrFailOffset(bool offset);
 string tellIsBudgetOrPaidEducation(bool is_budget);
 string tellIsActiveOrPassiveSocialWork(bool is_social_work);
-void setAverageScore(Student& temp_student);
-void setOaip(Student& temp_student);
-void setMath(Student& temp_student);
-void setEnglish(Student& temp_student);
-void setPhysics(Student& temp_student);
+
+void addStudent(vector <Student>& vec_of_students);
+string enterFio(vector <Student>& vec_of_students);
+bool isGoodFio(vector <Student>& vec_of_students, string fio);
+void setFio(vector <Student>& vec_of_students, Student& temp_student);
+void setNumOfGroup(Student& temp_student);
+void setFormOfEducation(Student& temp_student);
+void setActivityOfSocialWork(Student& temp_student);
+
+void setOffsets(Student& temp_student);
 void setOopip(Student& temp_student);
 void setDiscreteMath(Student& temp_student);
 void setInad(Student& temp_student);
 void setHistory(Student& temp_student);
 void setPhysCulture(Student& temp_student);
 void setIsOffsetsSubmited(Student& temp_student);
-void editActivityOfSocialWork(Student& temp_student);
+
+void setExams(Student& temp_student);
+void setOaip(Student& temp_student);
+void setMath(Student& temp_student);
+void setEnglish(Student& temp_student);
+void setPhysics(Student& temp_student);
+void setAverageScore(Student& temp_student);
+int rateStudent(int min_range, int max_of_range, string subject);
+
+void editStipends(vector <Student>& vec_of_students);
+void calculateStipends(vector <Student>& vec_of_students);
+double calculateCoefficient(Student& student);
+double enterStipend();
+bool isGoodStipend(double stipend);
+
+int indexOfVectorForChange(vector <Student>& vec_of_students);
+void deleteStudent(vector <Student>& vec_of_students);
+
 void editFormOfEducation(Student& temp_student);
+void editActivityOfSocialWork(Student& temp_student);
+
 void saveToMainVectorOfStudents(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
-void searchByAverageScore(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
 void searchByFio(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
 void searchByNumberOfGroup(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
-void clearNotEmptyVector(vector<Student>& vec);
-int getCountOfStructuresStudent(string file_path);
+void searchByAverageScore(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students);
 bool isGoodAverageScoreMin(double min);
 bool isGoodAverageScoreMax(double max);
 bool isMinLessMax(double min, double max);
+void clearNotEmptyVector(vector<Student>& vec);
+
+void readFileOfStudents(vector <Student>& vec_of_students);
+void writeFileOfStudents(vector <Student>& vec_of_students);
+int getCountOfStructuresStudent(string file_path);

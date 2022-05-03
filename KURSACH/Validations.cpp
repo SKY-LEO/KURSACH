@@ -1,40 +1,5 @@
 #include "Validations.h"
 
-string enterStringWithoutSpaces()
-{
-	char symbol;
-	string buffer;
-	while (true)//пока вводимый символ не равен сиволу переноса каретки(enter)
-	{
-		symbol = (char)_getch();
-		if (symbol == '\r')
-		{
-			if (buffer.empty())
-			{
-				cout << "Строка пуста! Повторите ввод." << endl;
-				continue;
-			}
-			break;
-		}
-		if (symbol == '\b')//backspace
-		{
-			if (!buffer.empty())
-			{
-				cout << "\b \b";
-				buffer.erase(buffer.length() - 1);
-			}
-			continue;
-		}
-		if (symbol == ' ')
-		{
-			continue;
-		}
-		buffer += symbol;
-		cout << symbol;
-	}
-	return buffer;
-}
-
 int enterNumberInRange(int min, int max)
 {
 	int number;
@@ -120,6 +85,41 @@ string enterGoodPassword()
 		cout << '*';
 	}
 	return password;
+}
+
+string enterStringWithoutSpaces()
+{
+	char symbol;
+	string buffer;
+	while (true)//пока вводимый символ не равен сиволу переноса каретки(enter)
+	{
+		symbol = (char)_getch();
+		if (symbol == '\r')
+		{
+			if (buffer.empty())
+			{
+				cout << "Строка пуста! Повторите ввод." << endl;
+				continue;
+			}
+			break;
+		}
+		if (symbol == '\b')//backspace
+		{
+			if (!buffer.empty())
+			{
+				cout << "\b \b";
+				buffer.erase(buffer.length() - 1);
+			}
+			continue;
+		}
+		if (symbol == ' ')
+		{
+			continue;
+		}
+		buffer += symbol;
+		cout << symbol;
+	}
+	return buffer;
 }
 
 string enterStringWithoutNumbers()

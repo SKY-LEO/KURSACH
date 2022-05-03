@@ -82,73 +82,6 @@ string tellIsActiveOrPassiveSocialWork(bool is_social_work)
 	return "неактивная";
 }
 
-void calculateStipends(vector <Student>& vec_of_students)
-{
-	double coefficient;
-	double base_stipend = enterStipend();
-	for (unsigned int i = 0; i < vec_of_students.size(); i++)
-	{
-		coefficient = calculateCoefficient(vec_of_students.at(i));
-		vec_of_students.at(i).stipend = base_stipend * coefficient;
-		vec_of_students.at(i).base_stipend = base_stipend;
-	}
-}
-
-void editStipends(vector <Student>& vec_of_students)
-{
-	double coefficient;
-	for (unsigned int i = 0; i < vec_of_students.size(); i++)
-	{
-		coefficient = calculateCoefficient(vec_of_students.at(i));
-		vec_of_students.at(i).stipend = vec_of_students.at(i).base_stipend * coefficient;
-	}
-}
-
-double calculateCoefficient(Student& student)
-{
-	double coefficient = 0.;
-	if (student.is_budget_student)
-	{
-		if (student.offset.is_offsets_submited)
-		{
-			if (student.exam.average_score > MIN_MARK_FOR_STIPEND)
-			{
-				coefficient = 1.;
-				if (student.exam.average_score >= MIN_MARK_FOR_HIGH_STIPEND && student.is_social_work)
-					coefficient = COEFFICIENT_FOR_HIGHEST_STIPEND;
-				else if (student.exam.average_score >= MIN_MARK_FOR_HIGH_STIPEND || student.is_social_work)
-					coefficient = COEFFICIENT_FOR_HIGH_STIPEND;
-			}
-		}
-	}
-	return coefficient;
-}
-
-double enterStipend()
-{
-	double base_stipend;
-	while (true)
-	{
-		cout << "Введите значение стипендии: ";
-		base_stipend = correctInputDouble();
-		if (isGoodStipend(base_stipend))
-		{
-			return base_stipend;
-		}
-	}
-}
-
-bool isGoodStipend(double stipend)
-{
-	if (stipend < 0.)
-	{
-		system("cls");
-		cout << "Стипендия не может быть меньше 0! Повторите попытку." << endl;
-		return false;
-	}
-	return true;
-}
-
 void addStudent(vector <Student>& vec_of_students)
 {
 	char code;
@@ -167,11 +100,6 @@ void addStudent(vector <Student>& vec_of_students)
 	} while (code == 'Д' || code == 'д');
 }
 
-void setFio(vector <Student>& vec_of_students, Student& temp_student)
-{
-	temp_student.FIO = enterFio(vec_of_students);
-}
-
 string enterFio(vector <Student>& vec_of_students)
 {
 	string fio;
@@ -184,6 +112,25 @@ string enterFio(vector <Student>& vec_of_students)
 			return fio;
 		}
 	}
+}
+
+bool isGoodFio(vector <Student>& vec_of_students, string fio)
+{
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		if (fio == vec_of_students.at(i).FIO)
+		{
+			system("cls");
+			cout << "\nСтудент с таким ФИО уже существует! Введите другое." << endl;
+			return false;
+		}
+	}
+	return true;
+}
+
+void setFio(vector <Student>& vec_of_students, Student& temp_student)
+{
+	temp_student.FIO = enterFio(vec_of_students);
 }
 
 void setNumOfGroup(Student& temp_student)
@@ -202,20 +149,6 @@ void setActivityOfSocialWork(Student& temp_student)
 {
 	cout << "Участие в общественной работе (Неактивное - 0, Активное - 1): ";
 	temp_student.is_social_work = enterNumberInRange(0, 1);
-}
-
-bool isGoodFio(vector <Student>& vec_of_students, string fio)
-{
-	for (unsigned int i = 0; i < vec_of_students.size(); i++)
-	{
-		if (fio == vec_of_students.at(i).FIO)
-		{
-			system("cls");
-			cout << "\nСтудент с таким ФИО уже существует! Введите другое." << endl;
-			return false;
-		}
-	}
-	return true;
 }
 
 void setOffsets(Student& temp_student)
@@ -300,20 +233,82 @@ void setAverageScore(Student& temp_student)
 	temp_student.exam.average_score = (temp_student.exam.oaip + temp_student.exam.math + temp_student.exam.english + temp_student.exam.physics) / 4.;
 }
 
-void editFormOfEducation(Student& temp_student)
-{
-	temp_student.is_budget_student = !temp_student.is_budget_student;
-}
-
-void editActivityOfSocialWork(Student& temp_student)
-{
-	temp_student.is_social_work = !temp_student.is_social_work;
-}
-
 int rateStudent(int min_range, int max_of_range, string subject)
 {
 	cout << subject << ": ";
 	return enterNumberInRange(min_range, max_of_range);
+}
+
+void editStipends(vector <Student>& vec_of_students)
+{
+	double coefficient;
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		coefficient = calculateCoefficient(vec_of_students.at(i));
+		vec_of_students.at(i).stipend = vec_of_students.at(i).base_stipend * coefficient;
+	}
+}
+
+void calculateStipends(vector <Student>& vec_of_students)
+{
+	double coefficient;
+	double base_stipend = enterStipend();
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
+	{
+		coefficient = calculateCoefficient(vec_of_students.at(i));
+		vec_of_students.at(i).stipend = base_stipend * coefficient;
+		vec_of_students.at(i).base_stipend = base_stipend;
+	}
+}
+
+double calculateCoefficient(Student& student)
+{
+	double coefficient = 0.;
+	if (student.is_budget_student)
+	{
+		if (student.offset.is_offsets_submited)
+		{
+			if (student.exam.average_score > MIN_MARK_FOR_STIPEND)
+			{
+				coefficient = 1.;
+				if (student.exam.average_score >= MIN_MARK_FOR_HIGH_STIPEND && student.is_social_work)
+					coefficient = COEFFICIENT_FOR_HIGHEST_STIPEND;
+				else if (student.exam.average_score >= MIN_MARK_FOR_HIGH_STIPEND || student.is_social_work)
+					coefficient = COEFFICIENT_FOR_HIGH_STIPEND;
+			}
+		}
+	}
+	return coefficient;
+}
+
+double enterStipend()
+{
+	double base_stipend;
+	while (true)
+	{
+		cout << "Введите значение стипендии: ";
+		base_stipend = correctInputDouble();
+		if (isGoodStipend(base_stipend))
+		{
+			return base_stipend;
+		}
+	}
+}
+
+bool isGoodStipend(double stipend)
+{
+	if (stipend < 0.)
+	{
+		system("cls");
+		cout << "Стипендия не может быть меньше 0! Повторите попытку." << endl;
+		return false;
+	}
+	return true;
+}
+
+int indexOfVectorForChange(vector <Student>& vec_of_students)
+{
+	return enterNumberInRange(0, vec_of_students.size());
 }
 
 void deleteStudent(vector <Student>& vec_of_students)
@@ -336,79 +331,14 @@ void deleteStudent(vector <Student>& vec_of_students)
 	}
 }
 
-void readFileOfStudents(vector <Student>& vec_of_students)
+void editFormOfEducation(Student& temp_student)
 {
-	ifstream fin(FILE_OF_STUDENTS, ios::in);
-	Student temp_student;
-	if (!fin.is_open())
-	{
-		cout << "Файла со студентами не существует! Создан новый." << endl;
-	}
-	else
-	{
-		if (fin.peek() != EOF)
-		{
-			while (!fin.eof())
-			{
-				fin >> temp_student.num_of_group;
-				fin >> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
-					>> temp_student.offset.history >> temp_student.offset.phys_culture >> temp_student.offset.is_offsets_submited
-					>> temp_student.exam.oaip >> temp_student.exam.math >> temp_student.exam.english
-					>> temp_student.exam.physics >> temp_student.exam.average_score
-					>> temp_student.is_budget_student >> temp_student.is_social_work >> temp_student.stipend
-					>> temp_student.base_stipend;
-				getline(fin, temp_student.FIO, '\n');
-				vec_of_students.push_back(temp_student);
-			}
-		}
-		else
-		{
-			cout << "Файл со студентами пуст!" << endl;
-		}
-	}
-	fin.close();
+	temp_student.is_budget_student = !temp_student.is_budget_student;
 }
 
-void writeFileOfStudents(vector <Student>& vec_of_students)
+void editActivityOfSocialWork(Student& temp_student)
 {
-	ofstream fout(FILE_OF_STUDENTS, ios::out);
-	for (unsigned int i = 0; i < vec_of_students.size(); i++)
-	{
-		fout << vec_of_students.at(i).num_of_group
-			<< " " << vec_of_students.at(i).offset.oopip << " " << vec_of_students.at(i).offset.discrete_math
-			<< " " << vec_of_students.at(i).offset.inad << " " << vec_of_students.at(i).offset.history
-			<< " " << vec_of_students.at(i).offset.phys_culture << " " << vec_of_students.at(i).offset.is_offsets_submited
-			<< " " << vec_of_students.at(i).exam.oaip << " " << vec_of_students.at(i).exam.math
-			<< " " << vec_of_students.at(i).exam.english << " " << vec_of_students.at(i).exam.physics
-			<< " " << vec_of_students.at(i).exam.average_score
-			<< " " << vec_of_students.at(i).is_budget_student << " " << vec_of_students.at(i).is_social_work
-			<< " " << vec_of_students.at(i).stipend << " " << vec_of_students.at(i).base_stipend << vec_of_students.at(i).FIO;
-		if (i < vec_of_students.size() - 1)
-		{
-			fout << endl;
-		}
-	}
-	fout.close();
-}
-
-int getCountOfStructuresStudent(string file_path)
-{
-	ifstream file(file_path, ios::in);
-	int number_of_strings = 0;
-	if (file.is_open())
-	{
-		while (file.ignore(256, '\n'))
-		{
-			number_of_strings++;
-		}
-	}
-	file.close();
-	return number_of_strings;
-}
-
-int indexOfVectorForChange(vector <Student>& vec_of_students)
-{
-	return enterNumberInRange(0, vec_of_students.size());
+	temp_student.is_social_work = !temp_student.is_social_work;
 }
 
 void saveToMainVectorOfStudents(vector <Student>& vec_of_students, vector <Student>& vec_of_finded_students)
@@ -496,6 +426,26 @@ void searchByAverageScore(vector <Student>& vec_of_students, vector <Student>& v
 	cout << endl;
 }
 
+bool isGoodAverageScoreMin(double min)
+{
+	if (min > MAX_EXAM)
+	{
+		cout << "Минимальная оценка больше максимально возможной!" << endl;
+		return false;
+	}
+	return true;
+}
+
+bool isGoodAverageScoreMax(double max)
+{
+	if (max < MIN_EXAM)
+	{
+		cout << "Максимальная оценка меньше минимально возможной!" << endl;
+		return false;
+	}
+	return true;
+}
+
 void clearNotEmptyVector(vector<Student>& vec)
 {
 	if (!vec.empty())
@@ -519,22 +469,72 @@ bool isMinLessMax(double min, double max)
 	return true;
 }
 
-bool isGoodAverageScoreMin(double min)
+void readFileOfStudents(vector <Student>& vec_of_students)
 {
-	if (min > MAX_EXAM)
+	ifstream fin(FILE_OF_STUDENTS, ios::in);
+	Student temp_student;
+	if (!fin.is_open())
 	{
-		cout << "Минимальная оценка больше максимально возможной!" << endl;
-		return false;
+		cout << "Файла со студентами не существует! Создан новый." << endl;
 	}
-	return true;
+	else
+	{
+		if (fin.peek() != EOF)
+		{
+			while (!fin.eof())
+			{
+				fin >> temp_student.num_of_group;
+				fin >> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
+					>> temp_student.offset.history >> temp_student.offset.phys_culture >> temp_student.offset.is_offsets_submited
+					>> temp_student.exam.oaip >> temp_student.exam.math >> temp_student.exam.english
+					>> temp_student.exam.physics >> temp_student.exam.average_score
+					>> temp_student.is_budget_student >> temp_student.is_social_work >> temp_student.stipend
+					>> temp_student.base_stipend;
+				getline(fin, temp_student.FIO, '\n');
+				vec_of_students.push_back(temp_student);
+			}
+		}
+		else
+		{
+			cout << "Файл со студентами пуст!" << endl;
+		}
+	}
+	fin.close();
 }
 
-bool isGoodAverageScoreMax(double max)
+void writeFileOfStudents(vector <Student>& vec_of_students)
 {
-	if (max < MIN_EXAM)
+	ofstream fout(FILE_OF_STUDENTS, ios::out);
+	for (unsigned int i = 0; i < vec_of_students.size(); i++)
 	{
-		cout << "Максимальная оценка меньше минимально возможной!" << endl;
-		return false;
+		fout << vec_of_students.at(i).num_of_group
+			<< " " << vec_of_students.at(i).offset.oopip << " " << vec_of_students.at(i).offset.discrete_math
+			<< " " << vec_of_students.at(i).offset.inad << " " << vec_of_students.at(i).offset.history
+			<< " " << vec_of_students.at(i).offset.phys_culture << " " << vec_of_students.at(i).offset.is_offsets_submited
+			<< " " << vec_of_students.at(i).exam.oaip << " " << vec_of_students.at(i).exam.math
+			<< " " << vec_of_students.at(i).exam.english << " " << vec_of_students.at(i).exam.physics
+			<< " " << vec_of_students.at(i).exam.average_score
+			<< " " << vec_of_students.at(i).is_budget_student << " " << vec_of_students.at(i).is_social_work
+			<< " " << vec_of_students.at(i).stipend << " " << vec_of_students.at(i).base_stipend << vec_of_students.at(i).FIO;
+		if (i < vec_of_students.size() - 1)
+		{
+			fout << endl;
+		}
 	}
-	return true;
+	fout.close();
+}
+
+int getCountOfStructuresStudent(string file_path)
+{
+	ifstream file(file_path, ios::in);
+	int number_of_strings = 0;
+	if (file.is_open())
+	{
+		while (file.ignore(256, '\n'))
+		{
+			number_of_strings++;
+		}
+	}
+	file.close();
+	return number_of_strings;
 }
