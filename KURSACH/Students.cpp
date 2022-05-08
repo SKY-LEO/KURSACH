@@ -483,8 +483,8 @@ void readFileOfStudents(vector <Student>& vec_of_students)
 		{
 			while (!fin.eof())
 			{
-				fin >> temp_student.num_of_group;
-				fin >> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
+				fin >> temp_student.num_of_group
+					>> temp_student.offset.oopip >> temp_student.offset.discrete_math >> temp_student.offset.inad
 					>> temp_student.offset.history >> temp_student.offset.phys_culture >> temp_student.offset.is_offsets_submited
 					>> temp_student.exam.oaip >> temp_student.exam.math >> temp_student.exam.english
 					>> temp_student.exam.physics >> temp_student.exam.average_score
