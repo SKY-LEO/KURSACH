@@ -315,8 +315,8 @@ void showRequestsOfAccounts(vector <Account>& vec_of_accounts, vector <int>& arr
 	cout << SEPARATOR << endl;
 	for (unsigned int i = 0; i < array.size(); i++)
 	{
-		cout << "|" << setw(4) << i + 1 << setw(4) << "|" << setw(17) << left << vec_of_accounts.at(i).login << "|"
-			<< setw(14) << right << tellIsUserOrAdminRole(vec_of_accounts.at(i).role) << "|" << endl;
+		cout << "|" << setw(4) << i + 1 << setw(4) << "|" << setw(17) << left << vec_of_accounts.at(array.at(i)).login << "|"
+			<< setw(14) << right << tellIsUserOrAdminRole(vec_of_accounts.at(array.at(i)).role) << "|" << endl;
 		cout << SEPARATOR << endl;
 	}
 }
