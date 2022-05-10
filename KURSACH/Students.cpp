@@ -268,7 +268,7 @@ double calculateCoefficient(Student& student)
 	{
 		if (student.offset.is_offsets_submited)
 		{
-			if (student.exam.average_score > MIN_MARK_FOR_STIPEND)
+			if (student.exam.average_score >= MIN_MARK_FOR_STIPEND)
 			{
 				coefficient = 1.;
 				if (student.exam.average_score >= MIN_MARK_FOR_HIGH_STIPEND && student.is_social_work)
