@@ -3,10 +3,11 @@
 #include <algorithm>
 #include <vector>
 
-#include "Accounts.h"
-#include "Students.h"
+#include "Accounts.h"//реализация функционала для модуля работы с учетными записями и авторизации в систему
+#include "Students.h"//реализация функционала для модуля работы со студентами и стипендиями
 
-void sortAccountsBy(vector <Account>& vec_of_accounts, bool (*comparisonFunction)(Account&, Account&));
+void sortAccountsBy(vector <Account>& vec_of_accounts, bool (*comparisonFunction)(Account&, Account&));//сортировка аккаунтов
+//компараторы
 bool mySortByAccessAscending(Account& acc_1, Account& acc_2);
 bool mySortByAccessDescending(Account& acc_1, Account& acc_2);
 bool mySortByRoleAscending(Account& acc_1, Account& acc_2);
@@ -14,7 +15,8 @@ bool mySortByRoleDescending(Account& acc_1, Account& acc_2);
 bool mySortByLoginAscending(Account& acc_1, Account& acc_2);
 bool mySortByLoginDescending(Account& acc_1, Account& acc_2);
 
-void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student&, Student&));
+void sortStudentsBy(vector <Student>& vec_of_students, bool (*comparisonFunction)(Student&, Student&));//сортировка студентов
+//компараторы
 bool mySortBySurnameAscending(Student& stu_1, Student& stu_2);
 bool mySortBySurnameDescending(Student& stu_1, Student& stu_2);
 bool mySortByGroupNumberAscending(Student& stu_1, Student& stu_2);
