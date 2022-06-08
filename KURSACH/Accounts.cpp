@@ -2,7 +2,6 @@
 
 void createFirstAccount(vector <Account>& vec_of_accounts)
 {
-	ifstream fin(FILE_OF_ACCOUNTS, ios::in);
 	Account temp_account;
 	temp_account.login = ADMIN_LOGIN;
 	temp_account.salt = generateSalt(SALT_SIZE);
@@ -11,7 +10,6 @@ void createFirstAccount(vector <Account>& vec_of_accounts)
 	temp_account.access = ADMIN_ACCESS;
 	vec_of_accounts.push_back(temp_account);
 	writeFileOfAccounts(vec_of_accounts);
-	fin.close();
 }
 
 void addAccount(vector <Account>& vec_of_accounts, bool is_from_admin)
